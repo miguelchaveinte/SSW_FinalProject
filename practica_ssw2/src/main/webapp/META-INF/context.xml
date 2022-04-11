@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/practica_ssw2"/>
+<Context path="/practica_ssw2">
 <Resource name="jdbc/db_practica" auth="Container" type="javax.sql.DataSource"
 factory="org.apache.tomcat.jdbc.pool.DataSourceFactory" testWhileIdle="true"
 testOnBorrow="true" testOnReturn="false" validationQuery="SELECT 1"
@@ -11,3 +11,4 @@ jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;
 org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"
 username="admin" password="admin" driverClassName="com.mysql.jdbc.Driver"
 url="jdbc:mysql://localhost:3306/db_practica"/>
+</Context>
