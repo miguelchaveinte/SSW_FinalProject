@@ -96,7 +96,7 @@ public class addUser extends HttpServlet {
         } else {
             int id=UserDB.insert(user);
             user.setID(id);
-            url = "/Pricipal_logged";
+            url = "/Pricipal_logged.html";
             // store the user in the session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

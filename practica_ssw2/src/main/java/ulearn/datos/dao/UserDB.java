@@ -19,23 +19,23 @@ public class UserDB {
 
         PreparedStatement ps = null;
 
-        String query = "INSERT INTO USUARIO (ID, NOMBREUSUARIO, CONTRASEÑA, CORREO, NOMBRE, APELLIDO, TELEFONO,INSTRUCTOR,DIRECCION,OCUPACION,PAIS,CIUDAD,FECHANACIMIENTO,BIOGRAFIA) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO USUARIO ( NOMBREUSUARIO, CONTRASEÑA, CORREO, NOMBRE, APELLIDO, TELEFONO,INSTRUCTOR,DIRECCION,OCUPACION,PAIS,CIUDAD,FECHANACIMIENTO,BIOGRAFIA) VALUES ( ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = connection.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
-            ps.setString(2, usuario.getNombreUsuario());         
-            ps.setString(3, usuario.getContraseña());
-            ps.setString(4, usuario.getCorreo());
-            ps.setString(5, usuario.getNombre());
-            ps.setString(6, usuario.getApellidos());
-            ps.setInt(7, usuario.getTelefono());
-            ps.setBoolean(8, usuario.getInstructor());
-            ps.setString(9, usuario.getDireccion());
-            ps.setString(10, usuario.getOcupacion());
-            ps.setString(11, usuario.getPais());
-            ps.setString(12, usuario.getCiudad());
-            ps.setObject(13, usuario.getFechaNacimiento());
-            ps.setString(14, usuario.getBiografia());
+            ps.setString(1, usuario.getNombreUsuario());         
+            ps.setString(2, usuario.getContraseña());
+            ps.setString(3, usuario.getCorreo());
+            ps.setString(4, usuario.getNombre());
+            ps.setString(5, usuario.getApellidos());
+            ps.setInt(6, usuario.getTelefono());
+            ps.setBoolean(7, usuario.getInstructor());
+            ps.setString(8, usuario.getDireccion());
+            ps.setString(9, usuario.getOcupacion());
+            ps.setString(10, usuario.getPais());
+            ps.setString(11, usuario.getCiudad());
+            ps.setObject(12, usuario.getFechaNacimiento());
+            ps.setString(13, usuario.getBiografia());
             //ps.setPart(15, null);
 
             int res = 0;
