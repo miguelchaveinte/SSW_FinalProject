@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package ulearn.model;
-
+import java.io.Serializable;
 /**
  * Clase que implementa una seccion.
  * @author angel
  */
-public class Seccion {
+public class Seccion implements Serializable{
     private int id;
     private String nombre;
     private String descripcion;
