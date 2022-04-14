@@ -38,6 +38,14 @@ public class Curso implements Serializable{
     
     /**
      * Constructor con parametros.
+     * @param id
+     * @param nombre
+     * @param descripcion
+     * @param precio
+     * @param imagen
+     * @param duracion
+     * @param cateogria
+     * @param creador 
      */
     public Curso(int id, String nombre, String descripcion, float precio, Part imagen, float duracion, String cateogria, int creador){
     this.id=id;
