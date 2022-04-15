@@ -101,4 +101,30 @@ public class UserDB {
             return false;
             }
     }
+
+    public static int getIdAutor(String usuarioAutor) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "SELECT ID FROM Usuario"
+        + "WHERE NOMBREUSUARIO = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, usuarioAutor);
+            rs = ps.executeQuery();
+            
+            int res=0;
+            if (rs.next()) {
+                res = rs.getInt("ID");
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }
