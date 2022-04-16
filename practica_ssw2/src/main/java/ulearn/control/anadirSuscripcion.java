@@ -75,7 +75,7 @@ public class anadirSuscripcion extends HttpServlet {
             idAutor = UserDB.getIdAutor(usuarioAutor);
         }
         
-        int id=SuscripcionesDB.insert(user, tipo, idAutor);
+        SuscripcionesDB.insert(user, tipo, idAutor);
         String url = "/Pricipal_logged.html";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

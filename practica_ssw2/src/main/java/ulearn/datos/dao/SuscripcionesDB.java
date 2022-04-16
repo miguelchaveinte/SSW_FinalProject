@@ -47,7 +47,7 @@ public class SuscripcionesDB {
         }
         
         try {
-            ps = connection.prepareStatement(suscripcion, new String[]{"ID"});
+            ps = connection.prepareStatement(suscripcion, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, tipoSuscripcion);         
             ps.setDouble(2, precio);
             if(idAutor!=-1){ps.setInt(3, idAutor);} else{ps.setObject(3, null);}
@@ -59,6 +59,7 @@ public class SuscripcionesDB {
             if (rs.next()) {
                 res = rs.getInt(1);
             }
+            rs.close();
             ps.close();
             
             ps1 = connection.prepareStatement(obtencionsuscripcion,Statement.RETURN_GENERATED_KEYS);
