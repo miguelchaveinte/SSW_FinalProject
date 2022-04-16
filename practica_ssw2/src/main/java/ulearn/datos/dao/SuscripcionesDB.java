@@ -35,7 +35,7 @@ public class SuscripcionesDB {
             case "GRATIS":
                 precio = 0;
                 break;
-            case "ESTUDIATE":
+            case "ESTUDIANTE":
                 precio = 9.99;
                 break;
             case "TOTAL":

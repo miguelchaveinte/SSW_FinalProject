@@ -71,7 +71,7 @@ public class anadirSuscripcion extends HttpServlet {
         
         int idAutor=-1;
         if(tipo == "AUTOR"){
-            String usuarioAutor = (String) request.getAttribute("usuarioAutor");
+            String usuarioAutor = (String) request.getParameter("nombre");
             idAutor = UserDB.getIdAutor(usuarioAutor);
         }
         
