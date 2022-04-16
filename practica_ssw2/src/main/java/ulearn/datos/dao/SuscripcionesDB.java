@@ -28,7 +28,7 @@ public class SuscripcionesDB {
         PreparedStatement ps,ps1 = null;
 
         String suscripcion = "INSERT INTO SUSCRIPCION ( TIPO, PRECIO, IDAUTOR) VALUES ( ?, ?, ?)";
-        String obtencionsuscripcion = "INSERT INTO SUSCRIPCION ( FECHAINICIO, COBRO, AUTORENOVAR, IDUSUARIO, IDSUSCRIPCION) VALUES ( ?, ?, ?, ?, ?)";
+        String obtencionsuscripcion = "INSERT INTO OBTENCIONSUSCRIPCION ( FECHAINICIO, COBRO, AUTORENOVAR, IDUSUARIO, IDSUSCRIPCION) VALUES ( ?, ?, ?, ?, ?)";
         
         double precio = 0;
         switch(tipoSuscripcion){
@@ -47,10 +47,11 @@ public class SuscripcionesDB {
         }
         
         try {
-            ps = connection.prepareStatement(suscripcion,Statement.RETURN_GENERATED_KEYS);
+            ps = connection.prepareStatement(suscripcion, new String[]{"ID"});
             ps.setString(1, tipoSuscripcion);         
             ps.setDouble(2, precio);
-            ps.setInt(3, idAutor);
+            if(idAutor!=-1){ps.setInt(3, idAutor);} else{ps.setObject(3, null);}
+            
             
             int res = 0;
             ps.executeUpdate();
@@ -60,12 +61,14 @@ public class SuscripcionesDB {
             }
             ps.close();
             
-            ps1 = connection.prepareStatement(suscripcion,Statement.RETURN_GENERATED_KEYS);
+            ps1 = connection.prepareStatement(obtencionsuscripcion,Statement.RETURN_GENERATED_KEYS);
             ps1.setObject(1, LocalDate.now());         
             ps1.setString(2, "MENSUAL");
             ps1.setBoolean(3,  true);
             ps1.setInt(4, usuario.getId());
             ps1.setInt(5, res);
+            ps1.executeUpdate();
+            ps1.close();
             
             pool.freeConnection(connection);
             return res;

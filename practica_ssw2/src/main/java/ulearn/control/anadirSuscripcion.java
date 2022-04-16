@@ -7,6 +7,7 @@ package ulearn.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,14 +67,18 @@ public class anadirSuscripcion extends HttpServlet {
         HttpSession session = request.getSession();
         User user= (User) session.getAttribute("user");
         
-        String tipo = (String) request.getAttribute("suscripcion");
-        String usuarioAutor = (String) request.getAttribute("usuarioAutor");
+        String tipo = (String) request.getParameter("suscripcion");
         
-        if(tipo != "AUTOR")
-            usuarioAutor = null;
+        int idAutor=-1;
+        if(tipo == "AUTOR"){
+            String usuarioAutor = (String) request.getAttribute("usuarioAutor");
+            idAutor = UserDB.getIdAutor(usuarioAutor);
+        }
         
-        int idAutor = UserDB.getIdAutor(usuarioAutor);
         int id=SuscripcionesDB.insert(user, tipo, idAutor);
+        String url = "/Pricipal_logged.html";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -87,7 +92,7 @@ public class anadirSuscripcion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
