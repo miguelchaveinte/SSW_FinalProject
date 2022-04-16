@@ -69,12 +69,13 @@ public class anadirSuscripcion extends HttpServlet {
         
         String tipo = (String) request.getParameter("suscripcion");
         
-        int idAutor=-1;
-        if(tipo == "AUTOR"){
-            String usuarioAutor = (String) request.getParameter("nombre");
-            idAutor = UserDB.getIdAutor(usuarioAutor);
+        int idAutor;
+        if(tipo.equals("AUTOR")){ 
+            idAutor = UserDB.getIdAutor(request.getParameter("nombre"));
         }
-        
+        else{
+            idAutor=-1;
+        }
         SuscripcionesDB.insert(user, tipo, idAutor);
         String url = "/Pricipal_logged.html";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

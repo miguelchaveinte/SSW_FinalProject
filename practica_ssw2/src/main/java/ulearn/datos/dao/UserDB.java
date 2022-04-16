@@ -107,7 +107,7 @@ public class UserDB {
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String query = "SELECT ID FROM Usuario"
+        String query = "SELECT ID FROM Usuario "
         + "WHERE NOMBREUSUARIO = ?";
         try {
             ps = connection.prepareStatement(query);
