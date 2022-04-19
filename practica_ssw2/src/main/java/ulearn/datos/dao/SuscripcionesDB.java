@@ -21,11 +21,12 @@ import ulearn.model.User;
 public class SuscripcionesDB {
     
     
-    public static int insert(User usuario, String tipoSuscripcion, int idAutor) {
+    public static int insert(User usuario, String tipoSuscripcion, int idAutor) throws SQLException {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
 
-        PreparedStatement ps,ps1 = null;
+        PreparedStatement ps=null;
+        PreparedStatement ps1 = null;
 
         String suscripcion = "INSERT INTO SUSCRIPCION ( TIPO, PRECIO, IDAUTOR) VALUES ( ?, ?, ?)";
         String obtencionsuscripcion = "INSERT INTO OBTENCIONSUSCRIPCION ( FECHAINICIO, COBRO, AUTORENOVAR, IDUSUARIO, IDSUSCRIPCION) VALUES ( ?, ?, ?, ?, ?)";
@@ -76,6 +77,11 @@ public class SuscripcionesDB {
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
+        }
+        finally{
+            ps.close();
+            ps1.close();
+            pool.freeConnection(connection);
         }
 
 
