@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ulearn.control;
 
 import java.io.IOException;
@@ -19,16 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.SuscripcionesDB;
 import ulearn.datos.dao.UserDB;
-import ulearn.model.Suscripcion;
 import ulearn.model.User;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
  *
- * @author Javier
+ * @author angel
  */
-@WebServlet(name = "anadirSuscripcion", urlPatterns = {"/anadirSuscripcion"})
-public class anadirSuscripcion extends HttpServlet {
 
+@WebServlet(name = "accederCurso", urlPatterns = {"/accederCurso"})
+public class accederCurso extends HttpServlet{
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,8 +55,7 @@ public class anadirSuscripcion extends HttpServlet {
             out.println("</html>");
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -68,23 +68,9 @@ public class anadirSuscripcion extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User user= (User) session.getAttribute("user");
         
-        String tipo = (String) request.getParameter("suscripcion");
-        
-        int idAutor;
-        if(tipo.equals("AUTOR")){ 
-            idAutor = UserDB.getIdAutor(request.getParameter("nombre"));
-        }
-        else{
-            idAutor=-1;
-        }
-        try {
-            SuscripcionesDB.insert(user, tipo, idAutor);
-        } catch (SQLException ex) {
-            Logger.getLogger(anadirSuscripcion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String url = "/Pricipal_logged.html";
+        String id = request.getParameter("curso");
+        String url = "/Info_cursos.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
@@ -111,6 +97,5 @@ public class anadirSuscripcion extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }
