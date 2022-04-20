@@ -12,7 +12,7 @@
 
 <sql:query var="cursosGratuitos" dataSource="jdbc/db_practica">
 
-    select c.id 
+    select c.id, c.imagen
     from curso c
     where c.precio=0;
 
@@ -25,11 +25,11 @@
         from desarrollocurso dc
         group by dc.idcurso
     )
-    select d.idcurso
-    from demandas d
+    select d.idcurso, c.imagen
+    from demandas d, curso c
     where 5>(select count(*)
              from demandas d1
-             where d1.dem>d.dem);
+             where d1.dem>d.dem) and c.id=d.idcurso;
 
 </sql:query>
              
@@ -40,11 +40,11 @@
         from desarrollocurso dc
         group by dc.idcurso
     )
-    select v.idcurso
-    from valoraciones v
+    select v.idcurso, c.imagen
+    from valoraciones v, curso c
     where 5>(select count(*)
              from valoraciones v1
-             where v1.media>v.media);
+             where v1.media>v.media) and c.id=v.idcurso;
 
 </sql:query>
 
@@ -197,46 +197,17 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
                         <div class="slick-track" id="track">
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/ensamblador.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
+                            <c:forEach var="curso" items="${cursosGratuitos.rows}">
+                                <div class="slick">
+                                    <div>
+                                        <a href="Info_cursos_0.html">
+                                            <picture>
+                                                <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
+                                            </picture>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/java.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/php.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/python.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
+                            </c:forEach>
                         </div>
                         <button class="slick-arrow slick-next" id="button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
@@ -251,46 +222,17 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button> 
                         <div class="slick-track" id="track">
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/python.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
+                            <c:forEach var="curso" items="${cursosDemandados.rows}">
+                                <div class="slick">
+                                    <div>
+                                        <a href="Info_cursos_0.html">
+                                            <picture>
+                                                <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
+                                            </picture>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/php.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/ensamblador.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/java.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
+                            </c:forEach>      
                         </div>
                         <button class="slick-arrow slick-next" id="button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
@@ -305,46 +247,17 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button> 
                         <div class="slick-track" id="track">
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/ensamblador.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
+                            <c:forEach var="curso" items="${cursosFavoritos.rows}">
+                                <div class="slick">
+                                    <div>
+                                        <a href="Info_cursos_0.html">
+                                            <picture>
+                                                <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
+                                            </picture>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/java.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/php.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="slick">
-                                <div>
-                                    <a href="Info_cursos_0.html">
-                                        <picture>
-                                            <img src="./Imagenes/python.jfif" alt="Imagen">
-                                        </picture>
-                                    </a>
-                                </div>
-                            </div>
-
+                            </c:forEach>                               
                         </div>
                         <button class="slick-arrow slick-next" id="button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
