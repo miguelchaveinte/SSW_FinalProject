@@ -1,10 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ulearn.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashSet;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,24 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import ulearn.datos.dao.SuscripcionesDB;
-import ulearn.datos.dao.UserDB;
-import ulearn.model.User;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
- * @author angel
+ * @author Javier
  */
+@WebServlet(name = "CerrarSesion", urlPatterns = {"/CerrarSesion"})
+public class cerrarSesion extends HttpServlet {
 
-@WebServlet(name = "accederCurso", urlPatterns = {"/accederCurso"})
-public class accederCurso extends HttpServlet{
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,15 +40,16 @@ public class accederCurso extends HttpServlet{
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet añadirSuscripcion</title>");            
+            out.println("<title>Servlet CerrarSesion</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet añadirSuscripcion at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CerrarSesion at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
-    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -67,13 +61,9 @@ public class accederCurso extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String idCurso = request.getParameter("idCurso");
-        
         HttpSession session = request.getSession();
-        session.setAttribute("idCurso", idCurso);
-        
-        String url = "/Info_cursos.jsp?idCurso="+idCurso;
+        session.removeAttribute("user");
+        String url = "/Pricipal.html";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
@@ -89,7 +79,7 @@ public class accederCurso extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        processRequest(request, response);
     }
 
     /**
@@ -100,5 +90,6 @@ public class accederCurso extends HttpServlet{
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
+
 }

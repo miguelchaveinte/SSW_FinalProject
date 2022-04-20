@@ -85,6 +85,8 @@ public class iniciarSesion extends HttpServlet {
         String url="";
         if (UserDB.emailExists(email) && UserDB.comprobarUsuario(email,userName,password)) {
             url = "/Pricipal_logged.html";
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
         } else {
             //TODO: ERROR
             url = "/Pricipal.html";
