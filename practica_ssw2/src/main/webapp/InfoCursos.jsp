@@ -1,3 +1,40 @@
+<%-- 
+    Document   : InfoCursos
+    Created on : 20-abr-2022, 11:33:53
+    Author     : Jhon
+--%>
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
+<%
+    int idCurso = 1;
+    int idseccion = 1;
+    //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
+    //int idseccion = Integer.parseInt(request.getParameter("seccion"));
+%>
+
+<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
+         url = "jdbc:mysql://localhost:3306/db_practica"
+         user = "root" password = "admin"/>  <!<!-- CAMBIAR CONTRASRÑA: admin -->
+
+<c:set var = "id" value = "<%=idCurso%>"/>
+
+<sql:query var="listSecciones" dataSource = "${snapshot}" >
+    
+    SELECT ID, NOMBRE, DESCRIPCION, VIDEO, DURACION FROM SECCION WHERE IDCURSO = ?  ORDER BY ID; 
+    <sql:param value = "${id}" />
+    
+</sql:query>
+
+        
+    
+<!DOCTYPE html>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="es">
@@ -18,10 +55,6 @@
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
-
-
-
-
     </head>
     
     
@@ -206,11 +239,8 @@
                                                 este curso, JavaScript: Primeros pasos, te dará los fundamentos para codificar en JavaScript. 
                                                 En primer lugar, descubrirá los tipos de aplicaciones que se pueden crear con JavaScript y las 
                                                 plataformas en las que se ejecutarán.</p>
+                                            <p> ${listSecciones.rows[1]}</p>
                                             
-                                            <p>A continuación, explorará los fundamentos del lenguaje, con multitud de ejemplos. Por último, 
-                                                pondrás en práctica tus conocimientos de JavaScript y modificarás una página web moderna y con 
-                                                capacidad de respuesta. Cuando termine este curso, tendrá las habilidades y el conocimiento de 
-                                                JavaScript para crear programas simples, crear aplicaciones web simples y modificar páginas web.</p>
                                         </div>
 
                                     </div>
