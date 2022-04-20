@@ -10,7 +10,11 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 
-<sql:query var="cursosGratuitos" dataSource="jdbc/db_practica">
+<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
+         url = "jdbc:mysql://localhost:3306/db_practica"
+         user = "root" password = "admin"/>
+
+<sql:query var="cursosGratuitos" dataSource="${snapshot}">
 
     select c.id, c.imagen
     from curso c
@@ -18,7 +22,7 @@
 
 </sql:query>
     
-<sql:query var="cursosDemandados" dataSource="jdbc/db_practica">
+<sql:query var="cursosDemandados" dataSource="${snapshot}">
 
     with demandas as(
         select dc.idcurso, count(*) as dem
@@ -33,7 +37,7 @@
 
 </sql:query>
              
-<sql:query var="cursosFavoritos" dataSource="jdbc/db_practica">
+<sql:query var="cursosFavoritos" dataSource="${snapshot}">
 
     with valoraciones as(
         select dc.idcurso, avg(dc.valoracion) as media
