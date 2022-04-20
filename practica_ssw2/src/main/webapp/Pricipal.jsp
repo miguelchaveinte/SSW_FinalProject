@@ -204,7 +204,7 @@
                             <c:forEach var="curso" items="${cursosGratuitos.rows}">
                                 <div class="slick">
                                     <div>
-                                        <a href="Info_cursos_0.html">
+                                        <a href="accederCurso?idCurso=${curso.id}">
                                             <picture>
                                                 <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
                                             </picture>
@@ -229,7 +229,7 @@
                             <c:forEach var="curso" items="${cursosDemandados.rows}">
                                 <div class="slick">
                                     <div>
-                                        <a href="Info_cursos_0.html">
+                                        <a href="accederCurso?idCurso=${curso.idcurso}">
                                             <picture>
                                                 <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
                                             </picture>
@@ -254,7 +254,8 @@
                             <c:forEach var="curso" items="${cursosFavoritos.rows}">
                                 <div class="slick">
                                     <div>
-                                        <a href="Info_cursos_0.html">
+                                        <a href="accederCurso?idCurso=${curso.idcurso}">
+                                            
                                             <picture>
                                                 <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
                                             </picture>

@@ -70,10 +70,7 @@ public class accederCurso extends HttpServlet{
         
         String idCurso = request.getParameter("idCurso");
         
-        HttpSession session = request.getSession();
-        session.setAttribute("idCurso", idCurso);
-        
-        String url = "/Info_cursos.jsp?idCurso="+idCurso;
+        String url = "/Info_cursos_0.jsp?idCurso="+idCurso;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
