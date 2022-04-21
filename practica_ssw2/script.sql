@@ -44,7 +44,7 @@ create table USUARIO (
 
 create table CURSO (
     ID INTEGER AUTO_INCREMENT,
-    NOMBRE varchar(50) NOT NULL,
+    NOMBRECURSO varchar(50) NOT NULL,
     DESCRIPCION varchar(200) NOT NULL,
     PRECIO float NOT NULL,
     IMAGEN varchar(200) NOT NULL,
@@ -141,7 +141,7 @@ INSERT INTO CURSOFAVORITO VALUES (1,2);
 INSERT INTO CURSOFAVORITO VALUES (2,1);
 INSERT INTO CURSOFAVORITO VALUES (3,1);
 
-INSERT INTO SECCION VALUES (1,'Introduccion','Introduccion al js','video',1.5,1);
+INSERT INTO SECCION VALUES (1,'Introduccion','Introduccion al js','http://lnnk.in/aOg3',1.5,1);
 INSERT INTO SECCION VALUES (2,'Objetos','Objetos en js','video',2.5,1);
 INSERT INTO SECCION VALUES (3,'Mapas','Mapas en js','video',2,1);
 INSERT INTO SECCION VALUES (4,'Clases','Clases en js','video',6,1);

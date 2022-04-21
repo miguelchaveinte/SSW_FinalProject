@@ -14,7 +14,7 @@
 
 <%
     int idCurso = 1;
-    int idseccion = 3;
+    int idseccion = 1;
     int i=1;
     //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     //int idseccion = Integer.parseInt(request.getParameter("seccion"));
@@ -33,6 +33,13 @@
     SELECT ID, NOMBRE, DESCRIPCION, VIDEO, DURACION FROM SECCION WHERE IDCURSO = ?  ORDER BY ID; 
     <sql:param value = "${id}" />
     
+</sql:query>
+    
+<sql:query var="infoCreador" dataSource = "${snapshot}" >
+
+    SELECT U.NOMBREUSUARIO, U.NOMBRE, C.NOMBRECURSO AS NOMBRECURSO,U.APELLIDO FROM CURSO C, USUARIO U WHERE C.ID = ? AND U.ID=C.CREADOR; 
+    <sql:param value = "${id}" />
+
 </sql:query>
 
         
@@ -140,7 +147,7 @@
                                 <iframe class="position-absolute top-0 end-0 start-0 end-0 bottom-0 h-100 w-100"
                                     frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     title="YouTube video player" width="100%" height="360"
-                                    src="https://www.youtube.com/embed/PkZNo7MFNFg?autoplay=0&amp;widget_referrer=https%3A%2F%2Fthemes.getbootstrap.com%2F&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fgeeks-react.netlify.app&amp;widgetid=1" id="widget2">
+                                    src=${listSecciones.rows[idseccion-1].VIDEO} id="widget2">
                                 </iframe>
                                 
                             </div>
@@ -156,7 +163,7 @@
                             <!--Div con el nombre del curso, puntuacion media, nombre del autor, etc...-->
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-semi-bold mb-2">JavaScript: Primeros Pasos</h1>
+                                    <h1 class="fw-semi-bold mb-2">${infoCreador.rows[0].NOMBRECURSO}</h1>
                                 </div>
 
                                 <div class="d-flex mb-5"><span><span class="text-warning">
@@ -216,13 +223,13 @@
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div class="ms-2 lh-1">
-                                            <h4 class="mb-1">Bill Gates</h4>
-                                            <p class="fs-6 mb-0">@microsoft</p>
+                                            <h4 class="mb-1">${infoCreador.rows[0].NOMBRE} ${infoCreador.rows[0].APELLIDO}</h4>
+                                            <p class="fs-6 mb-0">@${infoCreador.rows[0].NOMBREUSUARIO}</p>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <a class="btn btn-outline-white btn-sm" href="#">Suscribirse</a>
+                                        <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=${infoCreador.rows[0].NOMBREUSUARIO}'>Suscribirse</a>
                                     </div>
                                 </div>
 
@@ -260,7 +267,7 @@
                                         <li class="p-0 list-group-item"><a aria-expanded="false"
                                                 class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
                                                 data-bs-toggle="collapse" role="button" aria-controls="courseTwo">
-                                                <div class="me-auto">Sección <%=i%>: ${seccion.nombre}<p
+                                                <div class="me-auto" onclick="location.href='cambioSeccion?idSeccion=${seccion.id}&idCurso='+<%=idCurso%>" >Sección <%=i%>: ${seccion.nombre}<p
                                                         class="mb-0 text-muted fs-6 mt-1 fw-normal">(${seccion.duracion})</p>
                                                 </div>
                                                 
