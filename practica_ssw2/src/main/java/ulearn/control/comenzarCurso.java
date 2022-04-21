@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.CursoDB;
+import ulearn.datos.dao.SeccionDB;
 import ulearn.model.User;
 
 /**
@@ -70,7 +71,7 @@ public class comenzarCurso extends HttpServlet {
         int seccion=1;
         try {
             CursoDB.insert(user.getId(),idCurso);
-            //crear desarrollo seccion
+            SeccionDB.insert(user.getId(),seccion);
         } catch (SQLException ex) {
             Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }

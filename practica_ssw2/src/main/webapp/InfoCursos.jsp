@@ -14,7 +14,8 @@
 
 <%
     int idCurso = 1;
-    int idseccion = 1;
+    int idseccion = 3;
+    int i=1;
     //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     //int idseccion = Integer.parseInt(request.getParameter("seccion"));
 %>
@@ -24,6 +25,8 @@
          user = "root" password = "admin"/>  <!<!-- CAMBIAR CONTRASRÑA: admin -->
 
 <c:set var = "id" value = "<%=idCurso%>"/>
+<c:set var = "idseccion" value = "<%=idseccion%>"/>
+<c:set var = "i" value = "<%=i%>"/>
 
 <sql:query var="listSecciones" dataSource = "${snapshot}" >
     
@@ -235,11 +238,7 @@
                                         class="fade pb-4 p-4 tab-pane active show">
                                         <div class="mb-4">
                                             <h3 class="mb-2">Descripción de sección</h3>
-                                            <p>Si estás aprendiendo a programar por primera vez, o si vienes de un lenguaje diferente, 
-                                                este curso, JavaScript: Primeros pasos, te dará los fundamentos para codificar en JavaScript. 
-                                                En primer lugar, descubrirá los tipos de aplicaciones que se pueden crear con JavaScript y las 
-                                                plataformas en las que se ejecutarán.</p>
-                                            <p> ${listSecciones.rows[1]}</p>
+                                            <p> ${listSecciones.rows[idseccion-1].DESCRIPCION}</p>
                                             
                                         </div>
 
@@ -256,105 +255,49 @@
                         <div class="card">
                             <div class="card accordion">
                                 <ul class="list-group list-group-flush">
-
-                                    <!--SECCIÓN #1-->
-                                    <li class="p-0 list-group-item"><a aria-expanded="false"
-                                            class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
-                                            data-bs-toggle="collapse" role="button" aria-controls="courseTwo">
-                                            <div class="me-auto">Sección 1: Introducción a JavaScript<p
-                                                    class="mb-0 text-muted fs-6 mt-1 fw-normal">(1 hora y
-                                                    17 minutos)</p>
-                                            </div>
-                                        </a>
-
-                                        <div class="accordion-collapse collapse show">
-                                            <div class="list-group list-group-flush">
-
-                                                <!--Lista de videos de cada seccion indicando el minuto al que te lleva-->
-                                                <div class="list-group-item"><a
-                                                        class="d-flex justify-content-between align-items-center text-inherit text-decoration-none"
-                                                        href="#">
-                                                        <div class="text-truncate "><span
-                                                                class="icon-shape bg-success text-white icon-sm rounded-circle me-2"><svg
-                                                                    viewBox="0 0 24 24" role="presentation"
-                                                                    style="width: 1.2rem; height: 1.2rem;">
-                                                                    <path d="M8,5.14V19.14L19,12.14L8,5.14Z"
-                                                                        style="fill: currentcolor;"></path>
-                                                                </svg> </span><span class="fs-5">Desarrollo</span>
-                                                        </div>
-                                                        <div class="text-truncate fs-5"><span>1 hora y 17 minutos</span></div>
-                                                    </a>
+                                    <c:forEach var="seccion" items="${listSecciones.rows}">
+                                        <!--DESPLEGABLE DE SECCIONES-->
+                                        <li class="p-0 list-group-item"><a aria-expanded="false"
+                                                class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
+                                                data-bs-toggle="collapse" role="button" aria-controls="courseTwo">
+                                                <div class="me-auto">Sección <%=i%>: ${seccion.nombre}<p
+                                                        class="mb-0 text-muted fs-6 mt-1 fw-normal">(${seccion.duracion})</p>
                                                 </div>
+                                                
+                                            </a>
+                                            <c:if test="${idseccion==i}">
+                                                <div class="accordion-collapse collapse show">
+                                            </c:if>
+                                            <c:if test="${idseccion!=i}">
+                                                <div class="accordion-collapse collapse">
+                                            </c:if>
+                                                <div class="list-group list-group-flush">
 
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                    <!--SECCIÓN #2-->
-                                    <li class="p-0 list-group-item"><a aria-expanded="false"
-                                            class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
-                                            data-bs-toggle="collapse" role="button" aria-controls="courseTwo">
-                                            <div class="me-auto">Sección 2: JavaScript Beginning<p
-                                                    class="mb-0 text-muted fs-6 mt-1 fw-normal">(34
-                                                    minutos)</p>
-                                            </div>
-                                        </a>
-
-                                        <div class="accordion-collapse collapse">
-                                            <div class="list-group list-group-flush">
-
-                                                <!--Lista de videos de cada seccion indicando el minuto al que te lleva-->
-                                                <div class="list-group-item"><a
-                                                    class="d-flex justify-content-between align-items-center text-inherit text-decoration-none"
-                                                    href="#">
-                                                    <div class="text-truncate "><span
-                                                            class="icon-shape bg-success text-white icon-sm rounded-circle me-2"><svg
-                                                                viewBox="0 0 24 24" role="presentation"
-                                                                style="width: 1.2rem; height: 1.2rem;">
-                                                                <path d="M8,5.14V19.14L19,12.14L8,5.14Z"
-                                                                    style="fill: currentcolor;"></path>
-                                                            </svg> </span><span class="fs-5">Desarrollo</span>
+                                                    <!--Lista de videos de cada seccion indicando el minuto al que te lleva-->
+                                                    <div class="list-group-item"><a
+                                                            class="d-flex justify-content-between align-items-center text-inherit text-decoration-none"
+                                                            href="#">
+                                                            <div class="text-truncate "><span
+                                                                    class="icon-shape bg-success text-white icon-sm rounded-circle me-2"><svg
+                                                                        viewBox="0 0 24 24" role="presentation"
+                                                                        style="width: 1.2rem; height: 1.2rem;">
+                                                                        <path d="M8,5.14V19.14L19,12.14L8,5.14Z"
+                                                                            style="fill: currentcolor;"></path>
+                                                                    </svg> </span><span class="fs-5">Desarrollo</span>
+                                                            </div>
+                                                            <div class="text-truncate fs-5"><span>${seccion.duracion}</span></div>
+                                                        </a>
                                                     </div>
-                                                    <div class="text-truncate fs-5"><span>34 minutos</span></div>
-                                                    </a>
+
                                                 </div>
-
                                             </div>
-                                        </div>
-                                    </li>
-
-                                    <!--SECCIÓN #3-->
-                                    <li class="p-0 list-group-item"><a aria-expanded="false"
-                                        class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
-                                        data-bs-toggle="collapse" role="button" aria-controls="courseTwo">
-                                        <div class="me-auto">Sección 3: JavaScript Expert<p
-                                                    class="mb-0 text-muted fs-6 mt-1 fw-normal">(55
-                                                    minutos)</p>
-                                            </div>
-                                        </a>
-
-                                        <div class="accordion-collapse collapse">
-                                            <div class="list-group list-group-flush">
-                                             
-                                                <!--Lista de videos de cada seccion indicando el minuto al que te lleva-->
-                                                <div class="list-group-item"><a
-                                                    class="d-flex justify-content-between align-items-center text-inherit text-decoration-none"
-                                                    href="#">
-                                                    <div class="text-truncate "><span
-                                                            class="icon-shape bg-success text-white icon-sm rounded-circle me-2"><svg
-                                                                viewBox="0 0 24 24" role="presentation"
-                                                                style="width: 1.2rem; height: 1.2rem;">
-                                                                <path d="M8,5.14V19.14L19,12.14L8,5.14Z"
-                                                                    style="fill: currentcolor;"></path>
-                                                            </svg> </span><span class="fs-5">Desarrollo</span>
-                                                    </div>
-                                                    <div class="text-truncate fs-5"><span>55 minutos</span></div>
-                                                    </a>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    <%
+                                        i = i+1;
+                                    %>
+                                    <c:set var = "i" value = "<%=i%>"/>
+                                    </c:forEach>
+                                    
                                 </ul>
 
                             </div>
