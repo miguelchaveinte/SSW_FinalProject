@@ -4,13 +4,19 @@
  */
 package ulearn.datos.dao;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import ulearn.datos.ConnectionPool;
+import ulearn.model.Curso;
 import ulearn.model.User;
 
 /**
@@ -47,5 +53,142 @@ public class CursoDB {
             ps.close();
             pool.freeConnection(connection);
         }
+    }
+    
+    public static ArrayList<Integer> getCursosGratuitos() throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Integer> cursos = new ArrayList<Integer>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String cursosGratuitos = "SELECT C.ID, C.IMAGEN FROM CURSO C WHERE C.PRECIO=0;";
+       
+        
+        try {
+            ps = connection.prepareStatement(cursosGratuitos);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                cursos.add(rs.getInt("id")); 
+            }
+            
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+    
+    public static ArrayList<Integer> getCursosDemandados() throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Integer> cursos = new ArrayList<Integer>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String cursosDemandados = "with demandas as(\n" +
+"                                    select dc.idcurso, count(*) as dem\n" +
+"                                    from desarrollocurso dc\n" +
+"                                    group by dc.idcurso\n" +
+"                                 )\n" +
+"                                 select d.idcurso, c.imagen\n" +
+"                                 from demandas d, curso c\n" +
+"                                 where 5>(select count(*)\n" +
+"                                 from demandas d1\n" +
+"                                 where d1.dem>d.dem) and c.id=d.idcurso;";
+       
+        
+        try {
+            ps = connection.prepareStatement(cursosDemandados);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                cursos.add(rs.getInt("id")); 
+            }
+            
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+    
+    public static ArrayList<Integer> getCursosFavoritos() throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Integer> cursos = new ArrayList<Integer>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String cursosFavoritos = "with valoraciones as(\n" +
+"        select dc.idcurso, avg(dc.valoracion) as media\n" +
+"        from desarrollocurso dc\n" +
+"        group by dc.idcurso\n" +
+"    )\n" +
+"    select v.idcurso, c.imagen\n" +
+"    from valoraciones v, curso c\n" +
+"    where 5>(select count(*)\n" +
+"             from valoraciones v1\n" +
+"             where v1.media>v.media) and c.id=v.idcurso;";
+       
+        
+        try {
+            ps = connection.prepareStatement(cursosFavoritos);
+            rs=ps.executeQuery();
+            while(rs.next()){
+                cursos.add(rs.getInt("id")); 
+            }
+           
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+    
+    public static void getImagen(int id, OutputStream respuesta){
+        try {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null;
+            statement = connection.prepareStatement("SELECT imagen FROM curso WHERE id=? ");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Blob blob = result.getBlob("imagen");
+                if (!result.wasNull() && blob.length() > 1) {
+                    InputStream imagen = blob.getBinaryStream();
+                    byte[] buffer = new byte[1000];
+                    int len = imagen.read(buffer);
+                    while (len != -1) {
+                        respuesta.write(buffer, 0, len);
+                        len = imagen.read(buffer);
+                    }
+                    imagen.close();
+                } 
+            }
+        pool.freeConnection(connection);
+        } catch (Exception e) {
+        e.printStackTrace();
+        } 
     }
 }

@@ -1,4 +1,5 @@
-    <%-- 
+    <%@page import="java.util.ArrayList"%>
+<%-- 
     Document   : Pricipal
     Created on : 20 abr. 2022, 11:18:59
     Author     : angel
@@ -9,7 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
-
+<%--
 <sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
          url = "jdbc:mysql://localhost:3306/db_practica"
          user = "root" password = "admin"/>
@@ -50,7 +51,8 @@
              from valoraciones v1
              where v1.media>v.media) and c.id=v.idcurso;
 
-</sql:query>
+</sql:query> --!>
+--%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
@@ -201,12 +203,19 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
                         <div class="slick-track" id="track">
-                            <c:forEach var="curso" items="${cursosGratuitos.rows}">
+                            <%--ArrayList<Integer> a = (ArrayList<Integer>)request.getAttribute("cursosGratuitos");--%>
+                            <%ArrayList<Integer> a = new ArrayList<Integer>();
+                            a.add(1);
+                            a.add(2);
+                            a.add(2);%>
+
+                            <c:set var = "cursosGratuitos" value = "<%=a%>"/>
+                            <c:forEach var="cursoGratuito" items="${cursosGratuitos}">
                                 <div class="slick">
                                     <div>
-                                        <a href="accederCurso?idCurso=${curso.id}">
+                                        <a href="accederCurso?idCurso=${cursoGratuito}">
                                             <picture>
-                                                <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
+                                                <img  src="imagenCurso?id=1">
                                             </picture>
                                         </a>
                                     </div>
@@ -226,17 +235,28 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button> 
                         <div class="slick-track" id="track">
-                            <c:forEach var="curso" items="${cursosDemandados.rows}">
+                           <%--
+                            ArrayList<Integer> cursosDemandados =(ArrayList<Integer>)request.getAttribute("cursosDemandados");
+                            for(int i=0; i<cursosDemandados.size(); i++){
+                                int c = cursosDemandados.get(i);
+                                String curso = String.valueOf(c);
+                            --%>
+                           <%ArrayList<Integer> b = (ArrayList<Integer>)request.getAttribute("cursosDemandados");%>
+                            <c:set var = "cursosDemandados" value = "<%=b%>"/>
+                            <c:forEach var="cursoDemandado" items="${cursosDemandados}">
                                 <div class="slick">
                                     <div>
-                                        <a href="accederCurso?idCurso=${curso.idcurso}">
+                                        <a href="accederCurso?idCurso=${cursoDemandado}">
                                             <picture>
-                                                <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
+                                                <img  src="imagenCurso?id=< %= cursoDemandado %>">
                                             </picture>
                                         </a>
                                     </div>
                                 </div>
-                            </c:forEach>      
+                            </c:forEach>
+                            <%--
+                            }
+                            --%>
                         </div>
                         <button class="slick-arrow slick-next" id="button-next">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
@@ -251,13 +271,13 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button> 
                         <div class="slick-track" id="track">
-                            <c:forEach var="curso" items="${cursosFavoritos.rows}">
+                            <c:forEach var="cursoFavorito" items="${cursosFavoritos}">
                                 <div class="slick">
                                     <div>
-                                        <a href="accederCurso?idCurso=${curso.idcurso}">
+                                        <a href="accederCurso?idCurso=${cursoFavorito.idcurso}">
                                             
                                             <picture>
-                                                <img src=<c:out value="${curso.imagen}"/> alt="Imagen">
+                                                <img  src="imagenCurso?id=< %= curso.getId() %>">
                                             </picture>
                                         </a>
                                     </div>
