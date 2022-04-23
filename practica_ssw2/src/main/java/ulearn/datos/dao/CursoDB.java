@@ -98,7 +98,7 @@ public class CursoDB {
 "                                    from desarrollocurso dc\n" +
 "                                    group by dc.idcurso\n" +
 "                                 )\n" +
-"                                 select d.idcurso, c.imagen\n" +
+"                                 select d.idcurso\n" +
 "                                 from demandas d, curso c\n" +
 "                                 where 5>(select count(*)\n" +
 "                                 from demandas d1\n" +
@@ -138,7 +138,7 @@ public class CursoDB {
 "        from desarrollocurso dc\n" +
 "        group by dc.idcurso\n" +
 "    )\n" +
-"    select v.idcurso, c.imagen\n" +
+"    select v.idcurso\n" +
 "    from valoraciones v, curso c\n" +
 "    where 5>(select count(*)\n" +
 "             from valoraciones v1\n" +

@@ -47,7 +47,7 @@ create table CURSO (
     NOMBRECURSO varchar(50) NOT NULL,
     DESCRIPCION varchar(200) NOT NULL,
     PRECIO float NOT NULL,
-    IMAGEN varchar(200) NOT NULL,
+    IMAGEN blob NOT NULL,
     DURACION float NOT NULL,
     CATEGORIA varchar(50) NOT NULL,
     CREADOR INTEGER NOT NULL,
@@ -124,17 +124,29 @@ INSERT INTO CATEGORIA VALUES ('PROGRAMACION_WEB');
 INSERT INTO CATEGORIA VALUES ('BASES_DE_DATOS');
 INSERT INTO CATEGORIA VALUES ('PROGRAMACION_PARALELA');
 INSERT INTO CATEGORIA VALUES ('SISTEMAS_OPERATIVOS');
+INSERT INTO CATEGORIA VALUES ('PROGRAMACION_LOGICA');
+INSERT INTO CATEGORIA VALUES ('APRENDE_A_PROGRAMAR');
 
 INSERT INTO USUARIO VALUES (1,'AlfredoInf','12345678','alfredo@gmial.com','Alfredo','Martinez','654567888',true,'Manuel Azaña 44 5ºC','Programador','España','Valladolid','1987-12-12','Programador avanzado con ganas de aprender');
 INSERT INTO USUARIO VALUES (2,'mariaBD','87654321','maria@gmial.com','Maria','Gonzalez','664357239',false,'Mateo Seoane 11 1º A','Administrador Bases de Datos','España','Valladolid','1982-10-05','Me encanta aprender!');
 INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (3,'Roberr','1122334455','rober@gmail.com');
 INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (4,'natti','8595949','natalia@gmail.com');
 
-INSERT INTO CURSO VALUES (1,'Java Script Avanzado','Curso avanzado sobre java script',5.99,'imagen',20,'PROGRAMACION_WEB',1);
-INSERT INTO CURSO VALUES (2,'SQL Intermedio','Curso intermedio sobre sql',3.99,'imagen',15,'BASES_DE_DATOS',1);
+INSERT INTO CURSO VALUES (1,'Java Script Avanzado','Curso avanzado sobre java script',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),20,'PROGRAMACION_WEB',1);
+INSERT INTO CURSO VALUES (2,'SQL Intermedio','Curso intermedio sobre sql',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),15,'BASES_DE_DATOS',1);
+INSERT INTO CURSO VALUES (3,'Python','Curso iniciacion a python',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),15,'APRENDE_A_PROGRAMAR',1);
+INSERT INTO CURSO VALUES (4,'C++','Curso de iniciacion a c++',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),15,'APRENDE_A_PROGRAMAR',1);
+INSERT INTO CURSO VALUES (5,'HTML','Curso de nivel intermedio sobre html',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.jfif'),15,'PROGRAMACION_WEB',1);
+INSERT INTO CURSO VALUES (6,'Linux','Curso sobre instalacion, problemas y manejo de linux',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.jfif'),15,'SISTEMAS_OPERATIVOS',1);
+INSERT INTO CURSO VALUES (7,'a','Curso sobre instalacion, problemas aaay manejo de linux',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\java.jfif'),15,'SISTEMAS_OPERATIVOS',1);
 
-INSERT INTO DESARROLLOCURSO VALUES ('2022-10-04',3,1,4.3);
-INSERT INTO DESARROLLOCURSO VALUES ('2022-9-04',4,2,2.1);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-04-10',3,1,4.3);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-04-9',4,2,2.1);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,3,3.3);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,4,1.7);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,5,4.8);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,6,3.7);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,7,3.9);
 
 INSERT INTO CURSOFAVORITO VALUES (1,1);
 INSERT INTO CURSOFAVORITO VALUES (1,2);

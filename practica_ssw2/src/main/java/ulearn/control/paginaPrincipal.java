@@ -80,10 +80,6 @@ public class paginaPrincipal extends HttpServlet {
         request.setAttribute("cursosGratuitos", cursosGratuitos);
         request.setAttribute("cursosDemandados", cursosDemandados);
         request.setAttribute("cursosFavoritos", cursosFavoritos);
-        ArrayList<Integer> prueba = new ArrayList<Integer>();
-        prueba.add(1);
-        prueba.add(2);
-        request.setAttribute("prueba", prueba);
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("user");
         String url="";
