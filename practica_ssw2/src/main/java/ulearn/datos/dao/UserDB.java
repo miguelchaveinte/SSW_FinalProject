@@ -127,4 +127,31 @@ public class UserDB {
             return 0;
         }
     }
+    
+    public static User getInfoCreador(int idCurso){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User user=new User();
+        String query = "SELECT U.NOMBREUSUARIO, U.NOMBRE,U.APELLIDO FROM CURSO C, USUARIO U WHERE C.ID = ? AND U.ID=C.CREADOR;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idCurso);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                user.setNombreUsuario(rs.getString("NOMBREUSUARIO"));
+                user.setNombre(rs.getString("NOMBRE"));
+                user.setApellidos(rs.getString("APELLIDO"));
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -84,7 +84,7 @@ public class anadirSuscripcion extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(anadirSuscripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String url = "/Pricipal_logged.html";
+        String url = "/paginaPrincipal";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

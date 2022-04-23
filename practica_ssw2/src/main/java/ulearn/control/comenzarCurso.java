@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,6 +76,9 @@ public class comenzarCurso extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
+        String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
 
     }
 

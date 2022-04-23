@@ -17,7 +17,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.CursoDB;
+import ulearn.model.User;
 
 /**
  *
@@ -82,9 +84,15 @@ public class paginaPrincipal extends HttpServlet {
         prueba.add(1);
         prueba.add(2);
         request.setAttribute("prueba", prueba);
-        String url = "/Pricipal.jsp";
+        HttpSession session = request.getSession();
+        User user=(User) session.getAttribute("user");
+        String url="";
+        if(user!=null){url = "/Pricipal_logged.jsp";}else {url = "/Pricipal.jsp";}
+       // String url="/Pricipal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
+
+        
     }
 
     /**

@@ -11,6 +11,7 @@
     //int idseccion = Integer.parseInt(request.getParameter("seccion"));
 %>
 
+<%--
 <sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
                    url = "jdbc:mysql://localhost:3306/db_practica"
                    user = "root" password = "admin"/>  <!<!-- CAMBIAR CONTRASRÑA: admin  -->
@@ -26,7 +27,7 @@
 
 <sql:query var="infoCurso" dataSource = "${snapshot}" >
 
-    SELECT NOMBRE, DESCRIPCION, PRECIO, IMAGEN, DURACION, CATEGORIA, CREADOR FROM CURSO WHERE ID = ?; 
+    SELECT NOMBRECURSO, DESCRIPCION, PRECIO, IMAGEN, DURACION, CATEGORIA, CREADOR FROM CURSO WHERE ID = ?; 
     <sql:param value = "${id}" />
 
 </sql:query>
@@ -43,7 +44,7 @@
     SELECT AVG(DC.VALORACION) AS MEDIA FROM DESARROLLOCURSO DC WHERE IDCURSO = ? GROUP BY DC.IDCURSO 
     <sql:param value = "${id}" />
 
-</sql:query>    
+</sql:query>    --%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd">

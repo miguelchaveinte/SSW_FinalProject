@@ -70,7 +70,7 @@ public class CursoDB {
             rs=ps.executeQuery();
             
             while(rs.next()){
-                cursos.add(rs.getInt("id")); 
+                cursos.add(rs.getInt("ID")); 
             }
             
             ps.close();
@@ -110,7 +110,7 @@ public class CursoDB {
             rs=ps.executeQuery();
             
             while(rs.next()){
-                cursos.add(rs.getInt("id")); 
+                cursos.add(rs.getInt("idcurso")); 
             }
             
             ps.close();
@@ -149,7 +149,7 @@ public class CursoDB {
             ps = connection.prepareStatement(cursosFavoritos);
             rs=ps.executeQuery();
             while(rs.next()){
-                cursos.add(rs.getInt("id")); 
+                cursos.add(rs.getInt("idcurso")); 
             }
            
             ps.close();
@@ -190,5 +190,75 @@ public class CursoDB {
         } catch (Exception e) {
         e.printStackTrace();
         } 
+    }
+    
+    public static double getValoracion(int idCurso) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        double valoracion=0;
+        
+        String valoracionMedia = "SELECT AVG(DC.VALORACION) AS MEDIA FROM DESARROLLOCURSO DC WHERE IDCURSO = ? GROUP BY DC.IDCURSO;";
+       
+        
+        try {
+            ps = connection.prepareStatement(valoracionMedia);
+            ps.setInt(1, idCurso);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                valoracion=rs.getInt("MEDIA"); 
+            }
+            
+            ps.close();
+            pool.freeConnection(connection);
+            return valoracion;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+       
+    }
+    
+    public static Curso getInfoCurso (int idCurso) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Curso curso=new Curso();
+        
+        String infoCurso = "SELECT NOMBRECURSO, DESCRIPCION, PRECIO, DURACION, CATEGORIA, CREADOR FROM CURSO WHERE ID = ?; ";
+       
+        
+        try {
+            ps = connection.prepareStatement(infoCurso);
+            ps.setInt(1, idCurso);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                curso.setNombre(rs.getString("NOMBRECURSO")); 
+                curso.setDescripcion(rs.getString("DESCRIPCION"));
+                curso.setPrecio(rs.getFloat("PRECIO"));
+                curso.setDuracion(rs.getFloat("DURACION"));
+                curso.setCategoria(rs.getString("CATEGORIA"));
+                curso.setCreador(rs.getInt("CREADOR"));
+            }
+            
+            ps.close();
+            pool.freeConnection(connection);
+            return curso;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
     }
 }

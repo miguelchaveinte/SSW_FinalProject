@@ -76,7 +76,9 @@
     <body>
         <div id="general">
             <!--Div de la cabecera donde se encuentra el logo, buscador y demas opciones. Implementado mediante 2 menus-->
+            <!--Div de la cabecera donde se encuentra el logo, buscador y demas opciones. Implementado mediante 2 menus-->
             <div id="cabecera">
+
                 <nav class="bg-white navbar p-2 navbar-default py-2 navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center"><a class="navbar-brand py-1 mr-auto" href=""><img
@@ -105,95 +107,56 @@
                             </form>
                 
                             <ul class="navbar-nav ms-auto ">
-                                <li class="nav-item mr-2">
-                                    <div><a  style="font-size: 1.1em;" role="button"
-                                    tabindex="0" class="nav-link" data-toggle="modal" data-target="#login2">Inicia Sesión</a>
-                                    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header border-bottom-0">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                            </button>
+                
+                                <li class="nav-item mr-2"><a class="nav-link" style="font-size: 1.1em;" id="homeDropdownMenuLink"
+                                        href="#">
+                                        Home</a>
+                
+                                </li>
+                                <li class="nav-item mr-2 "><a class="nav-link " style="font-size: 1.1em;" href="suscripciones.html">Suscripciones</a>
+                
+                                </li>
+                                <li class="nav-item mr-2"><a aria-expanded="false" style="font-size: 1.1em;" role="button"
+                                        tabindex="0" class="nav-link" href="./creados.html">Creador</a>
+                                </li>
+                                <li class="nav-item mr-2"><a class="nav-link " style="font-size: 1.1em;"
+                                        id="docsDropdownMenuLink" href="./cursos.html" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Mis Cursos</a>
+                                </li>
+                
+                                <!-- Pagina principal 
+                                <li class="nav-item mr-2"><a aria-expanded="false" style="font-size: 1.1em;" role="button"
+                                    tabindex="0" class="nav-link" href="./info_personal.html">Inicia Sesión</a>
+                                </li>
+                                <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a role="button" class="btn btn-primary" href="./info_personal.html" style="font-weight: bold; border-radius:15px ;" >Únete</a></li>-->
+                
+                                <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <div class="avatar avatar-md avatar-indicators avatar-online">
+                                            <img alt="avatar" src="Imagenes/user.jpg" class="rounded-circle" />
                                         </div>
-                                        <div class="card">
-                                            <div class="p-6 card-body">
-                                            <div class="mb-4"><a href="/"><img src="Imagenes/icons8-e-learning-64.png"
-                                                    alt="" class="mb-4"></a>
-                                                <h1 class="mb-1 fw-bold">Registrarse</h1><span>¿Tienes una cuenta? <a class="ms-1" 
-                                                    href=#login2 onclick="cambiarLogin('#login2','#loginModal');">Inicia Sesión</a></span>
-                                            </div>
-                                            <form class="" action="registrarUsuario" method="post">
-                                                <div class="row">
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Nombre de Usuario</label><input
-                                                    placeholder="User Name" required="" type="text" id="username" name="username" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Correo Electrónico </label><input
-                                                    placeholder="Email address here" required="" type="email" id="email" name="email" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Contraseña </label><input
-                                                    placeholder="**************" required="" type="password" id="password" name="password" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12">
-                                                    <div class="form-check"><input type="checkbox" id="check-api-checkbox"
-                                                        class="form-check-input"><label for="check-api-checkbox" class="form-check-label">Acepto los términos y condiciones</label></div>
-                                                </div>
-                                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" class="btn btn-primary">Acceder</button></div>
-                                                </div>
-                                            </form>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
+                                    </a>
+                
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
+                                            class="dropdown-item" href="./info_personal.html">Configuración usuario</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item"
+                                            href="Pricipal.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
+                                            Cerrar Sesión</a>
                                     </div>
                                 </li>
-                                <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal"
-                                    style="font-weight: bold; border-radius:15px; color: white;" >Únete</a></li>
-                
-                                <!--MODAL-->                    
-                                    <div class="modal fade" id="login2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header border-bottom-0">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="card">
-                                            <div class="p-6 card-body">
-                                            <div class="mb-4"><a href="/"><img src="Imagenes/icons8-e-learning-64.png"
-                                                    alt="" class="mb-4"></a>
-                                                <h1 class="mb-1 fw-bold">Inicio Sesión</h1><span>¿No tienes cuenta? <a class="ms-1" onclick="cambiarLogin('#loginModal','#login2');" href=#loginModal>Regístrate</a></span>
-                                                <!-- poner funcion de cambio a sign up-->
-                                            </div>
-                                            <form class="" action="iniciarSesion" method="post">
-                                                <div class="row">
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Nombre de Usuario</label><input
-                                                    placeholder="User Name" required="" type="text" id="username" name="username" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Email </label><input
-                                                    placeholder="Email address here" required="" type="email" id="email" name="email" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Contraseña </label><input
-                                                    placeholder="**************" required="" type="password" id="password" name="password" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12">
-                                                    <div class="form-check"><input type="checkbox" id="check-api-checkbox"
-                                                        class="form-check-input"><label for="check-api-checkbox" class="form-check-label">Recordad Contraseña</label></div>
-                                                </div>
-                                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" class="btn btn-primary">Acceder</button></div>
-                                                </div>
-                                            </form>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
                             </ul>
                         </div>
-                        
                     </div>
                 </nav>
             </div>
 
-
+            <!--Div en el que inserto el boton intermedio para la opcion de convertirse en instructor-->
+            <div class="intermedio">
+                <!--Insertamos el boton que nos abrira el pop-up para convertirnos en creadores-->
+                <a href="hazte_creador.html" class="button" style="text-align: center;">Conviérte en Instructor</a>
+            </div>
+            
             <!--Etiqueta para representar el contenido principal del body-->
             <main style="margin-top: 50px;">
                 <!--Los div por defecto tienen la propiedad de display:block, es decir, los elementos ocupan el 100% del ancho-->

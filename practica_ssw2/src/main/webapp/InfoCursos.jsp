@@ -13,11 +13,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <%
-    int idCurso = 1;
-    int idseccion = 1;
+    //int idCurso = 1;
+    //int idseccion = 1;
     int i=1;
-    //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
-    //int idseccion = Integer.parseInt(request.getParameter("seccion"));
+    int idCurso = Integer.parseInt(request.getParameter("idCurso"));
+    int idseccion = Integer.parseInt(request.getParameter("seccion"));
 %>
 
 <sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
