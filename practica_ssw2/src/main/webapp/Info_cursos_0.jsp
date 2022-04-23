@@ -1,3 +1,6 @@
+<%@page import="ulearn.model.Curso"%>
+<%@page import="ulearn.model.Seccion"%>
+<%@page import="ulearn.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
@@ -7,12 +10,16 @@
 <%
     int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     int i = 1;
+    User user=(User)request.getAttribute("infoCreador");
+    double valoracion=(double)request.getAttribute("valoracion");
+    Curso curso=(Curso)request.getAttribute("infoCurso");
+    ArrayList<Seccion> listSecciones=(ArrayList<Seccion>) request.getAttribute("listSecciones");
     //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     //int idseccion = Integer.parseInt(request.getParameter("seccion"));
 %>
 
-<%--
-<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
+
+<%--<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
                    url = "jdbc:mysql://localhost:3306/db_practica"
                    user = "root" password = "admin"/>  <!<!-- CAMBIAR CONTRASRÑA: admin  -->
 
@@ -213,7 +220,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h1 class="fw-semi-bold mb-2">
-                                        ${infoCurso.rows[0].NOMBRE}
+                                        <%=curso.getNombre()%>
                                     </h1>
                                 </div>
 
@@ -254,7 +261,7 @@
                                                 style="fill: currentcolor;"></path>
                                             </svg></span>
 
-                                        <span class="fw-medium">${valoracion.rows[0].MEDIA}</span></span>
+                                        <span class="fw-medium">(<%=valoracion%>)</span></span>
                                     </svg></span>
 
                                 </div>
@@ -274,13 +281,13 @@
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div class="ms-2 lh-1">
-                                            <h4 class="mb-1">${infoCreador.rows[0].NOMBRE}</h4>
-                                            <p class="fs-6 mb-0">${infoCreador.rows[0].NOMBREUSUARIO}</p>
+                                            <h4 class="mb-1"><%=user.getNombre()%> <%=user.getApellidos()%></h4>
+                                            <p class="fs-6 mb-0">@<%=user.getNombreUsuario()%></p>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <a class="btn btn-outline-white btn-sm" href="#">Suscribirse</a>
+                                        <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
                                     </div>
                                 </div>
 
@@ -296,12 +303,12 @@
                                          class="fade pb-4 p-4 tab-pane active show">
                                         <div class="mb-4">
                                             <h3 class="mb-2">Descripción del curso</h3>
-                                            <p>${infoCurso.rows[0].DESCRIPCION}</p>
+                                            <p><%=curso.getDescripcion()%></p>
                                         </div>
 
                                         <div class="mb-4">
                                             <h3 class="mb-2">Precio del curso</h3>
-                                            <h4 class="mb-2"><b>${infoCurso.rows[0].PRECIO} €</b></h4>
+                                            <h4 class="mb-2"><b><%=curso.getPrecio()%> €</b></h4>
                                         </div>
 
                                         <!--Div en el que inserto el boton intermedio para la opcion de convertirse en instructor-->
@@ -332,7 +339,7 @@
                                                                 <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12"
                                                                      style="display: grid!important; float:left; "><button
                                                                         type="submit"
-                                                                        class="btn btn-primary"  onclick="location.href = 'comenzarCurso?idCurso=1'">Compra por 3,99€</button></div>
+                                                                        class="btn btn-primary"  onclick="location.href = 'comenzarCurso?idCurso=1'">Compra por <%=curso.getPrecio()%>€</button></div>
                                                                 <span class="mb-3 mt-3 fw " style="text-align: center;">o mediante suscripción</span>
                                                                 <div class="container">
                                                                     <div class="row">
@@ -370,7 +377,8 @@
                         <div class="card">
                             <div class="card accordion">
                                 <ul class="list-group list-group-flush">
-                                    <c:forEach var="seccion" items="${listSecciones.rows}">
+                                    <c:set var = "listSecciones" value = "<%=listSecciones%>"/>
+                                    <c:forEach var="seccion" items="${listSecciones}">
                                         <!--DESPLEGABLE DE SECCIONES-->
                                         <li class="p-0 list-group-item"><a aria-expanded="false"
                                                                            class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "

@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import ulearn.datos.ConnectionPool;
+import ulearn.model.Seccion;
 
 /**
  *
@@ -69,6 +71,38 @@ public class SeccionDB {
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+    
+    public static ArrayList<Seccion> getListaSecciones(int idCurso) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Seccion> secciones = new ArrayList<Seccion>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String listSecciones = "SELECT ID, NOMBRE, DESCRIPCION, VIDEO, DURACION FROM SECCION WHERE IDCURSO = ?  ORDER BY ID; ";
+       
+        
+        try {
+            ps = connection.prepareStatement(listSecciones);
+            ps.setInt(1,idCurso );          
+            rs=ps.executeQuery();
+            while(rs.next()){
+                Seccion seccion=new Seccion(rs.getInt("ID"),rs.getString("NOMBRE"),rs.getString("DESCRIPCION"),rs.getString("VIDEO"),rs.getFloat("DURACION"),idCurso);
+                secciones.add(seccion); 
+            }
+           
+            ps.close();
+            pool.freeConnection(connection);
+            return secciones;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
         finally{
             ps.close();

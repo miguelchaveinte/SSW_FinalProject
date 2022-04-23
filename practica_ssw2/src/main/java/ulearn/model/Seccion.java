@@ -20,7 +20,7 @@ public class Seccion implements Serializable{
     /**
      * Constructor sin parametros.
      */
-    private Seccion(){
+    public Seccion(){
         id=0;
         nombre="";
         descripcion="";
@@ -38,7 +38,7 @@ public class Seccion implements Serializable{
      * @param duracion
      * @param idcurso 
      */
-    private Seccion(int id, String nombre, String descripcion, String video, float duracion, int idcurso){
+    public Seccion(int id, String nombre, String descripcion, String video, float duracion, int idcurso){
         this.id=id;
         this.nombre=nombre;
         this.descripcion=descripcion;

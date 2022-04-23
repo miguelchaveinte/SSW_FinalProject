@@ -6,6 +6,9 @@
 
 
 
+<%@page import="ulearn.model.Seccion"%>
+<%@page import="ulearn.model.Curso"%>
+<%@page import="ulearn.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
@@ -18,6 +21,10 @@
     int i=1;
     int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     int idseccion = Integer.parseInt(request.getParameter("seccion"));
+    User user=(User)request.getAttribute("infoCreador");
+    double valoracion=(double)request.getAttribute("valoracion");
+    Curso curso=(Curso)request.getAttribute("infoCurso");
+    ArrayList<Seccion> listSecciones=(ArrayList<Seccion>) request.getAttribute("listSecciones");
 %>
 
 <sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
@@ -147,7 +154,7 @@
                                 <iframe class="position-absolute top-0 end-0 start-0 end-0 bottom-0 h-100 w-100"
                                     frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     title="YouTube video player" width="100%" height="360"
-                                    src=${listSecciones.rows[idseccion-1].VIDEO} id="widget2">
+                                    src=<%=listSecciones.get(idseccion-1).getVideo()%> id="widget2">
                                 </iframe>
                                 
                             </div>
@@ -163,7 +170,7 @@
                             <!--Div con el nombre del curso, puntuacion media, nombre del autor, etc...-->
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <h1 class="fw-semi-bold mb-2">${infoCreador.rows[0].NOMBRECURSO}</h1>
+                                    <h1 class="fw-semi-bold mb-2"><%=curso.getNombre()%></h1>
                                 </div>
 
                                 <div class="d-flex mb-5"><span><span class="text-warning">
@@ -203,7 +210,7 @@
                                                     style="fill: currentcolor;"></path>
                                             </svg></span>
                                             
-                                            <span class="fw-medium">(4.5)</span></span>
+                                            <span class="fw-medium">(<%=valoracion%>)</span></span>
                                         </svg></span>
                                         
                                     </div>
@@ -223,13 +230,13 @@
                                 <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                         <div class="ms-2 lh-1">
-                                            <h4 class="mb-1">${infoCreador.rows[0].NOMBRE} ${infoCreador.rows[0].APELLIDO}</h4>
-                                            <p class="fs-6 mb-0">@${infoCreador.rows[0].NOMBREUSUARIO}</p>
+                                            <h4 class="mb-1"><%=user.getNombre()%> <%=user.getApellidos()%></h4>
+                                            <p class="fs-6 mb-0">@<%=user.getNombreUsuario()%></p>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=${infoCreador.rows[0].NOMBREUSUARIO}'>Suscribirse</a>
+                                        <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
                                     </div>
                                 </div>
 
@@ -245,7 +252,7 @@
                                         class="fade pb-4 p-4 tab-pane active show">
                                         <div class="mb-4">
                                             <h3 class="mb-2">Descripción de sección</h3>
-                                            <p> ${listSecciones.rows[idseccion-1].DESCRIPCION}</p>
+                                            <p> <%=listSecciones.get(idseccion-1).getDescripcion()%></p>
                                             
                                         </div>
 
@@ -262,7 +269,10 @@
                         <div class="card">
                             <div class="card accordion">
                                 <ul class="list-group list-group-flush">
-                                    <c:forEach var="seccion" items="${listSecciones.rows}">
+                                    <c:set var = "listSecciones" value = "<%=listSecciones%>"/>
+                                    
+                                    <c:forEach var="seccion" items="${listSecciones}">
+                                        <c:set var = "i" value = "<%=i%>"/>
                                         <!--DESPLEGABLE DE SECCIONES-->
                                         <li class="p-0 list-group-item"><a aria-expanded="false"
                                                 class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
@@ -302,7 +312,6 @@
                                     <%
                                         i = i+1;
                                     %>
-                                    <c:set var = "i" value = "<%=i%>"/>
                                     </c:forEach>
                                     
                                 </ul>

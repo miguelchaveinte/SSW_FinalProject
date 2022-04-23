@@ -7,6 +7,7 @@ package ulearn.control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.CursoDB;
 import ulearn.datos.dao.SeccionDB;
+import ulearn.datos.dao.UserDB;
+import ulearn.model.Curso;
+import ulearn.model.Seccion;
 import ulearn.model.User;
 
 /**
@@ -71,8 +75,18 @@ public class cambioSeccion extends HttpServlet {
         int idCurso = Integer.parseInt(request.getParameter("idCurso"));
         int seccion=Integer.parseInt(request.getParameter("idSeccion"));
         boolean yaEsta=false;
+        
+        ArrayList<Seccion> listaSecciones = null;
+        Curso curso=null;
+        User creador=null;
+        double valoracion=0;
+  
         try {
             yaEsta=SeccionDB.existe(user.getId(),seccion);
+            listaSecciones = SeccionDB.getListaSecciones(idCurso);
+            curso = CursoDB.getInfoCurso(idCurso);
+            creador=UserDB.getInfoCreador(idCurso);
+            valoracion=CursoDB.getValoracion(idCurso);
         } catch (SQLException ex) {
             Logger.getLogger(cambioSeccion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,6 +97,13 @@ public class cambioSeccion extends HttpServlet {
                 Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        
+        request.setAttribute("listSecciones",listaSecciones);
+        request.setAttribute("infoCurso",curso);
+        request.setAttribute("infoCreador",creador);
+        request.setAttribute("valoracion",valoracion);
+        
         String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

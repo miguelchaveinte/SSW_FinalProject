@@ -3,6 +3,7 @@ package ulearn.control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -12,8 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import ulearn.datos.dao.CursoDB;
+import ulearn.datos.dao.SeccionDB;
 import ulearn.datos.dao.SuscripcionesDB;
 import ulearn.datos.dao.UserDB;
+import ulearn.model.Curso;
+import ulearn.model.Seccion;
 import ulearn.model.User;
 
 /*
@@ -69,6 +74,24 @@ public class accederCurso extends HttpServlet{
             throws ServletException, IOException {
         
         String idCurso = request.getParameter("idCurso");
+        ArrayList<Seccion> listaSecciones = null;
+        Curso curso=null;
+        User user=null;
+        double valoracion=0;
+        try {
+            listaSecciones = SeccionDB.getListaSecciones(Integer.parseInt(idCurso));
+            curso = CursoDB.getInfoCurso(Integer.parseInt(idCurso));
+            user=UserDB.getInfoCreador(Integer.parseInt(idCurso));
+            valoracion=CursoDB.getValoracion(Integer.parseInt(idCurso));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        request.setAttribute("listSecciones",listaSecciones);
+        request.setAttribute("infoCurso",curso);
+        request.setAttribute("infoCreador",user);
+        request.setAttribute("valoracion",valoracion);
+
         
         String url = "/Info_cursos_0.jsp?idCurso="+idCurso;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
