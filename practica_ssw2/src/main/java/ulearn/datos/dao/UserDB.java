@@ -136,7 +136,7 @@ public class UserDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
         User user=new User();
-        String query = "SELECT U.NOMBREUSUARIO, U.NOMBRE,U.APELLIDO FROM CURSO C, USUARIO U WHERE C.ID = ? AND U.ID=C.CREADOR;  ";
+        String query = "SELECT U.NOMBREUSUARIO, U.NOMBRE,U.APELLIDO,U.ID FROM CURSO C, USUARIO U WHERE C.ID = ? AND U.ID=C.CREADOR;  ";
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, idCurso);
@@ -146,6 +146,7 @@ public class UserDB {
                 user.setNombreUsuario(rs.getString("NOMBREUSUARIO"));
                 user.setNombre(rs.getString("NOMBRE"));
                 user.setApellidos(rs.getString("APELLIDO"));
+                user.setID(rs.getInt("ID"));
             }
             rs.close();
             ps.close();

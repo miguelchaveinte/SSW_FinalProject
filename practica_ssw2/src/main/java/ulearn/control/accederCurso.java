@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -73,25 +74,36 @@ public class accederCurso extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("user");
+        
         String idCurso = request.getParameter("idCurso");
         ArrayList<Seccion> listaSecciones = null;
         Curso curso=null;
-        User user=null;
+        User creador=null;
         double valoracion=0;
+        Boolean[] suscripciones = new Boolean[4];
+        Arrays.fill(suscripciones, Boolean.FALSE);
+        ArrayList<Integer> autoresSuscritos=new ArrayList<Integer>();
         try {
             listaSecciones = SeccionDB.getListaSecciones(Integer.parseInt(idCurso));
             curso = CursoDB.getInfoCurso(Integer.parseInt(idCurso));
-            user=UserDB.getInfoCreador(Integer.parseInt(idCurso));
+            creador=UserDB.getInfoCreador(Integer.parseInt(idCurso));
             valoracion=CursoDB.getValoracion(Integer.parseInt(idCurso));
-            
+            if(user!=null){
+                suscripciones=SuscripcionesDB.getSuscripciones(user.getId());
+                autoresSuscritos=SuscripcionesDB.getSuscripcionesDeAutor(user.getId());
+                
+            }
         } catch (SQLException ex) {
             Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.setAttribute("listSecciones",listaSecciones);
         request.setAttribute("infoCurso",curso);
-        request.setAttribute("infoCreador",user);
+        request.setAttribute("infoCreador",creador);
         request.setAttribute("valoracion",valoracion);
-
+        request.setAttribute("suscripciones",suscripciones);
+        request.setAttribute("autoresSuscritos",autoresSuscritos); 
         
         String url = "/Info_cursos_0.jsp?idCurso="+idCurso;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

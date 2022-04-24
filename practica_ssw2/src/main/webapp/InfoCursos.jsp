@@ -27,7 +27,7 @@
     ArrayList<Seccion> listSecciones=(ArrayList<Seccion>) request.getAttribute("listSecciones");
 %>
 
-<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
+<%--<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
          url = "jdbc:mysql://localhost:3306/db_practica"
          user = "root" password = "admin"/>  <!<!-- CAMBIAR CONTRASRÑA: admin -->
 
@@ -47,7 +47,7 @@
     SELECT U.NOMBREUSUARIO, U.NOMBRE, C.NOMBRECURSO AS NOMBRECURSO,U.APELLIDO FROM CURSO C, USUARIO U WHERE C.ID = ? AND U.ID=C.CREADOR; 
     <sql:param value = "${id}" />
 
-</sql:query>
+</sql:query>--%>
 
         
     
@@ -270,7 +270,7 @@
                             <div class="card accordion">
                                 <ul class="list-group list-group-flush">
                                     <c:set var = "listSecciones" value = "<%=listSecciones%>"/>
-                                    
+                                    <c:set var = "idseccion" value = "<%=idseccion%>"/>
                                     <c:forEach var="seccion" items="${listSecciones}">
                                         <c:set var = "i" value = "<%=i%>"/>
                                         <!--DESPLEGABLE DE SECCIONES-->

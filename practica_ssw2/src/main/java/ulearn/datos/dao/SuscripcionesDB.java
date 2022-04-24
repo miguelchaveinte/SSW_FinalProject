@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import ulearn.datos.ConnectionPool;
 import ulearn.model.User;
 
@@ -86,4 +88,77 @@ public class SuscripcionesDB {
 
 
     }
+    public static Boolean[] getSuscripciones(int idUsuario){
+        ArrayList <String> tiposSuscripciones=new ArrayList<String>();
+        Boolean[] suscripciones = new Boolean[4];
+        Arrays.fill(suscripciones, Boolean.FALSE);
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User user=new User();
+        String query = "SELECT S.ID,S.TIPO FROM OBTENCIONSUSCRIPCION OS,SUSCRIPCION S WHERE OS.IDUSUARIO=? AND OS.IDSUSCRIPCION=S.ID  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                tiposSuscripciones.add(rs.getString("TIPO"));
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            for (String cadena: tiposSuscripciones)  {
+                switch(cadena){
+                    case "GRATIS":
+                        suscripciones[0]=true;
+                        break;
+                    case "ESTUDIANTE":
+                        suscripciones[1]=true;
+                        break;
+                    case "TOTAL":
+                        suscripciones[2]=true;
+                        break;
+                    case "AUTOR":
+                        suscripciones[3]=true;
+                        break;
+                }
+            }
+            
+        return suscripciones;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static ArrayList<Integer> getSuscripcionesDeAutor(int idUsuario){
+        ArrayList <Integer> autoresSuscritos=new ArrayList<Integer>();
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User user=new User();
+        String query = "SELECT S.IDAUTOR FROM OBTENCIONSUSCRIPCION OS,SUSCRIPCION S WHERE OS.IDUSUARIO=? AND OS.IDSUSCRIPCION=S.ID AND S.TIPO='AUTOR' ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                autoresSuscritos.add(rs.getInt("IDAUTOR"));
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            
+            
+        return autoresSuscritos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+        
 }

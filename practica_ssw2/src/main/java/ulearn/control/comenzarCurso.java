@@ -84,7 +84,7 @@ public class comenzarCurso extends HttpServlet {
             SeccionDB.insert(user.getId(),seccion);
             listaSecciones = SeccionDB.getListaSecciones(idCurso);
             curso = CursoDB.getInfoCurso(idCurso);
-            user=UserDB.getInfoCreador(idCurso);
+            creador=UserDB.getInfoCreador(idCurso);
             valoracion=CursoDB.getValoracion(idCurso);
         } catch (SQLException ex) {
             Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,6 +95,7 @@ public class comenzarCurso extends HttpServlet {
         request.setAttribute("infoCurso",curso);
         request.setAttribute("infoCreador",creador);
         request.setAttribute("valoracion",valoracion);
+        
         
         String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
