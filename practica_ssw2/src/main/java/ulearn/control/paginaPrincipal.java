@@ -102,6 +102,27 @@ public class paginaPrincipal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         ArrayList<Integer> cursosGratuitos = null;
+        ArrayList<Integer> cursosDemandados = null;
+        ArrayList<Integer> cursosFavoritos = null;
+        try {
+            cursosGratuitos = CursoDB.getCursosGratuitos();
+            cursosDemandados = CursoDB.getCursosDemandados();
+            cursosFavoritos = CursoDB.getCursosFavoritos();
+        } catch (SQLException ex) {
+            Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        request.setAttribute("cursosGratuitos", cursosGratuitos);
+        request.setAttribute("cursosDemandados", cursosDemandados);
+        request.setAttribute("cursosFavoritos", cursosFavoritos);
+        HttpSession session = request.getSession();
+        User user=(User) session.getAttribute("user");
+        String url="";
+        if(user!=null){url = "/Pricipal_logged.jsp";}else {url = "/Pricipal.jsp";}
+       // String url="/Pricipal.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     /**

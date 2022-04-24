@@ -92,7 +92,7 @@ public class registrarUsuario extends HttpServlet {
         String url="";
         if (UserDB.emailExists(user.getCorreo())) {
             //TODO: error
-            url = "/Pricipal.html";
+            url = "/paginaPrincipal";
         } else {
             int id=UserDB.insert(user);
             user.setID(id);

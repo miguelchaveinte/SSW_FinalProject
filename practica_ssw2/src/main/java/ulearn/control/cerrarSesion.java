@@ -63,7 +63,7 @@ public class cerrarSesion extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("user");
-        String url = "/Pricipal.html";
+        String url = "/paginaPrincipal";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

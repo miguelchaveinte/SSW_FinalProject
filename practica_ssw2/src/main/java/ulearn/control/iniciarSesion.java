@@ -84,55 +84,19 @@ public class iniciarSesion extends HttpServlet {
         String password = request.getParameter("password");
         String url="";
         if (UserDB.emailExists(email) && UserDB.comprobarUsuario(email,userName,password)) {
-            url = "/Pricipal_logged.html";
+            url = "/paginaPrincipal";
+            user.setNombreUsuario(userName);
+            user.setContraseña(password);
+            user.setCorreo(email);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
         } else {
             //TODO: ERROR
-            url = "/Pricipal.html";
+            url = "/paginaPrincipal";
             }
         // forward the request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
-        
-        
-         /*User usuario = CookiesKitchen.GetUser(request, response);
-        if (usuario != null) {
-            // Si hay usuario redirigimos a perfil
-            response.sendRedirect("/rerego/perfil");
-        } else {
-            request.setCharacterEncoding("UTF-8");
-            // Si no hay usuario procedemos a iniciar sesión
-            HttpSession session = request.getSession();
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String passwordHash = Usuario.getSecurePassword(password);
-            password = null;
-            String rememberusername = request.getParameter("rememberusername");
-            Usuario user = UsuarioDB.selectUser(username);
-            if (user == null || !user.getPass().equals(passwordHash)) {
-                // Error al iniciar sesión
-                String mensajeError = "El nombre de usuario no existe o la contraseña es incorrecta.<br/>";
-                session.setAttribute("mensajeError", mensajeError);
-                response.sendRedirect("/rerego/iniciarsesion");
-            } else {
-                // Guardamos el usuario en la sesión...
-                session.setAttribute("LoggedUser", user);
-                if (rememberusername != null && rememberusername.equals("on")) {
-                    // ...y en cookies si decide mantener la sesión abierta
-                    Cookie login = new Cookie("login", username);
-                    Cookie hash = new Cookie("hash", passwordHash);
-                    login.setMaxAge(60 * 60 * 24 * 365 * 2); // 2 años
-                    hash.setMaxAge(60 * 60 * 24 * 365 * 2); // 2 años
-                    login.setPath("/");
-                    hash.setPath("/");
-                    response.addCookie(login);
-                    response.addCookie(hash);
-                }
-                // Redirigimos al perfil
-                response.sendRedirect("/rerego/perfil");
-            }
-        }*/
     }
 
     /**
