@@ -76,21 +76,23 @@ public class UserDB {
             }
         }
 
-    public static boolean comprobarUsuario(String correo, String userName, String password) {
+    public static int comprobarUsuario(String correo, String userName, String password) {
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String query = "SELECT NOMBREUSUARIO,CONTRASEÑA FROM Usuario "
+        String query = "SELECT NOMBREUSUARIO,CONTRASEÑA,ID FROM Usuario "
         + "WHERE CORREO = ?";
         try {
             ps = connection.prepareStatement(query);
             ps.setString(1, correo);
             rs = ps.executeQuery();
-            boolean res=false;
+            int res=-1;
+            String tmp="";
             if(rs.next()){
                 if(userName.equals(rs.getString("NOMBREUSUARIO")) && password.equals(rs.getString("CONTRASEÑA")))
-                        res=true;
+                    tmp=rs.getString("ID");
+                    res = Integer.valueOf(tmp);
             }
             rs.close();
             ps.close();
@@ -98,7 +100,7 @@ public class UserDB {
             return res;
             } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return -1;
             }
     }
 

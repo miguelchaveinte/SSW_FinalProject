@@ -82,12 +82,14 @@ public class iniciarSesion extends HttpServlet {
         String userName = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        int id=-1;
         String url="";
-        if (UserDB.emailExists(email) && UserDB.comprobarUsuario(email,userName,password)) {
+        if (UserDB.emailExists(email) && (id = UserDB.comprobarUsuario(email,userName,password)) != -1) {
             url = "/paginaPrincipal";
             user.setNombreUsuario(userName);
             user.setContraseña(password);
             user.setCorreo(email);
+            user.setID(id);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
         } else {
