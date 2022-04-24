@@ -10,10 +10,10 @@
 <%
     int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     int i = 1;
-    User user=(User)request.getAttribute("infoCreador");
-    double valoracion=(double)request.getAttribute("valoracion");
-    Curso curso=(Curso)request.getAttribute("infoCurso");
-    ArrayList<Seccion> listSecciones=(ArrayList<Seccion>) request.getAttribute("listSecciones");
+    User user = (User) request.getAttribute("infoCreador");
+    double valoracion = (double) request.getAttribute("valoracion");
+    Curso curso = (Curso) request.getAttribute("infoCurso");
+    ArrayList<Seccion> listSecciones = (ArrayList<Seccion>) request.getAttribute("listSecciones");
     //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     //int idseccion = Integer.parseInt(request.getParameter("seccion"));
 %>
@@ -201,11 +201,9 @@
                 <!--Este div es para el video del curso-->
                 <div class="row">
                     <div class="mb-5 col-lg-12 col-md-12 col-sm-12">
-                        <div class="rounded-3 position-relative w-100 d-block overflow-hidden p-0" style="height: 600px;">
+                        <div class="rounded-3 position-relative w-100 d-block overflow-hidden p-0" style="height: 300px;">
                             <div class="imagen" style="display: flex; justify-content: center;">
-
-                                <img src="Imagenes/javascript_INFO.png" height="700">
-
+                                <img  alt="Imagen" src="imagenCurso?id=<%=idCurso%>">
                             </div>
                         </div>
                     </div>
