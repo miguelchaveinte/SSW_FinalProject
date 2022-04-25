@@ -134,9 +134,9 @@ INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (4,'natti','859
 
 INSERT INTO CURSO VALUES (1,'Java Script Avanzado','Curso avanzado sobre java script',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),20,'PROGRAMACION_WEB',1);
 INSERT INTO CURSO VALUES (2,'SQL Intermedio','Curso intermedio sobre sql',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),15,'BASES_DE_DATOS',1);
-INSERT INTO CURSO VALUES (3,'Python','Curso iniciacion a python',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),15,'APRENDE_A_PROGRAMAR',1);
-INSERT INTO CURSO VALUES (4,'C++','Curso de iniciacion a c++',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),15,'APRENDE_A_PROGRAMAR',1);
-INSERT INTO CURSO VALUES (5,'HTML','Curso de nivel intermedio sobre html',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.jfif'),15,'PROGRAMACION_WEB',1);
+INSERT INTO CURSO VALUES (3,'Python','Curso iniciacion a python',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),4,'APRENDE_A_PROGRAMAR',1);
+INSERT INTO CURSO VALUES (4,'C++','Curso de iniciacion a c++',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\php.jfif'),10,'APRENDE_A_PROGRAMAR',1);
+INSERT INTO CURSO VALUES (5,'HTML','Curso de nivel intermedio sobre html',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.jfif'),4,'PROGRAMACION_WEB',1);
 INSERT INTO CURSO VALUES (6,'Linux','Curso sobre instalacion, problemas y manejo de linux',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.jfif'),15,'SISTEMAS_OPERATIVOS',1);
 INSERT INTO CURSO VALUES (7,'a','Curso sobre instalacion, problemas aaay manejo de linux',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\java.jfif'),15,'SISTEMAS_OPERATIVOS',1);
 
@@ -158,10 +158,34 @@ INSERT INTO SECCION VALUES (2,'Objetos','Objetos en js','video',2.5,1);
 INSERT INTO SECCION VALUES (3,'Mapas','Mapas en js','video',2,1);
 INSERT INTO SECCION VALUES (4,'Clases','Clases en js','video',6,1);
 INSERT INTO SECCION VALUES (5,'Depuracion','Depuracion en js','video',10,1);
+
 INSERT INTO SECCION VALUES (6,'Introduccion','Introduccion a sql','video',1,2);
 INSERT INTO SECCION VALUES (7,'Creacion tablas','Creacion de tablas en sql','video',3,2);
 INSERT INTO SECCION VALUES (8,'Modificacion tablas','Modificacion de tablas en sql','video',3,2);
 INSERT INTO SECCION VALUES (9,'Consultas','Consultas de datos en sql','video',8,2);
+
+INSERT INTO SECCION VALUES(10,'Introduccion','Introduccion a python','video',3,1);
+INSERT INTO SECCION VALUES(11,'Hello World','Tu primer programa basico en python','video',3,1);
+INSERT INTO SECCION VALUES(12,'Tipos de datos','Tipos de datos en python','video',3,1);
+INSERT INTO SECCION VALUES(12,'Listas','Listas en python','video',3,1);
+
+INSERT INTO SECCION VALUES(13,'Introduccion','Introduccion a c++','video',4,1);
+INSERT INTO SECCION VALUES(14,'Hello World','Tu primer programa basico en c++','video',4,1);
+INSERT INTO SECCION VALUES(15,'Tipos de datos','Tipos de datos en c++','video',4,1);
+INSERT INTO SECCION VALUES(16,'Arrays','Arrays en c','video',4,2);
+INSERT INTO SECCION VALUES(17,'Estructuras','Estructuras de datos en c++','video',4,2);
+INSERT INTO SECCION VALUES(18,'Punteros','Punteros en c++','video',4,3);
+
+INSERT INTO SECCION VALUES(19,'Introduccion','Introduccion a HTML','video',5,1);
+INSERT INTO SECCION VALUES(20,'Formularios','Formularios en HTML','video',5,1);
+INSERT INTO SECCION VALUES(21,'Tablas','Tablas en HTML','video',5,1);
+INSERT INTO SECCION VALUES(22,'Div','Etiquieta div en HTML','video',5,1);
+
+INSERT INTO SECCION VALUES(23,'Introduccion','Introduccion al sistema operativo Linux','video',6,1);
+INSERT INTO SECCION VALUES(23,'','','video',6,1);
+INSERT INTO SECCION VALUES(23,'','','video',6,1);
+INSERT INTO SECCION VALUES(23,'','','video',6,1);
+
 
 INSERT INTO DESARROLLOSECCION VALUES (1,3,true);
 INSERT INTO DESARROLLOSECCION VALUES (2,3,true);
