@@ -6,10 +6,10 @@
 
 <%
     //int idCurso = 1;
-    //Boolean suscripciones[]=(Boolean [])request.getAttribute("suscripciones");
-    Boolean[] suscripciones = new Boolean[4];
-    Arrays.fill(suscripciones, Boolean.FALSE);
-    suscripciones[0]=true;
+    Boolean suscripciones[]=(Boolean [])request.getAttribute("suscripciones");
+    //Boolean[] suscripciones = new Boolean[4];
+    //Arrays.fill(suscripciones, Boolean.FALSE);
+    //suscripciones[0]=true;
 %>
 
 <!DOCTYPE html>

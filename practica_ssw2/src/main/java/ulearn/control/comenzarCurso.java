@@ -86,11 +86,12 @@ public class comenzarCurso extends HttpServlet {
             curso = CursoDB.getInfoCurso(idCurso);
             creador=UserDB.getInfoCreador(idCurso);
             valoracion=CursoDB.getValoracion(idCurso);
+            seccion=SeccionDB.getLastSeccion(idCurso, user.getId());
         } catch (SQLException ex) {
             Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        if(seccion==0) seccion=1;
         request.setAttribute("listSecciones",listaSecciones);
         request.setAttribute("infoCurso",curso);
         request.setAttribute("infoCreador",creador);

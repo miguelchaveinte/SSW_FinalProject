@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import ulearn.datos.ConnectionPool;
 import ulearn.model.Seccion;
 
@@ -103,6 +104,43 @@ public class SeccionDB {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+    /*
+    Obtener ultima seccion del curso realizada por un usuario
+    returno: 0- no esta suscrito a ese curso // x- siendo x el nº de la ultima seccion consultada
+    */
+     public static int getLastSeccion(int idCurso,int idUser) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Integer> secciones = new ArrayList<Integer>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String listSecciones = "SELECT DS.IDSECCION FROM SECCION S,DESARROLLOSECCION DS WHERE S.IDCURSO = ? AND DS.IDSECCION=S.ID AND DS.IDUSUARIO=?  ";
+       
+        int seccion=0;
+        
+        try {
+            ps = connection.prepareStatement(listSecciones);
+            ps.setInt(1,idCurso );  
+            ps.setInt(2,idUser ); 
+            rs=ps.executeQuery();
+            while(rs.next()){
+                secciones.add(rs.getInt("IDSECCION")); 
+            }
+           
+            ps.close();
+            pool.freeConnection(connection);
+            if(!secciones.isEmpty()) seccion=Collections.max(secciones);
+            return seccion;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 1;
         }
         finally{
             ps.close();

@@ -24,6 +24,7 @@
     if(autoresSuscritos!=null){
         if(autoresSuscritos.contains(user.getId())) suscritoAAutor=true;
     }
+    int lastSeccion=(int)request.getAttribute("seccion");
     //int idCurso = Integer.parseInt(request.getParameter("idCurso"));
     //int idseccion = Integer.parseInt(request.getParameter("seccion"));
 %>
@@ -289,7 +290,13 @@
                                     </div>
 
                                     <div>
-                                        <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
+                                        <c:set var = "suscritoAAutor" value = "<%=suscritoAAutor%>"/>
+                                        <c:if test="${suscritoAAutor}">
+                                            <a class="btn btn-outline-white btn-sm" style="pointer-events: none;">Suscrito al autor</a>
+                                        </c:if>
+                                        <c:if test="${!suscritoAAutor}">
+                                            <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
+                                        </c:if>
                                     </div>
                                 </div>
 
@@ -322,12 +329,13 @@
                                             <c:if test="${registrado}">
                                                 <!--REGISTRADO PERO HAY QUE COMPROBAR LAS SUSCRIPCIONES-->
                                                 <c:set var = "suscripcion" value = "<%=suscripciones%>"/>
+                                                <c:set var = "lastSeccion" value = "<%=lastSeccion%>"/>
                                                 <c:set var = "precio" value = "<%=curso.getPrecio()%>"/>
                                                 
-                                                <c:if test="${(suscripcion[0]&& precio==0.0)||suscripcion[1]||suscripcion[2]||suscritoAAutor}">
+                                                <c:if test="${(suscripcion[0]&& precio==0.0)||suscripcion[1]||suscripcion[2]||suscritoAAutor||lastSeccion!=0}">
                                                     <a href="comenzarCurso?idCurso=<%=idCurso%>" class="button" style="text-align: center;">Comenzar Ahora</a>
                                                 </c:if>
-                                                <c:if test="${!((suscripcion[0]&& precio==0.0)||suscripcion[1]||suscripcion[2]||suscritoAAutor)}">
+                                                <c:if test="${!((suscripcion[0]&& precio==0.0)||suscripcion[1]||suscripcion[2]||suscritoAAutor||lastSeccion!=0)}">
                                                     <a data-toggle="modal" data-target="#compra"class="button" style="text-align: center;">Comenzar Ahora</a>
                                                 </c:if>
                                             </c:if>
@@ -364,7 +372,7 @@
                                                                     <div class="row">
                                                                         <div class="col-sm "><button
                                                                                 type="submit"
-                                                                                class="btn btn-primary" onclick="location.href ='suscripciones.jsp'">Suscríbete a uno de nuestos planes</button></div>
+                                                                                class="btn btn-primary" onclick="location.href ='accederSuscripciones'">Suscríbete a uno de nuestos planes</button></div>
 
                                                                         <div class="col-sm"
                                                                              style="display: grid!important;"><button

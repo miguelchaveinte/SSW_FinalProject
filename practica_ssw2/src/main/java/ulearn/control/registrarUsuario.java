@@ -6,6 +6,7 @@ package ulearn.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -89,6 +90,10 @@ public class registrarUsuario extends HttpServlet {
         user.setCorreo(email);
         user.setNombreUsuario(userName);
         user.setContraseña(password);
+        
+        Boolean[] suscripciones = new Boolean[4];
+        Arrays.fill(suscripciones, Boolean.FALSE);
+        
         String url="";
         if (UserDB.emailExists(user.getCorreo())) {
             //TODO: error
@@ -96,11 +101,13 @@ public class registrarUsuario extends HttpServlet {
         } else {
             int id=UserDB.insert(user);
             user.setID(id);
-            url = "/suscripciones.html";
+            url = "/suscripciones.jsp";
             // store the user in the session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            request.setAttribute("suscripciones",suscripciones);
             }
+               
         // forward the request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
