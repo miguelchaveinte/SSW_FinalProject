@@ -141,55 +141,55 @@ INSERT INTO CURSO VALUES (6,'Linux','Curso sobre instalacion, problemas y manejo
 INSERT INTO CURSO VALUES (7,'CSS','Curso sobre css',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\css.png'),4,'PROGRAMACION_WEB',1);
 
 INSERT INTO DESARROLLOCURSO VALUES ('2022-04-10',3,1,4.3);
-INSERT INTO DESARROLLOCURSO VALUES ('2022-04-9',4,2,2.1);
-INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,3,3.3);
-INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,4,1.7);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-04-9',4,2,4.5);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,3,4.7);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,4,4.1);
 INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,5,4.8);
-INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,6,3.7);
-INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,7,3.9);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,6,4.9);
+INSERT INTO DESARROLLOCURSO VALUES ('2022-03-15',4,7,4.6);
 
 INSERT INTO CURSOFAVORITO VALUES (1,1);
 INSERT INTO CURSOFAVORITO VALUES (1,2);
 INSERT INTO CURSOFAVORITO VALUES (2,1);
 INSERT INTO CURSOFAVORITO VALUES (3,1);
 
-INSERT INTO SECCION VALUES (1,'Introduccion','Introduccion al js','http://lnnk.in/aOg3',1.5,1);
-INSERT INTO SECCION VALUES (2,'Objetos','Objetos en js','video',2.5,1);
-INSERT INTO SECCION VALUES (3,'Mapas','Mapas en js','video',2,1);
-INSERT INTO SECCION VALUES (4,'Clases','Clases en js','video',6,1);
-INSERT INTO SECCION VALUES (5,'Depuracion','Depuracion en js','video',10,1);
+INSERT INTO SECCION VALUES (1,'Introduccion','Introduccion al js','https://n9.cl/129mv',1.5,1);
+INSERT INTO SECCION VALUES (2,'Objetos','Objetos en js','https://n9.cl/wfp11',2.5,1);
+INSERT INTO SECCION VALUES (3,'Mapas','Mapas en js','https://n9.cl/6yx9h',2,1);
+INSERT INTO SECCION VALUES (4,'Clases','Clases en js','https://n9.cl/j1nhx',6,1);
+INSERT INTO SECCION VALUES (5,'Depuracion','Depuracion en js','https://n9.cl/lr1an',10,1);
 
-INSERT INTO SECCION VALUES (6,'Introduccion','Introduccion a sql','video',1,2);
-INSERT INTO SECCION VALUES (7,'Creacion tablas','Creacion de tablas en sql','video',3,2);
-INSERT INTO SECCION VALUES (8,'Modificacion tablas','Modificacion de tablas en sql','video',3,2);
-INSERT INTO SECCION VALUES (9,'Consultas','Consultas de datos en sql','video',8,2);
+INSERT INTO SECCION VALUES (6,'Introduccion','Introduccion a sql','https://n9.cl/kzoey',1,2);
+INSERT INTO SECCION VALUES (7,'Creacion tablas','Creacion de tablas en sql','https://n9.cl/s8pxj',3,2);
+INSERT INTO SECCION VALUES (8,'Modificacion tablas','Modificacion de tablas en sql','https://n9.cl/y9w4b',3,2);
+INSERT INTO SECCION VALUES (9,'Consultas','Consultas de datos en sql','https://n9.cl/vqnsd',8,2);
 
-INSERT INTO SECCION VALUES(10,'Introduccion','Introduccion a python','video',1,3);
-INSERT INTO SECCION VALUES(11,'Hello World','Tu primer programa basico en python','video',1,3);
-INSERT INTO SECCION VALUES(12,'Tipos de datos','Tipos de datos en python','video',1,3);
-INSERT INTO SECCION VALUES(13,'Listas','Listas en python','video',1,3);
+INSERT INTO SECCION VALUES(10,'Introduccion','Introduccion a python','https://n9.cl/5107r',1,3);
+INSERT INTO SECCION VALUES(11,'Hello World','Tu primer programa basico en python','https://n9.cl/m4xqm',1,3);
+INSERT INTO SECCION VALUES(12,'Tipos de datos','Tipos de datos en python','https://n9.cl/2yhw6',1,3);
+INSERT INTO SECCION VALUES(13,'Listas','Listas en python','https://n9.cl/3zoqb',1,3);
 
-INSERT INTO SECCION VALUES(14,'Introduccion','Introduccion a c++','video',2,4);
-INSERT INTO SECCION VALUES(15,'Hello World','Tu primer programa basico en c++','video',2,4);
-INSERT INTO SECCION VALUES(16,'Tipos de datos','Tipos de datos en c++','video',2,4);
-INSERT INTO SECCION VALUES(17,'Arrays','Arrays en c','video',2,4);
-INSERT INTO SECCION VALUES(18,'Estructuras','Estructuras de datos en c++','video',2,4);
-INSERT INTO SECCION VALUES(19,'Punteros','Punteros en c++','video',3,4);
+INSERT INTO SECCION VALUES(14,'Introduccion','Introduccion a c++','https://n9.cl/0zki2',2,4);
+INSERT INTO SECCION VALUES(15,'Hello World','Tu primer programa basico en c++','https://n9.cl/0zki2',2,4);
+INSERT INTO SECCION VALUES(16,'Tipos de datos','Tipos de datos en c++','https://n9.cl/9scvj',2,4);
+INSERT INTO SECCION VALUES(17,'Arrays','Arrays en c','https://n9.cl/0zki2',2,4);
+INSERT INTO SECCION VALUES(18,'Estructuras','Estructuras de datos en c++','https://n9.cl/boz1v',2,4);
+INSERT INTO SECCION VALUES(19,'Punteros','Punteros en c++','https://n9.cl/0zki2',3,4);
 
-INSERT INTO SECCION VALUES(20,'Introduccion','Introduccion a HTML','video',1,5);
-INSERT INTO SECCION VALUES(21,'Formularios','Formularios en HTML','video',1,5);
-INSERT INTO SECCION VALUES(22,'Tablas','Tablas en HTML','video',1,5);
-INSERT INTO SECCION VALUES(23,'Div','Etiquieta div en HTML','video',1,5);
+INSERT INTO SECCION VALUES(20,'Introduccion','Introduccion a HTML','https://n9.cl/gjw1y',1,5);
+INSERT INTO SECCION VALUES(21,'Formularios','Formularios en HTML','https://n9.cl/boz1v',1,5);
+INSERT INTO SECCION VALUES(22,'Tablas','Tablas en HTML','https://n9.cl/5qika',1,5);
+INSERT INTO SECCION VALUES(23,'Div','Etiquieta div en HTML','https://n9.cl/vx6n4',1,5);
 
-INSERT INTO SECCION VALUES(24,'Introduccion','Introduccion al sistema operativo Linux','video',1,6);
-INSERT INTO SECCION VALUES(25,'Instalacion','Instalacion del SO Linux','video',1,6);
-INSERT INTO SECCION VALUES(26,'Comandos basicos','Comandos basicos utiles en terminal de linux','video',1,6);
-INSERT INTO SECCION VALUES(27,'Comandos avanzados','Comandos avanzados utiles en terminal de linux','video',1,6);
+INSERT INTO SECCION VALUES(24,'Introduccion','Introduccion al sistema operativo Linux','https://n9.cl/a0nrt',1,6);
+INSERT INTO SECCION VALUES(25,'Instalacion','Instalacion del SO Linux','https://n9.cl/42up5',1,6);
+INSERT INTO SECCION VALUES(26,'Comandos basicos','Comandos basicos utiles en terminal de linux','https://n9.cl/evkc6',1,6);
+INSERT INTO SECCION VALUES(27,'Comandos avanzados','Comandos avanzados utiles en terminal de linux','https://n9.cl/a3ycim',1,6);
 
-INSERT INTO SECCION VALUES(28,'Introduccion','Introduccion a CSS','video',1,7);
-INSERT INTO SECCION VALUES(29,'Sintaxis','Sintaxis en CSS','video',1,7);
-INSERT INTO SECCION VALUES(30,'Selectores','Selectores en CSS','video',1,7);
-INSERT INTO SECCION VALUES(31,'Colores','Colores en CSS','video',1,7);
+INSERT INTO SECCION VALUES(28,'Introduccion','Introduccion a CSS','https://n9.cl/25gfl',1,7);
+INSERT INTO SECCION VALUES(29,'Sintaxis','Sintaxis en CSS','https://n9.cl/gjw1y',1,7);
+INSERT INTO SECCION VALUES(30,'Selectores','Selectores en CSS','https://n9.cl/boz1v',1,7);
+INSERT INTO SECCION VALUES(31,'Colores','Colores en CSS','https://n9.cl/vx6n4',1,7);
 
 
 INSERT INTO DESARROLLOSECCION VALUES (1,3,true);
