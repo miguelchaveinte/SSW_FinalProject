@@ -1,4 +1,5 @@
-    <%@page import="java.util.ArrayList"%>
+    <%@page import="ulearn.model.User"%>
+<%@page import="java.util.ArrayList"%>
 <%-- 
     Document   : Pricipal
     Created on : 20 abr. 2022, 11:18:59
@@ -10,50 +11,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
+<%
+    HttpSession session2 = request.getSession();
+    User registrado= (User) session2.getAttribute("user");
+    boolean estaIniciado=false;
+    if (registrado!=null) estaIniciado=true;
 
-<%--
-<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
-         url = "jdbc:mysql://localhost:3306/db_practica"
-         user = "root" password = "admin"/>
+    %>
 
-<sql:query var="cursosGratuitos" dataSource="${snapshot}">
-
-    select c.id, c.imagen
-    from curso c
-    where c.precio=0;
-
-</sql:query>
-    
-<sql:query var="cursosDemandados" dataSource="${snapshot}">
-
-    with demandas as(
-        select dc.idcurso, count(*) as dem
-        from desarrollocurso dc
-        group by dc.idcurso
-    )
-    select d.idcurso, c.imagen
-    from demandas d, curso c
-    where 5>(select count(*)
-             from demandas d1
-             where d1.dem>d.dem) and c.id=d.idcurso;
-
-</sql:query>
-             
-<sql:query var="cursosFavoritos" dataSource="${snapshot}">
-
-    with valoraciones as(
-        select dc.idcurso, avg(dc.valoracion) as media
-        from desarrollocurso dc
-        group by dc.idcurso
-    )
-    select v.idcurso, c.imagen
-    from valoraciones v, curso c
-    where 5>(select count(*)
-             from valoraciones v1
-             where v1.media>v.media) and c.id=v.idcurso;
-
-</sql:query> --!>
---%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
@@ -77,121 +42,20 @@
         <div id="general">
             <!--Div de la cabecera donde se encuentra el logo, buscador y demas opciones. Implementado mediante 2 menus-->
             <div id="cabecera">
-                <nav class="bg-white navbar p-2 navbar-default py-2 navbar navbar-expand-lg navbar-light">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center"><a class="navbar-brand py-1 mr-auto" href=""><img
-                                    src="./Imagenes/icons8-e-learning-64.png" alt="ULearn logo"></a>
-                            <a aria-expanded="false" role="button" class="nav-link mr-3" tabindex="0"
-                                style="font-weight: bold; color: black; font: size 100px;">ULearn</a>
-                            <form class="form-inline d-none d-sm-flex">
-                                <span class="position-absolute ps-3 search-icon" for="search_search"><i
-                                        class="fa fa-search"></i></span><input placeholder="Search Courses" type="Search"
-                                    id="formSearch" class="ps-6 form-control" />
-                            </form>
-                        </div>
-                        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                            aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                        <!-- Navbar Collapse  // añadir show y esta-->
-                        <div class="collapse navbar-collapse " id="navbarCollapse">
-                
-                
-                            <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-                                <div class="input-label-absolute input-label-absolute-left w-100">
-                                    <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
-                                            class="fa fa-search"></i></span><input placeholder="Search Courses"
-                                        type="Search" id="formSearch" class="ps-6 form-control" />
-                                </div>
-                            </form>
-                
-                            <ul class="navbar-nav ms-auto ">
-                                <li class="nav-item mr-2">
-                                    <div><a  style="font-size: 1.1em;" role="button"
-                                    tabindex="0" class="nav-link" data-toggle="modal" data-target="#login2">Inicia Sesión</a>
-                                    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header border-bottom-0">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="card">
-                                            <div class="p-6 card-body">
-                                            <div class="mb-4"><a href="/"><img src="Imagenes/icons8-e-learning-64.png"
-                                                    alt="" class="mb-4"></a>
-                                                <h1 class="mb-1 fw-bold">Registrarse</h1><span>¿Tienes una cuenta? <a class="ms-1" 
-                                                    href=#login2 onclick="cambiarLogin('#login2','#loginModal');">Inicia Sesión</a></span>
-                                            </div>
-                                            <form class="" action="registrarUsuario" method="post">
-                                                <div class="row">
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Nombre de Usuario</label><input
-                                                    placeholder="User Name" required="" type="text" id="username" name="username" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Correo Electrónico </label><input
-                                                    placeholder="Email address here" required="" type="email" id="email" name="email" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Contraseña </label><input
-                                                    placeholder="**************" required="" type="password" id="password" name="password" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12">
-                                                    <div class="form-check"><input type="checkbox" id="check-api-checkbox"
-                                                        class="form-check-input"><label for="check-api-checkbox" class="form-check-label">Acepto los términos y condiciones</label></div>
-                                                </div>
-                                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" class="btn btn-primary">Acceder</button></div>
-                                                </div>
-                                            </form>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                </li>
-                                <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal"
-                                    style="font-weight: bold; border-radius:15px; color: white;" >Únete</a></li>
-                
-                                <!--MODAL-->                    
-                                    <div class="modal fade" id="login2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                        <div class="modal-header border-bottom-0">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <div class="card">
-                                            <div class="p-6 card-body">
-                                            <div class="mb-4"><a href="/"><img src="Imagenes/icons8-e-learning-64.png"
-                                                    alt="" class="mb-4"></a>
-                                                <h1 class="mb-1 fw-bold">Inicio Sesión</h1><span>¿No tienes cuenta? <a class="ms-1" onclick="cambiarLogin('#loginModal','#login2');" href=#loginModal>Regístrate</a></span>
-                                                <!-- poner funcion de cambio a sign up-->
-                                            </div>
-                                            <form class="" action="iniciarSesion" method="post">
-                                                <div class="row">
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Nombre de Usuario</label><input
-                                                    placeholder="User Name" required="" type="text" id="username" name="username" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Email </label><input
-                                                    placeholder="Email address here" required="" type="email" id="email" name="email" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Contraseña </label><input
-                                                    placeholder="**************" required="" type="password" id="password" name="password" class="form-control"></div>
-                                                <div class="mb-3 col-lg-12 col-md-12">
-                                                    <div class="form-check"><input type="checkbox" id="check-api-checkbox"
-                                                        class="form-check-input"><label for="check-api-checkbox" class="form-check-label">Recordad Contraseña</label></div>
-                                                </div>
-                                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" class="btn btn-primary">Acceder</button></div>
-                                                </div>
-                                            </form>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                            </ul>
-                        </div>
-                        
-                    </div>
-                </nav>
+                <!--Cabecera de la pagina-->
+                <c:set var = "registrado" value = "<%=estaIniciado%>"/>
+                <c:if test="${registrado}">
+                    <%@include file="./header_logged.jsp" %>
+                </c:if>
+                <c:if test="${!registrado}">
+                    <%@include file="./header.jsp" %>
+                </c:if>
             </div>
+            <c:set var = "registrado" value = "<%=estaIniciado%>"/>
+                <c:if test="${registrado}">
+                    <%@include file="./header_creador.jsp" %>
+                </c:if>
+
 
 
             <!--Etiqueta para representar el contenido principal del body-->

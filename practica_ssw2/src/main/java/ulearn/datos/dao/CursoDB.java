@@ -261,4 +261,81 @@ public class CursoDB {
             pool.freeConnection(connection);
         }
     }
+
+    public static void anadirfavorito(int idUser, int idCurso) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        String favoritos = "INSERT INTO CURSOFAVORITO (IDUSUARIO, IDCURSO) VALUES (?, ?) ";
+       
+        
+        try {
+            ps = connection.prepareStatement(favoritos);
+            ps.setInt(1,idUser);
+            ps.setInt(2, idCurso);
+            int res=ps.executeUpdate();
+            ps.close();
+            pool.freeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+
+    public static void eliminarfavorito(int idUser, int idCurso) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        String favoritos = "DELETE FROM CURSOFAVORITO WHERE IDUSUARIO=? AND IDCURSO=? ";
+       
+        
+        try {
+            ps = connection.prepareStatement(favoritos);
+            ps.setInt(1,idUser);
+            ps.setInt(2, idCurso);
+            int res=ps.executeUpdate();
+            ps.close();
+            pool.freeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+    
+        public static boolean esFavorito(int idUser, int idCurso) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        PreparedStatement ps=null;
+        ResultSet rs = null;
+
+        String esFavorito = "SELECT IDCURSO FROM CURSOFAVORITO WHERE IDUSUARIO=? AND IDCURSO=?";
+       
+        
+        try {
+            ps = connection.prepareStatement(esFavorito);
+            ps.setInt(1,idUser );          
+            ps.setInt(2,idCurso);
+
+            rs = ps.executeQuery();
+            boolean res = rs.next();
+            ps.close();
+            
+            pool.freeConnection(connection);
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
 }

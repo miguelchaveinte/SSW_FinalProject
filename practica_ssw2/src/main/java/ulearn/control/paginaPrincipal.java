@@ -82,8 +82,7 @@ public class paginaPrincipal extends HttpServlet {
         request.setAttribute("cursosFavoritos", cursosFavoritos);
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("user");
-        String url="";
-        if(user!=null){url = "/Pricipal_logged.jsp";}else {url = "/Pricipal.jsp";}
+        String url="/Pricipal.jsp";
        // String url="/Pricipal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

@@ -25,31 +25,11 @@
     double valoracion=(double)request.getAttribute("valoracion");
     Curso curso=(Curso)request.getAttribute("infoCurso");
     ArrayList<Seccion> listSecciones=(ArrayList<Seccion>) request.getAttribute("listSecciones");
+    int numSecciones=listSecciones.get(0).getId();
+    boolean favorito=(boolean)request.getAttribute("favorito");
 %>
 
-<%--<sql:setDataSource var = "snapshot" driver = "com.mysql.cj.jdbc.Driver"
-         url = "jdbc:mysql://localhost:3306/db_practica"
-         user = "root" password = "admin"/>  <!<!-- CAMBIAR CONTRASRÑA: admin -->
-
-<c:set var = "id" value = "<%=idCurso%>"/>
-<c:set var = "idseccion" value = "<%=idseccion%>"/>
-<c:set var = "i" value = "<%=i%>"/>
-
-<sql:query var="listSecciones" dataSource = "${snapshot}" >
-    
-    SELECT ID, NOMBRE, DESCRIPCION, VIDEO, DURACION FROM SECCION WHERE IDCURSO = ?  ORDER BY ID; 
-    <sql:param value = "${id}" />
-    
-</sql:query>
-    
-<sql:query var="infoCreador" dataSource = "${snapshot}" >
-
-    SELECT U.NOMBREUSUARIO, U.NOMBRE, C.NOMBRECURSO AS NOMBRECURSO,U.APELLIDO FROM CURSO C, USUARIO U WHERE C.ID = ? AND U.ID=C.CREADOR; 
-    <sql:param value = "${id}" />
-
-</sql:query>--%>
-
-        
+       
     
 <!DOCTYPE html>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
@@ -77,71 +57,7 @@
     
     <body>
         <!--Cabecera de la pagina-->
-        <nav class="bg-white navbar p-2 navbar-default py-2 navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center"><a class="navbar-brand py-1 mr-auto" href="Pricipal_logged.html"><img
-                            src="./Imagenes/icons8-e-learning-64.png" alt="ULearn logo"></a>
-                    <a aria-expanded="false" role="button" class="nav-link mr-3" tabindex="0"
-                        style="font-weight: bold; color: black; font: size 100px;">ULearn</a>
-                    <form class="form-inline d-none d-sm-flex">
-                        <span class="position-absolute ps-3 search-icon" for="search_search"><i
-                                class="fa fa-search"></i></span><input placeholder="Search Courses" type="Search"
-                            id="formSearch" class="ps-6 form-control" />
-                    </form>
-                </div>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                    aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                <!-- Navbar Collapse  // añadir show y esta-->
-                <div class="collapse navbar-collapse " id="navbarCollapse">
-        
-        
-                    <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-                        <div class="input-label-absolute input-label-absolute-left w-100">
-                            <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
-                                    class="fa fa-search"></i></span><input placeholder="Search Courses"
-                                type="Search" id="formSearch" class="ps-6 form-control" />
-                        </div>
-                    </form>
-        
-                    <ul class="navbar-nav ms-auto ">
-        
-                        <li class="nav-item mr-2"><a class="nav-link" style="font-size: 1.1em;" id="homeDropdownMenuLink"
-                                href="Pricipal_logged.html">
-                                Home</a>
-        
-                        </li>
-                        <li class="nav-item mr-2 "><a class="nav-link " style="font-size: 1.1em;" href="suscripciones.html">Suscripciones</a>
-        
-                        </li>
-                        <li class="nav-item mr-2"><a aria-expanded="false" style="font-size: 1.1em;" role="button"
-                                tabindex="0" class="nav-link" href="creados.html">Creador</a>
-                        </li>
-                        <li class="nav-item mr-2"><a class="nav-link " style="font-size: 1.1em;"
-                                id="docsDropdownMenuLink" href="cursos.html" aria-haspopup="true"
-                                aria-expanded="false">
-                                Mis Cursos</a>
-                        </li>
-    
-        
-                        <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="avatar avatar-md avatar-indicators avatar-online">
-                                    <img alt="avatar" src="Imagenes/user.jpg" class="rounded-circle" />
-                                </div>
-                            </a>
-        
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
-                                    class="dropdown-item" href="./info_personal.html">Configuración usuario</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item"
-                                    href="Pricipal.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
-                                    Cerrar Sesión</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <%@include file="./header_logged.jsp" %>
 
         <div class="py-lg-5 py-5">
             <div class="container">
@@ -154,7 +70,7 @@
                                 <iframe class="position-absolute top-0 end-0 start-0 end-0 bottom-0 h-100 w-100"
                                     frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     title="YouTube video player" width="100%" height="360"
-                                    src=<%=listSecciones.get(idseccion-1).getVideo()%> id="widget2">
+                                    src=<%=listSecciones.get(idseccion-numSecciones).getVideo()%> id="widget2">
                                 </iframe>
                                 
                             </div>
@@ -215,16 +131,25 @@
                                         
                                     </div>
 
+                                
                                 <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <div class="ms-2 lh-1">
-                                                <form action="/action_page.php">
-                                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                                                    <label for="vehicle1"> Añadir a favoritos</label><br>
-                                                  </form>
-                                            </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="ms-2 lh-1">
+                                            <form>
+                                                <c:set var = "favorito" value = "<%=favorito%>"/>
+                                                <c:if test="${favorito}">
+                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavorito?idCurso=<%=idCurso%>&valor='+document.getElementById('favorito').checked" checked>
+
+                                                </c:if>
+                                                <c:if test="${!favorito}">
+                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavorito?idCurso=<%=idCurso%>&valor='+document.getElementById('favorito').checked">
+                                                </c:if>
+                                                <label for="favorito"> Añadir a favoritos</label><br>
+                                            </form>
                                         </div>
+                                    </div>
                                 </div>
+                                    
                                 <br>
 
                                 <div class="d-flex justify-content-between">
@@ -252,7 +177,7 @@
                                         class="fade pb-4 p-4 tab-pane active show">
                                         <div class="mb-4">
                                             <h3 class="mb-2">Descripción de sección</h3>
-                                            <p> <%=listSecciones.get(idseccion-1).getDescripcion()%></p>
+                                            <p> <%=listSecciones.get(idseccion-numSecciones).getDescripcion()%></p>
                                             
                                         </div>
 
@@ -271,6 +196,7 @@
                                 <ul class="list-group list-group-flush">
                                     <c:set var = "listSecciones" value = "<%=listSecciones%>"/>
                                     <c:set var = "idseccion" value = "<%=idseccion%>"/>
+                                    <c:set var = "numSecciones" value = "<%=numSecciones%>"/>
                                     <c:forEach var="seccion" items="${listSecciones}">
                                         <c:set var = "i" value = "<%=i%>"/>
                                         <!--DESPLEGABLE DE SECCIONES-->
@@ -278,14 +204,14 @@
                                                 class="h4 mb-0 d-flex align-items-center text-inherit text-decoration-none py-3 px-4 collapsed "
                                                 data-bs-toggle="collapse" role="button" aria-controls="courseTwo">
                                                 <div class="me-auto" onclick="location.href='cambioSeccion?idSeccion=${seccion.id}&idCurso='+<%=idCurso%>" >Sección <%=i%>: ${seccion.nombre}<p
-                                                        class="mb-0 text-muted fs-6 mt-1 fw-normal">(${seccion.duracion})</p>
+                                                        class="mb-0 text-muted fs-6 mt-1 fw-normal">(${seccion.duracion} horas)</p>
                                                 </div>
                                                 
                                             </a>
-                                            <c:if test="${idseccion==i}">
+                                            <c:if test="${(idseccion-numSecciones+1)==i}">
                                                 <div class="accordion-collapse collapse show">
                                             </c:if>
-                                            <c:if test="${idseccion!=i}">
+                                            <c:if test="${(idseccion-numSecciones+1)!=i}">
                                                 <div class="accordion-collapse collapse">
                                             </c:if>
                                                 <div class="list-group list-group-flush">
@@ -302,7 +228,7 @@
                                                                             style="fill: currentcolor;"></path>
                                                                     </svg> </span><span class="fs-5">Desarrollo</span>
                                                             </div>
-                                                            <div class="text-truncate fs-5"><span>${seccion.duracion}</span></div>
+                                                            <div class="text-truncate fs-5"><span>${seccion.duracion} horas</span></div>
                                                         </a>
                                                     </div>
 

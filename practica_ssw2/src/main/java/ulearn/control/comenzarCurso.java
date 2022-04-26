@@ -78,6 +78,7 @@ public class comenzarCurso extends HttpServlet {
         Curso curso=null;
         User creador=null;
         double valoracion=0;
+        boolean favorito=false;
 
         try {
             CursoDB.insert(user.getId(),idCurso);
@@ -87,15 +88,17 @@ public class comenzarCurso extends HttpServlet {
             creador=UserDB.getInfoCreador(idCurso);
             valoracion=CursoDB.getValoracion(idCurso);
             seccion=SeccionDB.getLastSeccion(idCurso, user.getId());
+            favorito=CursoDB.esFavorito(user.getId(), idCurso);
         } catch (SQLException ex) {
             Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if(seccion==0) seccion=1;
+        if(seccion==0) seccion=listaSecciones.get(0).getId();
         request.setAttribute("listSecciones",listaSecciones);
         request.setAttribute("infoCurso",curso);
         request.setAttribute("infoCreador",creador);
         request.setAttribute("valoracion",valoracion);
+        request.setAttribute("favorito",favorito); 
         
         
         String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;
