@@ -153,7 +153,7 @@ INSERT INTO CURSOFAVORITO VALUES (1,2);
 INSERT INTO CURSOFAVORITO VALUES (2,1);
 INSERT INTO CURSOFAVORITO VALUES (3,1);
 
-INSERT INTO SECCION VALUES (1,'Introduccion','Introduccion al js','https://n9.cl/129mv',1.5,1);
+INSERT INTO SECCION VALUES (1,'Introduccion','Introduccion al js','https://onx.la/ba741',1.5,1);
 INSERT INTO SECCION VALUES (2,'Objetos','Objetos en js','https://n9.cl/wfp11',2.5,1);
 INSERT INTO SECCION VALUES (3,'Mapas','Mapas en js','https://n9.cl/6yx9h',2,1);
 INSERT INTO SECCION VALUES (4,'Clases','Clases en js','https://n9.cl/j1nhx',6,1);
