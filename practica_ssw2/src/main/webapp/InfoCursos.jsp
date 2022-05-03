@@ -138,11 +138,11 @@
                                             <form>
                                                 <c:set var = "favorito" value = "<%=favorito%>"/>
                                                 <c:if test="${favorito}">
-                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavorito?idCurso=<%=idCurso%>&valor='+document.getElementById('favorito').checked" checked>
+                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavoritoIniciado?idCurso=<%=idCurso%>&idSeccion=<%=idseccion%>&valor='+document.getElementById('favorito').checked" checked>
 
                                                 </c:if>
                                                 <c:if test="${!favorito}">
-                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavorito?idCurso=<%=idCurso%>&valor='+document.getElementById('favorito').checked">
+                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavoritoIniciado?idCurso=<%=idCurso%>&idSeccion=<%=idseccion%>&valor='+document.getElementById('favorito').checked">
                                                 </c:if>
                                                 <label for="favorito"> Añadir a favoritos</label><br>
                                             </form>

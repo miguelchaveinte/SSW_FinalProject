@@ -80,6 +80,7 @@ public class cambioSeccion extends HttpServlet {
         Curso curso=null;
         User creador=null;
         double valoracion=0;
+        boolean favorito=false;
   
         try {
             yaEsta=SeccionDB.existe(user.getId(),seccion);
@@ -87,6 +88,7 @@ public class cambioSeccion extends HttpServlet {
             curso = CursoDB.getInfoCurso(idCurso);
             creador=UserDB.getInfoCreador(idCurso);
             valoracion=CursoDB.getValoracion(idCurso);
+            favorito=CursoDB.esFavorito(user.getId(), idCurso);
         } catch (SQLException ex) {
             Logger.getLogger(cambioSeccion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,6 +105,7 @@ public class cambioSeccion extends HttpServlet {
         request.setAttribute("infoCurso",curso);
         request.setAttribute("infoCreador",creador);
         request.setAttribute("valoracion",valoracion);
+        request.setAttribute("favorito",favorito); 
         
         String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

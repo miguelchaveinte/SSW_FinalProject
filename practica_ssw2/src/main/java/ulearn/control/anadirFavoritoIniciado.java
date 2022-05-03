@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package ulearn.control;
 
@@ -19,14 +18,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.CursoDB;
+import ulearn.datos.dao.SeccionDB;
+import ulearn.datos.dao.UserDB;
+import ulearn.model.Curso;
+import ulearn.model.Seccion;
 import ulearn.model.User;
 
 /**
  *
- * @author angel
+ * @author migchav
  */
-@WebServlet(name = "paginaPrincipal", urlPatterns = {"/paginaPrincipal"})
-public class paginaPrincipal extends HttpServlet {
+@WebServlet(name = "anadirFavoritoIniciado", urlPatterns = {"/anadirFavoritoIniciado"})
+public class anadirFavoritoIniciado extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,15 +43,15 @@ public class paginaPrincipal extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet paginaPrincipal</title>");            
+            out.println("<title>Servlet anadirFavoritoIniciado</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet paginaPrincipal at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet anadirFavoritoIniciado at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,28 +69,50 @@ public class paginaPrincipal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Integer> cursosGratuitos = null;
-        ArrayList<Integer> cursosDemandados = null;
-        ArrayList<Integer> cursosFavoritos = null;
-        try {
-            cursosGratuitos = CursoDB.getCursosGratuitos();
-            cursosDemandados = CursoDB.getCursosDemandados();
-            cursosFavoritos = CursoDB.getCursosFavoritos();
-        } catch (SQLException ex) {
-            Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("user");
+        
+        int idCurso = Integer.parseInt(request.getParameter("idCurso"));
+        boolean favorito=Boolean.parseBoolean(request.getParameter("valor"));
+        int idSeccion=Integer.parseInt(request.getParameter("idSeccion"));
+        
+        ArrayList<Seccion> listaSecciones = null;
+        Curso curso=null;
+        User creador=null;
+        double valoracion=0;
+        
+        if(favorito){
+            try {
+            CursoDB.anadirfavorito(user.getId(),idCurso);
+            listaSecciones = SeccionDB.getListaSecciones(idCurso);
+            curso = CursoDB.getInfoCurso(idCurso);
+            creador=UserDB.getInfoCreador(idCurso);
+            valoracion=CursoDB.getValoracion(idCurso);
+            } catch (SQLException ex) {
+                Logger.getLogger(anadirFavorito.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            try {
+                CursoDB.eliminarfavorito(user.getId(),idCurso);
+                listaSecciones = SeccionDB.getListaSecciones(idCurso);
+                curso = CursoDB.getInfoCurso(idCurso);
+                creador=UserDB.getInfoCreador(idCurso);
+                valoracion=CursoDB.getValoracion(idCurso);
+            } catch (SQLException ex) {
+                Logger.getLogger(anadirFavorito.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
-        request.setAttribute("cursosGratuitos", cursosGratuitos);
-        request.setAttribute("cursosDemandados", cursosDemandados);
-        request.setAttribute("cursosFavoritos", cursosFavoritos);
-        HttpSession session = request.getSession();
-        User user=(User) session.getAttribute("user");
-        String url="/Pricipal.jsp";
-       // String url="/Pricipal.jsp";
+        request.setAttribute("listSecciones",listaSecciones);
+        request.setAttribute("infoCurso",curso);
+        request.setAttribute("infoCreador",creador);
+        request.setAttribute("valoracion",valoracion);
+        request.setAttribute("favorito",favorito); 
+        
+        String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+idSeccion;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
-
-        
     }
 
     /**
@@ -101,26 +126,7 @@ public class paginaPrincipal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Integer> cursosGratuitos = null;
-        ArrayList<Integer> cursosDemandados = null;
-        ArrayList<Integer> cursosFavoritos = null;
-        try {
-            cursosGratuitos = CursoDB.getCursosGratuitos();
-            cursosDemandados = CursoDB.getCursosDemandados();
-            cursosFavoritos = CursoDB.getCursosFavoritos();
-        } catch (SQLException ex) {
-            Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        request.setAttribute("cursosGratuitos", cursosGratuitos);
-        request.setAttribute("cursosDemandados", cursosDemandados);
-        request.setAttribute("cursosFavoritos", cursosFavoritos);
-        HttpSession session = request.getSession();
-        User user=(User) session.getAttribute("user");
-        String url="/Pricipal.jsp";
-       // String url="/Pricipal.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
