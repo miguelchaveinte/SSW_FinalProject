@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.CursoDB;
 import ulearn.datos.dao.SeccionDB;
+import ulearn.datos.dao.SuscripcionesDB;
 import ulearn.datos.dao.UserDB;
 import ulearn.model.Curso;
 import ulearn.model.Seccion;
@@ -79,6 +80,8 @@ public class comenzarCurso extends HttpServlet {
         User creador=null;
         double valoracion=0;
         boolean favorito=false;
+        
+        ArrayList<Integer> autoresSuscritos=new ArrayList<Integer>();
 
         try {
             CursoDB.insert(user.getId(),idCurso);
@@ -89,6 +92,7 @@ public class comenzarCurso extends HttpServlet {
             valoracion=CursoDB.getValoracion(idCurso);
             seccion=SeccionDB.getLastSeccion(idCurso, user.getId());
             favorito=CursoDB.esFavorito(user.getId(), idCurso);
+            autoresSuscritos=SuscripcionesDB.getSuscripcionesDeAutor(user.getId());
         } catch (SQLException ex) {
             Logger.getLogger(comenzarCurso.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,6 +103,7 @@ public class comenzarCurso extends HttpServlet {
         request.setAttribute("infoCreador",creador);
         request.setAttribute("valoracion",valoracion);
         request.setAttribute("favorito",favorito); 
+        request.setAttribute("autoresSuscritos",autoresSuscritos); 
         
         
         String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;

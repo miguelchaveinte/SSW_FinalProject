@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.CursoDB;
 import ulearn.datos.dao.SeccionDB;
+import ulearn.datos.dao.SuscripcionesDB;
 import ulearn.datos.dao.UserDB;
 import ulearn.model.Curso;
 import ulearn.model.Seccion;
@@ -81,6 +82,8 @@ public class cambioSeccion extends HttpServlet {
         User creador=null;
         double valoracion=0;
         boolean favorito=false;
+        
+        ArrayList<Integer> autoresSuscritos=new ArrayList<Integer>();
   
         try {
             yaEsta=SeccionDB.existe(user.getId(),seccion);
@@ -89,6 +92,7 @@ public class cambioSeccion extends HttpServlet {
             creador=UserDB.getInfoCreador(idCurso);
             valoracion=CursoDB.getValoracion(idCurso);
             favorito=CursoDB.esFavorito(user.getId(), idCurso);
+            autoresSuscritos=SuscripcionesDB.getSuscripcionesDeAutor(user.getId());
         } catch (SQLException ex) {
             Logger.getLogger(cambioSeccion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,6 +110,7 @@ public class cambioSeccion extends HttpServlet {
         request.setAttribute("infoCreador",creador);
         request.setAttribute("valoracion",valoracion);
         request.setAttribute("favorito",favorito); 
+        request.setAttribute("autoresSuscritos",autoresSuscritos); 
         
         String url = "/InfoCursos.jsp?idCurso="+idCurso+"&seccion="+seccion;
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

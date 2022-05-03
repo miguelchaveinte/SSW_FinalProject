@@ -133,9 +133,9 @@ INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (3,'Roberr','11
 INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (4,'natti','8595949','natalia@gmail.com');
 
 INSERT INTO CURSO VALUES (1,'Java Script Avanzado','Curso avanzado sobre java script',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\javas.png'),20,'PROGRAMACION_WEB',1);
-INSERT INTO CURSO VALUES (2,'SQL Intermedio','Curso intermedio sobre sql',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\sql.jpg'),15,'BASES_DE_DATOS',2);
-INSERT INTO CURSO VALUES (3,'Python','Curso iniciacion a python',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.png'),4,'APRENDE_A_PROGRAMAR',1);
-INSERT INTO CURSO VALUES (4,'C++','Curso de iniciacion a c++',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\c++1.jpg'),10,'APRENDE_A_PROGRAMAR',2);
+INSERT INTO CURSO VALUES (2,'SQL Intermedio','Curso intermedio sobre sql',5.99,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\sql.jpg'),15,'BASES_DE_DATOS',2);
+INSERT INTO CURSO VALUES (3,'Python','Curso iniciacion a python',3.99,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\python.png'),4,'APRENDE_A_PROGRAMAR',1);
+INSERT INTO CURSO VALUES (4,'C++','Curso de iniciacion a c++',9.99,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\c++1.jpg'),10,'APRENDE_A_PROGRAMAR',2);
 INSERT INTO CURSO VALUES (5,'HTML','Curso de nivel intermedio sobre html',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\html1.png'),4,'PROGRAMACION_WEB',1);
 INSERT INTO CURSO VALUES (6,'Linux','Curso sobre instalacion, problemas y manejo de linux',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\linux.jpeg'),4,'SISTEMAS_OPERATIVOS',2);
 INSERT INTO CURSO VALUES (7,'CSS','Curso sobre css',0,LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\css.png'),4,'PROGRAMACION_WEB',1);

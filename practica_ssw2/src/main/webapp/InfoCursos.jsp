@@ -27,6 +27,14 @@
     ArrayList<Seccion> listSecciones=(ArrayList<Seccion>) request.getAttribute("listSecciones");
     int numSecciones=listSecciones.get(0).getId();
     boolean favorito=(boolean)request.getAttribute("favorito");
+    
+    ArrayList<Integer> autoresSuscritos = (ArrayList<Integer>) request.getAttribute("autoresSuscritos");
+    boolean suscritoAAutor=false;
+    if(autoresSuscritos!=null){
+        if(autoresSuscritos.contains(user.getId())) suscritoAAutor=true;
+    }
+    
+
 %>
 
        
@@ -161,7 +169,13 @@
                                     </div>
 
                                     <div>
-                                        <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
+                                        <c:set var = "suscritoAAutor" value = "<%=suscritoAAutor%>"/>
+                                        <c:if test="${suscritoAAutor}">
+                                            <a class="btn btn-outline-white btn-sm" style="pointer-events: none;">Suscrito al autor</a>
+                                        </c:if>
+                                        <c:if test="${!suscritoAAutor}">
+                                            <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
+                                        </c:if>
                                     </div>
                                 </div>
 
