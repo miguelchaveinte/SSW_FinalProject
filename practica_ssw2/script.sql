@@ -38,6 +38,7 @@ create table USUARIO (
     CIUDAD varchar(50),
     FECHANACIMIENTO date,
     BIOGRAFIA varchar(200),
+    FOTO blob,
     
     PRIMARY KEY(ID)
 );
@@ -127,8 +128,8 @@ INSERT INTO CATEGORIA VALUES ('SISTEMAS_OPERATIVOS');
 INSERT INTO CATEGORIA VALUES ('PROGRAMACION_LOGICA');
 INSERT INTO CATEGORIA VALUES ('APRENDE_A_PROGRAMAR');
 
-INSERT INTO USUARIO VALUES (1,'AlfredoInf','12345678','alfredo@gmial.com','Alfredo','Martinez','654567888',true,'Manuel Azaña 44 5ºC','Programador','España','Valladolid','1987-12-12','Programador avanzado con ganas de aprender');
-INSERT INTO USUARIO VALUES (2,'mariaBD','87654321','maria@gmial.com','Maria','Gonzalez','664357239',true,'Mateo Seoane 11 1º A','Administrador Bases de Datos','España','Valladolid','1982-10-05','Me encanta aprender!');
+INSERT INTO USUARIO VALUES (1,'AlfredoInf','12345678','alfredo@gmail.com','Alfredo','Martinez Perez','654567888',true,'Manuel Azaña 44 5ºC','Programador','España','Valladolid','1987-12-12','Programador avanzado con ganas de aprender',LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\user.jpg'));
+INSERT INTO USUARIO VALUES (2,'mariaBD','87654321','maria@gmail.com','Maria','Gonzalez','664357239',true,'Mateo Seoane 11 1º A','Administrador Bases de Datos','España','Valladolid','1982-10-05','Me encanta aprender!',LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'));
 INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (3,'Roberr','1122334455','rober@gmail.com');
 INSERT INTO USUARIO (ID,NOMBREUSUARIO,CONTRASEÑA,CORREO) VALUES (4,'natti','8595949','natalia@gmail.com');
 

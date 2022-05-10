@@ -60,7 +60,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
-                            class="dropdown-item" href="./info_personal.html">Configuración usuario</a>
+                            class="dropdown-item" href="./datosUsuario">Configuración usuario</a>
                         <div class="dropdown-divider"></div><a class="dropdown-item"
                             href="cerrarSesion"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
                             Cerrar Sesión</a>

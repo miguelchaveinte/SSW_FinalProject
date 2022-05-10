@@ -4,9 +4,13 @@
  */
 package ulearn.datos.dao;
 import java.io.InputStream;
+import java.io.OutputStream;
 import ulearn.datos.ConnectionPool;
 import ulearn.model.User;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -156,5 +160,74 @@ public class UserDB {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static User getInfoUsuario(int idUsuario){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        User user=new User();
+        String query = "SELECT * FROM Usuario U WHERE U.ID = ?;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                user.setNombreUsuario(rs.getString("NOMBREUSUARIO"));
+                user.setNombre(rs.getString("NOMBRE"));
+                user.setContraseña(rs.getString("CONTRASEÑA"));
+                user.setApellidos(rs.getString("APELLIDO"));
+                user.setID(rs.getInt("ID"));
+                user.setCorreo(rs.getString("CORREO"));
+                user.setTelefono(rs.getInt("TELEFONO"));
+                user.setDireccion(rs.getString("DIRECCION"));
+                user.setOcupacion(rs.getString("OCUPACION"));
+                user.setPais(rs.getString("PAIS"));
+                user.setCiudad(rs.getString("CIUDAD"));
+                Date fecha = rs.getDate("FECHANACIMIENTO");
+                LocalDate localDate=null;
+                if(fecha != null)
+                    localDate = new java.sql.Date(fecha.getTime()).toLocalDate();
+                user.setFechaNacimiento(localDate);
+                user.setBiografia(rs.getString("BIOGRAFIA"));
+                //user.setFoto((Part) rs.getBlob("FOTO"));
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return user;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static void getImagen(int id, OutputStream respuesta){
+        try {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null;
+            statement = connection.prepareStatement("SELECT FOTO FROM usuario WHERE id=? ");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Blob blob = result.getBlob("FOTO");
+                if (!result.wasNull() && blob.length() > 1) {
+                    InputStream imagen = blob.getBinaryStream();
+                    byte[] buffer = new byte[1000];
+                    int len = imagen.read(buffer);
+                    while (len != -1) {
+                        respuesta.write(buffer, 0, len);
+                        len = imagen.read(buffer);
+                    }
+                    imagen.close();
+                } 
+            }
+        pool.freeConnection(connection);
+        } catch (Exception e) {
+        e.printStackTrace();
+        } 
     }
 }
