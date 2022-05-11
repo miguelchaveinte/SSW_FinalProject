@@ -1,3 +1,4 @@
+<%@page import="ulearn.model.DesarrolloCurso"%>
 <%@page import="ulearn.model.ObtencionSuscripcion"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ulearn.model.User"%>
@@ -8,6 +9,7 @@
     //HttpSession session2 = request.getSession();
     User usuario= (User) request.getAttribute("user");
     ArrayList<ObtencionSuscripcion> obtenciones = (ArrayList<ObtencionSuscripcion>)request.getAttribute("suscripciones");
+    ArrayList<DesarrolloCurso> cursos = (ArrayList<DesarrolloCurso>)request.getAttribute("cursos");
 %>
     
 <html lang="es">
@@ -347,6 +349,9 @@
 
                                     <div class="row">
                                         <ul class="list">
+                                            <%
+                                                for(int i=0; i<cursos.size();i=i+2){
+                                            %>
                                             <li>
                                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                                     <div>
@@ -356,17 +361,16 @@
                                                                     class="blog-thumbnail">
                                                                 <div class="blog-container">
                                                                     <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
+                                                                        class="blog-category text-uppercase dark-link"><%=cursos.get(i).getCurso().getCategoria()%></a>
                                                                     <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
+                                                                            class="dark-link"><%=cursos.get(i).getCurso().getNombre()%></a></h4>
+                                                                    <p class="blog-desc"><%=cursos.get(i).getCurso().getDescripcion()%></p>
                                                                     <div class="blog-footer">
                                                                         <div><img
-                                                                                src="Imagenes/avatar1.jpg"
+                                                                                src="imagenUsuario?idUsuario=<%=cursos.get(i).getCurso().getCreador().getId()%>"
                                                                                 alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
+                                                                                href="#!"><%=cursos.get(i).getCurso().getCreador().getNombreUsuario()%></a> </div>
+                                                                        <small><%=cursos.get(i).getFechaInicio().toString()%></small>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -387,6 +391,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <%
+                                                    if(i+1<cursos.size()){
+                                                %>
                                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                                     <div>
                                                         <div class="d-flex justify-content-between mb-0">
@@ -395,17 +402,17 @@
                                                                     class="blog-thumbnail">
                                                                 <div class="blog-container">
                                                                     <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
+                                                                        class="blog-category text-uppercase dark-link"><%=cursos.get(i+1).getCurso().getCategoria()%></a>
                                                                     <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
+                                                                            class="dark-link"><%=cursos.get(i+1).getCurso().getNombre()%></a></h4>
+                                                                    <p class="blog-desc"><%=cursos.get(i+1).getCurso().getDescripcion()%></p>
                                                                     <div class="blog-footer">
                                                                         <div><img
-                                                                                src="Imagenes/avatar1.jpg"
+                                                                                src="imagenUsuario?idUsuario=<%=cursos.get(i+1).getCurso().getCreador().getId()%>"
                                                                                 alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
+                                                                                href="#!"><%=cursos.get(i+1).getCurso().getCreador().getNombreUsuario()%>
+                                                                                </a> </div>
+                                                                        <small><%=cursos.get(i+1).getFechaInicio().toString()%></small>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -426,7 +433,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <%}%>
                                             </li>
+                                            <%}%>
+                                            <%--
                                             <li>
                                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                                     <div>
@@ -789,6 +799,7 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                            --%>
                                     </div>
                                     </ul>
                                 </div>

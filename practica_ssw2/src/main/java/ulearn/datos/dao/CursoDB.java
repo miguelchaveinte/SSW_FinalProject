@@ -231,7 +231,7 @@ public class CursoDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Curso curso=new Curso();
-        
+        User creador = new User();
         String infoCurso = "SELECT NOMBRECURSO, DESCRIPCION, PRECIO, DURACION, CATEGORIA, CREADOR FROM CURSO WHERE ID = ?; ";
        
         
@@ -246,7 +246,8 @@ public class CursoDB {
                 curso.setPrecio(rs.getFloat("PRECIO"));
                 curso.setDuracion(rs.getFloat("DURACION"));
                 curso.setCategoria(rs.getString("CATEGORIA"));
-                curso.setCreador(rs.getInt("CREADOR"));
+                creador.setID(rs.getInt("CREADOR"));
+                curso.setCreador(creador);
             }
             
             ps.close();

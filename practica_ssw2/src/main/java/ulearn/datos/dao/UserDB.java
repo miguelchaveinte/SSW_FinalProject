@@ -11,6 +11,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import ulearn.model.Curso;
+import ulearn.model.DesarrolloCurso;
 import ulearn.model.ObtencionSuscripcion;
 import ulearn.model.Suscripcion;
 
@@ -239,14 +240,14 @@ public class UserDB {
             return null;
         }
     }
-    /*
-    public static ArrayList<Curso> getCursosUsuario(int idUsuario){
+    
+    public static ArrayList<DesarrolloCurso> getCursosUsuario(int idUsuario){
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        ArrayList<Curso> cursos = new ArrayList<Curso>();
-        String query = "SELECT * FROM DESARROLLOCURSO DC, CURSO C, USUARIO U WHERE DC.IDCURSO=? and C.ID=DC.IDCURSO and U.ID=C.CREADOR;  ";
+        ArrayList<DesarrolloCurso> cursos = new ArrayList<DesarrolloCurso>();
+        String query = "SELECT * FROM DESARROLLOCURSO DC, CURSO C, USUARIO U WHERE DC.IDUSUARIO=? and DC.IDCURSO=C.ID and U.ID=C.CREADOR;  ";
         try {
             ps = connection.prepareStatement(query);
             ps.setInt(1, idUsuario);
@@ -256,11 +257,21 @@ public class UserDB {
                 int id = rs.getInt("IDCURSO");
                 String nombre = rs.getString("NOMBRECURSO");
                 String descripcion = rs.getString("DESCRIPCION");
-                String categoria = rs.getString("CATEGORIA");
+                float precio = rs.getFloat("PRECIO");
+                float duracion = rs.getFloat("DURACION");
+                String categoria = rs.getString("CATEGORIA");            
                 String nombreAutor = rs.getString("NOMBREUSUARIO");
+                int idAutor = rs.getInt("CREADOR");
                 Date fecha = rs.getDate("FECHAINICIO");
                 LocalDate fechaInicio=new java.sql.Date(fecha.getTime()).toLocalDate();
-                Curso curso = new Curso();
+                User autor = new User();
+                autor.setNombreUsuario(nombreAutor);
+                autor.setID(idAutor);
+                Curso curso = new Curso(id,nombre,descripcion,precio,null,duracion,categoria,autor);
+                DesarrolloCurso desarrollo = new DesarrolloCurso();
+                desarrollo.setFechaInicio(fechaInicio);
+                desarrollo.setCurso(curso);
+                cursos.add(desarrollo);
             }
             rs.close();
             ps.close();
@@ -270,7 +281,7 @@ public class UserDB {
             e.printStackTrace();
             return null;
         }
-    }*/
+    }
     
     public static void getImagen(int id, OutputStream respuesta){
         try {

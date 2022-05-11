@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.UserDB;
+import ulearn.model.DesarrolloCurso;
 import ulearn.model.ObtencionSuscripcion;
 import ulearn.model.User;
 
@@ -68,7 +69,8 @@ public class datosUsuario extends HttpServlet {
         User user= (User) session.getAttribute("user");
         User user1 = UserDB.getInfoUsuario(user.getId());
         ArrayList<ObtencionSuscripcion> obtenciones = UserDB.getSuscripcionesUsuario(user.getId());
-        //ArrayList<Curso> cursos = UserDB.getCursosUsuario(user.getId());
+        ArrayList<DesarrolloCurso> cursos = UserDB.getCursosUsuario(user.getId());
+        request.setAttribute("cursos",cursos);
         request.setAttribute("user", user1);
         request.setAttribute("suscripciones", obtenciones);
         String url = "/info_personal.jsp";

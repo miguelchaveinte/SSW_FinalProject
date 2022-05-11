@@ -20,7 +20,7 @@ public class Curso implements Serializable{
     private Part imagen;
     private float duracion;
     private String categoria;
-    private int creador;
+    private User creador;
     
     /**
      * Constructor sin parametros.
@@ -33,7 +33,7 @@ public class Curso implements Serializable{
     imagen=null;
     duracion=0;
     categoria="";
-    creador=0;
+    creador=null;
     }
     
     /**
@@ -47,7 +47,7 @@ public class Curso implements Serializable{
      * @param cateogria
      * @param creador 
      */
-    public Curso(int id, String nombre, String descripcion, float precio, Part imagen, float duracion, String cateogria, int creador){
+    public Curso(int id, String nombre, String descripcion, float precio, Part imagen, float duracion, String categoria, User creador){
     this.id=id;
     this.nombre=nombre;
     this.descripcion=descripcion;
@@ -88,7 +88,7 @@ public class Curso implements Serializable{
         return categoria;
     }
 
-    public int getCreador() {
+    public User getCreador() {
         return creador;
     }
     
@@ -122,7 +122,7 @@ public class Curso implements Serializable{
         this.categoria = categoria;
     }
 
-    public void setCreador(int creador) {
+    public void setCreador(User creador) {
         this.creador = creador;
     }
     
