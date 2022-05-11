@@ -7,6 +7,7 @@ package ulearn.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import ulearn.datos.dao.UserDB;
+import ulearn.model.ObtencionSuscripcion;
 import ulearn.model.User;
 
 /**
@@ -65,7 +67,10 @@ public class datosUsuario extends HttpServlet {
         HttpSession session = request.getSession();
         User user= (User) session.getAttribute("user");
         User user1 = UserDB.getInfoUsuario(user.getId());
-        session.setAttribute("userNuevo", user1);
+        ArrayList<ObtencionSuscripcion> obtenciones = UserDB.getSuscripcionesUsuario(user.getId());
+        //ArrayList<Curso> cursos = UserDB.getCursosUsuario(user.getId());
+        request.setAttribute("user", user1);
+        request.setAttribute("suscripciones", obtenciones);
         String url = "/info_personal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

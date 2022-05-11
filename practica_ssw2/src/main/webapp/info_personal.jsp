@@ -1,10 +1,13 @@
+<%@page import="ulearn.model.ObtencionSuscripcion"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="ulearn.model.User"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
 <%
-    HttpSession session2 = request.getSession();
-    User usuario= (User) session2.getAttribute("userNuevo");
+    //HttpSession session2 = request.getSession();
+    User usuario= (User) request.getAttribute("user");
+    ArrayList<ObtencionSuscripcion> obtenciones = (ArrayList<ObtencionSuscripcion>)request.getAttribute("suscripciones");
 %>
     
 <html lang="es">
@@ -258,12 +261,15 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
+                                            <%
+                                            for(int i=0; i<obtenciones.size(); i++){
+                                            %>
                                             <div class="border-bottom pt-0 pb-5">
                                                 <div class="mb-4 row">
                                                     <div class="mb-2 mb-lg-0 col-lg-6 col-md-8 col-sm-7">
-                                                        <span class="d-block"><span class="h4">Básico</span>
+                                                        <span class="d-block"><span class="h4"><%=obtenciones.get(i).getSuscripcion().getTipo()%></span>
                                                             <span class="ms-2 badge bg-success">Activa</span></span>
-                                                        <p class="mb-0 fs-6">Suscripción ID: #100010002</p>
+                                                        <p class="mb-0 fs-6">Suscripción ID: #<%=obtenciones.get(i).getSuscripcion().getId()%></p>
                                                     </div>
                                                     <div class="mb-2 mb-lg-0 col-lg-3 col-md-4 col-sm-5">
                                                         <span>Autorenovación</span>
@@ -283,11 +289,11 @@
                                                 <div class="row">
                                                     <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
                                                         <span class="fs-6">Inicio Plan</span>
-                                                        <h6 class="mb-0">Oct 1, 2022</h6>
+                                                        <h6 class="mb-0"><%=obtenciones.get(i).getFechaInicio().toString()%></h6>
                                                     </div>
                                                     <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
                                                         <span class="fs-6">Precio</span>
-                                                        <h6 class="mb-0">Mensual</h6>
+                                                        <h6 class="mb-0"><%=obtenciones.get(i).getCobro()%></h6>
                                                     </div>
                                                     <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
                                                         <span class="fs-6">Acceso</span>
@@ -299,7 +305,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="pt-5">
+                                            <%}%>
+                                            <%--<div class="pt-5">
                                                 <div class="mb-4 row">
                                                     <div class="mb-2 mb-lg-0 col">
                                                         <span class="d-block"><span class="h4">Gratuito</span>
@@ -328,7 +335,7 @@
                                                         <h6 class="mb-0">Oct 1, 2020</h6>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>

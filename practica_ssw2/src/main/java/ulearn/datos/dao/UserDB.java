@@ -9,8 +9,10 @@ import ulearn.datos.ConnectionPool;
 import ulearn.model.User;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import javax.servlet.http.Part;
+import java.util.ArrayList;
+import ulearn.model.Curso;
+import ulearn.model.ObtencionSuscripcion;
+import ulearn.model.Suscripcion;
 
 /**
  *
@@ -204,6 +206,72 @@ public class UserDB {
         }
     }
     
+    public static ArrayList<ObtencionSuscripcion> getSuscripcionesUsuario(int idUsuario){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<ObtencionSuscripcion> obtenciones = new ArrayList<ObtencionSuscripcion>();
+        String query = "SELECT * FROM OBTENCIONSUSCRIPCION OS, SUSCRIPCION S WHERE OS.IDUSUARIO = ? and S.ID = OS.IDSUSCRIPCION;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                Date fecha = rs.getDate("FECHAINICIO");
+                LocalDate fechaInicio=new java.sql.Date(fecha.getTime()).toLocalDate();
+                String tipo = rs.getString("TIPO");
+                int id = rs.getInt("IDSUSCRIPCION");
+                String cobro = rs.getString("COBRO");
+                boolean autorrenovar = rs.getBoolean("AUTORENOVAR");
+                //boolean activa = rs.getBoolean("ACTIVA");
+                Suscripcion suscripcion = new Suscripcion(id, tipo);
+                ObtencionSuscripcion obtencionSuscripcion = new ObtencionSuscripcion(fechaInicio, cobro, autorrenovar, suscripcion);
+                obtenciones.add(obtencionSuscripcion);
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return obtenciones;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /*
+    public static ArrayList<Curso> getCursosUsuario(int idUsuario){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Curso> cursos = new ArrayList<Curso>();
+        String query = "SELECT * FROM DESARROLLOCURSO DC, CURSO C, USUARIO U WHERE DC.IDCURSO=? and C.ID=DC.IDCURSO and U.ID=C.CREADOR;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int id = rs.getInt("IDCURSO");
+                String nombre = rs.getString("NOMBRECURSO");
+                String descripcion = rs.getString("DESCRIPCION");
+                String categoria = rs.getString("CATEGORIA");
+                String nombreAutor = rs.getString("NOMBREUSUARIO");
+                Date fecha = rs.getDate("FECHAINICIO");
+                LocalDate fechaInicio=new java.sql.Date(fecha.getTime()).toLocalDate();
+                Curso curso = new Curso();
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }*/
+    
     public static void getImagen(int id, OutputStream respuesta){
         try {
             ConnectionPool pool = ConnectionPool.getInstance();
@@ -230,4 +298,6 @@ public class UserDB {
         e.printStackTrace();
         } 
     }
+    
+    
 }

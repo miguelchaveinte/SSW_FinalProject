@@ -33,11 +33,16 @@ public class Suscripcion implements Serializable{
      * @param precio
      * @param idautor 
      */
-    private Suscripcion(int id, String tipo, float precio, int idautor){
+    public Suscripcion(int id, String tipo, float precio, int idautor){
         this.id=id;
         this.tipo=tipo;
         this.precio=precio;
         this.idautor=idautor;
+    }
+    
+    public Suscripcion(int id, String tipo){
+        this.id=id;
+        this.tipo=tipo;
     }
     
     //Getters
