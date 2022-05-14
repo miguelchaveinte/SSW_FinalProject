@@ -69,20 +69,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
                         <div class="slick-track" id="cursosGratuitosTrack">
-                            <%ArrayList<Integer> a = (ArrayList<Integer>)request.getAttribute("cursosGratuitos");%>
-                            <c:set var = "cursosGratuitos" value = "<%=a%>"/>
-                            <c:forEach var="cursoGratuito" items="${cursosGratuitos}">
-                                <div class="slick">
-                                    <div>
-                                        <p>${cursoGratuito}</p>
-                                        <a href="accederCurso?idCurso=${cursoGratuito}">
-                                            <picture>
-                                                <img  alt="Imagen" src="imagenCurso?id=${cursoGratuito}">
-                                            </picture>
-                                        </a>
-                                    </div>
-                                </div>
-                            </c:forEach>
                         </div>
                         <button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
@@ -97,19 +83,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
                         <div class="slick-track" id="cursosDemandadosTrack">
-                           <%ArrayList<Integer> b = (ArrayList<Integer>)request.getAttribute("cursosDemandados");%>
-                            <c:set var = "cursosDemandados" value = "<%=b%>"/>
-                            <c:forEach var="cursoDemandado" items="${cursosDemandados}">
-                                <div class="slick">
-                                    <div>
-                                        <a href="accederCurso?idCurso=${cursoDemandado}">
-                                            <picture>
-                                                <img alt="Imagen" src="imagenCurso?id=${cursoDemandado}">
-                                            </picture>
-                                        </a>
-                                    </div>
-                                </div>
-                            </c:forEach>
                         </div>
                         <button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
@@ -123,21 +96,7 @@
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
-                        <div class="slick-track" id="cursosFavoritosTrack">
-                            <%ArrayList<Integer> c = (ArrayList<Integer>)request.getAttribute("cursosFavoritos");%>
-                            <c:set var = "cursosFavoritos" value = "<%=c%>"/>
-                            <c:forEach var="cursoFavorito" items="${cursosFavoritos}">
-                                <div class="slick">
-                                    <div>
-                                        <a href="accederCurso?idCurso=${cursoFavorito}">
-                                            
-                                            <picture>
-                                                <img alt="Imagen" src="imagenCurso?id=${cursoFavorito}">
-                                            </picture>
-                                        </a>
-                                    </div>
-                                </div>
-                            </c:forEach>                               
+                        <div class="slick-track" id="cursosFavoritosTrack">                             
                         </div>
                         <button class="slick-arrow slick-next" id="button-next" data-button="button-next" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M96 480c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L242.8 256L73.38 86.63c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l192 192c12.5 12.5 12.5 32.75 0 45.25l-192 192C112.4 476.9 104.2 480 96 480z"/></svg>
