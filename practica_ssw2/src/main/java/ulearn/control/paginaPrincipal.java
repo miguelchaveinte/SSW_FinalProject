@@ -5,6 +5,7 @@
  */
 package ulearn.control;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -66,6 +67,14 @@ public class paginaPrincipal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //ESTA ES LA BUENA!!!!!!!!!!!!!!!!!!!
+        
+        response.setContentType("application/json;charset=UTF-8");
+        // Cross-origin resource sharing
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        
+        PrintWriter out = response.getWriter();   
         ArrayList<Integer> cursosGratuitos = null;
         ArrayList<Integer> cursosDemandados = null;
         ArrayList<Integer> cursosFavoritos = null;
@@ -77,16 +86,25 @@ public class paginaPrincipal extends HttpServlet {
             Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        request.setAttribute("cursosGratuitos", cursosGratuitos);
+        
+        ArrayList<ArrayList> resultado = new ArrayList();
+        resultado.add(cursosGratuitos);
+        resultado.add(cursosDemandados);
+        resultado.add(cursosFavoritos);
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(resultado);
+        out.println(json);
+
+        /*request.setAttribute("cursosGratuitos", cursosGratuitos);
         request.setAttribute("cursosDemandados", cursosDemandados);
         request.setAttribute("cursosFavoritos", cursosFavoritos);
         HttpSession session = request.getSession();
         User user=(User) session.getAttribute("user");
         String url="/Pricipal.jsp";
-       // String url="/Pricipal.jsp";
+       
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
-
+        dispatcher.forward(request, response);*/
         
     }
 
@@ -101,6 +119,11 @@ public class paginaPrincipal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        // Cross-origin resource sharing
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        
+        PrintWriter out = response.getWriter();   
         ArrayList<Integer> cursosGratuitos = null;
         ArrayList<Integer> cursosDemandados = null;
         ArrayList<Integer> cursosFavoritos = null;
@@ -112,15 +135,25 @@ public class paginaPrincipal extends HttpServlet {
             Logger.getLogger(paginaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        request.setAttribute("cursosGratuitos", cursosGratuitos);
-        request.setAttribute("cursosDemandados", cursosDemandados);
-        request.setAttribute("cursosFavoritos", cursosFavoritos);
-        HttpSession session = request.getSession();
-        User user=(User) session.getAttribute("user");
-        String url="/Pricipal.jsp";
+        
+        ArrayList<ArrayList> resultado = new ArrayList();
+        resultado.add(cursosGratuitos);
+        resultado.add(cursosDemandados);
+        resultado.add(cursosFavoritos);
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(resultado);
+        out.println(json);
+        
+        //request.setAttribute("cursosGratuitos", cursosGratuitos);
+        //request.setAttribute("cursosDemandados", cursosDemandados);
+        //request.setAttribute("cursosFavoritos", cursosFavoritos);
+        //HttpSession session = request.getSession();
+        //User user=(User) session.getAttribute("user");
+        //String url="/Pricipal.jsp";
        // String url="/Pricipal.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        //dispatcher.forward(request, response);
     }
 
     /**

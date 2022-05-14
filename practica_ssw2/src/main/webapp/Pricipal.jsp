@@ -18,7 +18,7 @@
     if (registrado!=null) estaIniciado=true;
 
     %>
-
+    
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
@@ -35,6 +35,7 @@
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     </head>
     
     
@@ -67,7 +68,7 @@
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
-                        <div class="slick-track" id="track">
+                        <div class="slick-track" id="cursosGratuitosTrack">
                             <%ArrayList<Integer> a = (ArrayList<Integer>)request.getAttribute("cursosGratuitos");%>
                             <c:set var = "cursosGratuitos" value = "<%=a%>"/>
                             <c:forEach var="cursoGratuito" items="${cursosGratuitos}">
@@ -95,7 +96,7 @@
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
-                        <div class="slick-track" id="track">
+                        <div class="slick-track" id="cursosDemandadosTrack">
                            <%ArrayList<Integer> b = (ArrayList<Integer>)request.getAttribute("cursosDemandados");%>
                             <c:set var = "cursosDemandados" value = "<%=b%>"/>
                             <c:forEach var="cursoDemandado" items="${cursosDemandados}">
@@ -122,7 +123,7 @@
                         <button class="slick-arrow slick-prev" id="button-prev" data-button="button-prev" onclick="app.processingButton(event)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M224 480c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25l192-192c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l169.4 169.4c12.5 12.5 12.5 32.75 0 45.25C240.4 476.9 232.2 480 224 480z"/></svg>
                         </button>
-                        <div class="slick-track" id="track">
+                        <div class="slick-track" id="cursosFavoritosTrack">
                             <%ArrayList<Integer> c = (ArrayList<Integer>)request.getAttribute("cursosFavoritos");%>
                             <c:set var = "cursosFavoritos" value = "<%=c%>"/>
                             <c:forEach var="cursoFavorito" items="${cursosFavoritos}">
@@ -182,7 +183,30 @@
 
         </div>
     
+        <script>
+            $(document).ready(function(){ 
+                jQuery.getJSON("http://localhost:8080/practica_ssw2/paginaPrincipal",
+                function(cursos){
+                    const containers = [$("#cursosGratuitosTrack"),$("#cursosDemandadosTrack"), $("#cursosFavoritosTrack")];
+                    for(var i=0;i<cursos.length;i++){
+                        for(var j=0;j<cursos[i].length;j++){
+                            elemento='<div class="slick">'
+                            elemento+='<div>'
+                            elemento+='<a href="accederCurso?idCurso='+cursos[i][j]+'">'
+                            elemento+='<picture>'
+                            elemento+='<img alt="Imagen" src="imagenCurso?id='+cursos[i][j]+'">'
+                            elemento+='</picture>'            
+                            elemento+='</a>'
+                            elemento+='</div>'
+                            elemento+='</div>'
+                            containers[i].append(elemento);
+                        }
+                    }
+                });
+        }); 
+        </script>
         <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <!-- Popper JS -->
         <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
         <!-- Bootstrap JS -->
