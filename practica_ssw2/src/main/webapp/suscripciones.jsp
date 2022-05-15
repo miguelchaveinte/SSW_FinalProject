@@ -42,10 +42,10 @@
             
             <div class="card__container grid" style="margin: 80px;">
                 <!--==================== CARD 1 ====================-->
-                <c:if test="${suscripcion[0]}">
+                <c:if test="${suscripcion[0]|| suscripcion[1] ||suscripcion[2] }">
                     <article class="card__content grid" style="pointer-events: none; opacity:0.3;">
                 </c:if>
-                <c:if test="${!suscripcion[0]}">
+                <c:if test="${!(suscripcion[0]|| suscripcion[1] ||suscripcion[2])}">
                     <article class="card__content grid">
                 </c:if>
                         
@@ -70,17 +70,20 @@
                     <c:if test="${suscripcion[0]}">
                         <button class="card__button" >Ya dispones de este plan </button>
                     </c:if>
-                    <c:if test="${!suscripcion[0]}">
+                    <c:if test="${(suscripcion[1] ||suscripcion[2]) && !suscripcion[0]}">
+                        <button class="card__button" >Plan ya incluido en otra suscripción </button>
+                    </c:if>
+                    <c:if test="${!(suscripcion[0]||suscripcion[1] ||suscripcion[2])}">
                         <button class="card__button" onclick="location.href='anadirSuscripcion?suscripcion=GRATIS'">Elegir este plan </button>
                     </c:if>
                     
                 </article>
 
                 <!--==================== CARD 2 ====================-->
-                <c:if test="${suscripcion[1]}">
+                <c:if test="${suscripcion[1] ||suscripcion[2] }">
                     <article class="card__content grid" style="pointer-events: none; opacity:0.3;">
                 </c:if>
-                <c:if test="${!suscripcion[1]}">
+                <c:if test="${!(suscripcion[1]||suscripcion[2])}">
                     <article class="card__content grid">
                 </c:if>
                     <div class="card__pricing">
@@ -108,7 +111,10 @@
                     <c:if test="${suscripcion[1]}">
                         <button class="card__button" >Ya dispones de este plan </button>
                     </c:if>
-                    <c:if test="${!suscripcion[1]}">
+                    <c:if test="${suscripcion[2]}">
+                        <button class="card__button" >Plan incompatible con otra suscripción adquirida</button>
+                    </c:if>
+                    <c:if test="${!(suscripcion[1]|| suscripcion[2])}">
                         <button class="card__button" onclick="location.href='anadirSuscripcion?suscripcion=ESTUDIANTE'">Elegir este plan </button>
                     </c:if>
                        
@@ -116,10 +122,10 @@
                 </article>
 
                 <!--==================== CARD 3 ====================-->
-                <c:if test="${suscripcion[2]}">
+                <c:if test="${suscripcion[1]||suscripcion[2]}">
                     <article class="card__content grid" style="pointer-events: none; opacity:0.3;">
                 </c:if>
-                <c:if test="${!suscripcion[2]}">
+                <c:if test="${!(suscripcion[1]||suscripcion[2])}">
                     <article class="card__content grid">
                 </c:if>
                     <div class="card__pricing">
@@ -146,7 +152,10 @@
                     <c:if test="${suscripcion[2]}">
                         <button class="card__button" >Ya dispones de este plan </button>
                     </c:if>
-                    <c:if test="${!suscripcion[2]}">
+                    <c:if test="${suscripcion[1]}">
+                        <button class="card__button" >Plan incompatible con otra suscripción adquirida</button>
+                    </c:if>
+                    <c:if test="${!(suscripcion[2]||suscripcion[1])}">
                      <button class="card__button" onclick="location.href='anadirSuscripcion?suscripcion=TOTAL'">Elegir este plan </button>
                     </c:if>
                 </article>
@@ -194,6 +203,12 @@
             </div>
         </section>
     </div>
+            <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- Popper JS -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+        <!-- Bootstrap JS -->
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
 </body>
 
 </html>

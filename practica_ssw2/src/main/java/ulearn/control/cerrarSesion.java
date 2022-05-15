@@ -63,7 +63,7 @@ public class cerrarSesion extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        String url = "/paginaPrincipal";
+        String url = "/Pricipal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

@@ -139,11 +139,11 @@
                                                     <form>
                                                         <c:set var = "favorito" value = "<%=favorito%>"/>
                                                         <c:if test="${favorito}">
-                                                            <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavorito?idCurso=<%=idCurso%>&valor='+document.getElementById('favorito').checked" checked>
+                                                            <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick=anadirFavorito(<%=idCurso%>,document.getElementById('favorito').checked checked>
 
                                                         </c:if>
                                                         <c:if test="${!favorito}">
-                                                            <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavorito?idCurso=<%=idCurso%>&valor='+document.getElementById('favorito').checked">
+                                                            <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick=anadirFavorito(<%=idCurso%>,document.getElementById('favorito').checked)>
                                                         </c:if>
                                                         <label for="favorito"> Añadir a favoritos</label><br>
                                                     </form>
@@ -169,7 +169,7 @@
                                             <a class="btn btn-outline-white btn-sm" style="pointer-events: none;">Suscrito al autor</a>
                                         </c:if>
                                         <c:if test="${!suscritoAAutor}">
-                                            <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
+                                            <a class="btn btn-outline-white btn-sm" id="etiquetaAutor" onclick=anadirSuscripcion('AUTOR','<%=user.getNombreUsuario()%>')>Suscribirse</a>
                                         </c:if>
                                     </div>
                                 </div>
@@ -333,6 +333,34 @@
 
                 });
 
+            }
+            var peticion = new XMLHttpRequest();
+            function anadirFavorito(idCurso,checked){           
+                peticion.open("GET",'anadirFavorito?idCurso='+idCurso+'&valor='+checked);
+                //peticion.onreadystatechange=procesarPeticion;
+                peticion.send(null);
+            }
+
+
+            var peticionSuscri = new XMLHttpRequest();
+            function anadirSuscripcion(tipo,nombreAutor){ 
+                console.log('anadirSuscripcionIniciado?suscripcion='+tipo+'&nombre='+nombreAutor);
+                peticionSuscri.open("GET",'anadirSuscripcionIniciado?suscripcion='+tipo+'&nombre='+nombreAutor);
+                peticionSuscri.onreadystatechange=procesarPeticion;
+                peticionSuscri.send(null);
+            }
+            
+            function procesarPeticion() {
+                //console.log("cositas");
+                if (peticionSuscri.readyState==4) {
+                    if (peticionSuscri.status == 200) {
+                        var etiqueta=document.getElementById("etiquetaAutor");
+                        var etiquetaNueva='<a class="btn btn-outline-white btn-sm" id="etiquetaAutor" style="pointer-events: none;">Suscrito al autor</a>';
+                        $("#etiquetaAutor").after(etiquetaNueva);
+                        etiqueta.remove();
+                        
+                    }
+                }
             }
         </script>
     </body>

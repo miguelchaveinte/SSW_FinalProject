@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package ulearn.control;
 
@@ -16,16 +17,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import ulearn.datos.dao.CursoDB;
 import ulearn.datos.dao.SuscripcionesDB;
+import ulearn.datos.dao.UserDB;
+import ulearn.model.Suscripcion;
 import ulearn.model.User;
 
 /**
  *
- * @author migchav
+ * @author Javier
  */
-@WebServlet(name = "anadirFavorito", urlPatterns = {"/anadirFavorito"})
-public class anadirFavorito extends HttpServlet {
+@WebServlet(name = "anadirSuscripcionIniciado", urlPatterns = {"/anadirSuscripcionIniciado"})
+public class anadirSuscripcionIniciado extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,15 +41,15 @@ public class anadirFavorito extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet anadirFavorito</title>");            
+            out.println("<title>Servlet añadirSuscripcion</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet anadirFavorito at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet añadirSuscripcion at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,26 +70,21 @@ public class anadirFavorito extends HttpServlet {
         HttpSession session = request.getSession();
         User user= (User) session.getAttribute("user");
         
-        int idCurso = Integer.parseInt(request.getParameter("idCurso"));
-        boolean favorito=Boolean.parseBoolean(request.getParameter("valor"));
-        if(favorito){
-            try {
-                CursoDB.anadirfavorito(user.getId(),idCurso);
-            } catch (SQLException ex) {
-                Logger.getLogger(anadirFavorito.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        String tipo = (String) request.getParameter("suscripcion");
+        
+        int idAutor;
+        if(tipo.equals("AUTOR")){ 
+            idAutor = UserDB.getIdAutor(request.getParameter("nombre"));
         }
         else{
-            try {
-                CursoDB.eliminarfavorito(user.getId(),idCurso);
-            } catch (SQLException ex) {
-                Logger.getLogger(anadirFavorito.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            idAutor=-1;
         }
-        
-        /*String url = "/accederCurso?idCurso="+idCurso;
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);*/
+        try {
+            SuscripcionesDB.insert(user, tipo, idAutor);
+        } catch (SQLException ex) {
+            Logger.getLogger(anadirSuscripcionIniciado.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -101,7 +98,7 @@ public class anadirFavorito extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**

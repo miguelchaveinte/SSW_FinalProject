@@ -54,7 +54,8 @@
         <script defer="defer" src="app.js"></script>
 
         <script type="text/javascript" charset="utf8" async="" src="https://www.youtube.com/iframe_api"></script>  
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><!-- comment -->
+        
         <link href="main.81e26b4c.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -146,11 +147,11 @@
                                             <form>
                                                 <c:set var = "favorito" value = "<%=favorito%>"/>
                                                 <c:if test="${favorito}">
-                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavoritoIniciado?idCurso=<%=idCurso%>&idSeccion=<%=idseccion%>&valor='+document.getElementById('favorito').checked" checked>
+                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick=anadirFavorito(<%=idCurso%>,document.getElementById('favorito').checked) checked>
 
                                                 </c:if>
                                                 <c:if test="${!favorito}">
-                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick="location.href = 'anadirFavoritoIniciado?idCurso=<%=idCurso%>&idSeccion=<%=idseccion%>&valor='+document.getElementById('favorito').checked">
+                                                    <input type="checkbox" id="favorito" name="favorito" value="favorito" onclick=anadirFavorito(<%=idCurso%>,document.getElementById('favorito').checked)>
                                                 </c:if>
                                                 <label for="favorito"> Añadir a favoritos</label><br>
                                             </form>
@@ -171,10 +172,10 @@
                                     <div>
                                         <c:set var = "suscritoAAutor" value = "<%=suscritoAAutor%>"/>
                                         <c:if test="${suscritoAAutor}">
-                                            <a class="btn btn-outline-white btn-sm" style="pointer-events: none;">Suscrito al autor</a>
+                                            <a class="btn btn-outline-white btn-sm" id="etiquetaAutor" style="pointer-events: none;">Suscrito al autor</a>
                                         </c:if>
                                         <c:if test="${!suscritoAAutor}">
-                                            <a class="btn btn-outline-white btn-sm" href='anadirSuscripcion?suscripcion=AUTOR&nombre=<%=user.getNombreUsuario()%>'>Suscribirse</a>
+                                            <a class="btn btn-outline-white btn-sm" id="etiquetaAutor" onclick=anadirSuscripcion('AUTOR','<%=user.getNombreUsuario()%>')>Suscribirse</a>
                                         </c:if>
                                     </div>
                                 </div>
@@ -265,7 +266,40 @@
                 </div>
             </div>
         </div>
+        <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            var peticion = new XMLHttpRequest();
+            function anadirFavorito(idCurso,checked){           
+                peticion.open("GET",'anadirFavorito?idCurso='+idCurso+'&valor='+checked);
+                //peticion.onreadystatechange=procesarPeticion;
+                peticion.send(null);
+            }
 
+            var peticionSuscri = new XMLHttpRequest();
+            function anadirSuscripcion(tipo,nombreAutor){ 
+                console.log('anadirSuscripcionIniciado?suscripcion='+tipo+'&nombre='+nombreAutor);
+                peticionSuscri.open("GET",'anadirSuscripcionIniciado?suscripcion='+tipo+'&nombre='+nombreAutor);
+                peticionSuscri.onreadystatechange=procesarPeticion;
+                peticionSuscri.send(null);
+            }
+            
+            function procesarPeticion() {
+                //console.log("cositas");
+                if (peticionSuscri.readyState==4) {
+                    if (peticionSuscri.status == 200) {
+                        var etiqueta=document.getElementById("etiquetaAutor");
+                        var etiquetaNueva='<a class="btn btn-outline-white btn-sm" id="etiquetaAutor" style="pointer-events: none;">Suscrito al autor</a>';
+                        $("#etiquetaAutor").after(etiquetaNueva);
+                        etiqueta.remove();
+                        
+                    }
+                }
+            }
+        </script>                           
+                                    
+                                    
+                                    
     </body>
 
 

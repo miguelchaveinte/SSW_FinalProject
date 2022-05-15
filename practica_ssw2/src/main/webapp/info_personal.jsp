@@ -146,6 +146,7 @@
                             <div class="tab-pane fade show active" id="account" role="tabpanel"
                                 aria-labelledby="account-tab">
                                 <h3 class="mb-4">Información Personal</h3>
+                                <form><%-- NEW PARA FORM--%>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -209,13 +210,17 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                        
                                 <div>
                                     <button class="btn btn-primary">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
+                                </form>
                             </div>
                             <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                                 <h3 class="mb-4">Ajustes Seguridad</h3>
+                                <form>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -242,6 +247,7 @@
                                     <button class="btn btn-primary">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
+                                </form>
                             </div>
 
 
