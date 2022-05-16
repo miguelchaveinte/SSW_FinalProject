@@ -1,4 +1,19 @@
+<%@page import="ulearn.model.DesarrolloCurso"%>
+<%@page import="ulearn.model.Curso"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="ulearn.model.User"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<%
+    //HttpSession session2 = request.getSession();
+    //User usuario= (User) request.getAttribute("user");
+    ArrayList<Curso> favoritos = (ArrayList<Curso>)request.getAttribute("favoritos");
+    ArrayList<Double> valoracionesFav = (ArrayList<Double>)request.getAttribute("valoracionesFav");
+    ArrayList<DesarrolloCurso> desarrollo = (ArrayList<DesarrolloCurso>)request.getAttribute("enDesarrollo");
+    ArrayList<Double> valoracionesDes = (ArrayList<Double>)request.getAttribute("valoracionesDes");
+    ArrayList<Double> porcentajeDesarrollo = (ArrayList<Double>)request.getAttribute("porcentajeDesarrollo");
+%>
+
 <html lang="es">
 
 <head>
@@ -36,7 +51,7 @@
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                         aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                    <!-- Navbar Collapse  // añadir show (javascrip)-->
+                    <!-- Navbar Collapse  // a�adir show (javascrip)-->
                     <div class="collapse navbar-collapse " id="navbarCollapse">
 
 
@@ -76,10 +91,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
-                                        class="dropdown-item" href="./info_personal.html">Configuración usuario</a>
+                                        class="dropdown-item" href="./info_personal.html">Configuraci�n usuario</a>
                                     <div class="dropdown-divider"></div><a class="dropdown-item"
                                         href="Pricipal.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
-                                        Cerrar Sesión</a>
+                                        Cerrar Sesi�n</a>
                                 </div>
                             </li>
                         </ul>
@@ -119,19 +134,21 @@
                                                 aria-labelledby="react-aria6366272441-395-tab-bookmarked"
                                                 class="fade pb-4 p-4 ps-0 pe-0 tab-pane active show">
                                                 <div class="row">
+                                                    <%
+                                                    for(int i=0; i<favoritos.size();i++){
+                                                    %>
                                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                                         <div class="mb-4 card-hover  card"><a
                                                                 href="#"><img
-                                                                    src="./Imagenes/python.jpg" alt=""
+                                                                    src="imagenCurso?id=<%=favoritos.get(i).getId()%>" alt=""
                                                                     class="card-img-top rounded-top-md"></a>
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
                                                                         class="text-inherit"
-                                                                        href="#"> Curso
-                                                                        Python </a></h3>
+                                                                        href="#"> <%=favoritos.get(i).getNombre()%> </a></h3>
                                                                 <ul class="mb-3 list-inline">
                                                                     <li class="list-inline-item"><i
-                                                                            class="far fa-clock me-1"></i>1h 46m</li>
+                                                                            class="far fa-clock me-1"></i><%=favoritos.get(i).getDuracionConFormato()%></li>
                                                                 </ul>
                                                                 <div class="lh-1 d-flex align-items-center "><span
                                                                         class="text-warning me-1 mb-1"> <svg
@@ -165,19 +182,19 @@
                                                                                 d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
                                                                                 style="fill: currentcolor;"></path>
                                                                         </svg></span><span class="text-warning me-1">
-                                                                        2.0</span><span class="fs-6 text-muted">
+                                                                        <%=valoracionesFav.get(i)%></span><span class="fs-6 text-muted">
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
-                                                                        class="text-dark fw-bold">2.35€</span></div>
+                                                                        class="text-dark fw-bold"><%=favoritos.get(i).getPrecio()%>?</span></div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
                                                                     <div class="col-auto col"><img
-                                                                            src="./Imagenes/avatar1.jpg"
+                                                                            src="imagenUsuario?idUsuario=<%=favoritos.get(i).getCreador().getId()%>"
                                                                             alt="" class="rounded-circle avatar-xs">
                                                                     </div>
-                                                                    <div class="col ms-2 col"><span>Jenny Wilson</span>
+                                                                    <div class="col ms-2 col"><span><%=favoritos.get(i).getCreador().getNombreUsuario()%></span>
                                                                     </div>
                                                                     <div class="col-auto col"><a
                                                                             class="text-muted bookmark"
@@ -195,7 +212,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <%}%>
+                                                    <%--
                                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                                         <div class="mb-4 card-hover  card"><a
                                                                 href="#"><img
@@ -246,7 +264,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
-                                                                        class="text-dark fw-bold">2.15€</span></div>
+                                                                        class="text-dark fw-bold">2.15?</span></div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
@@ -324,7 +342,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
-                                                                        class="text-dark fw-bold">1.95€</span></div>
+                                                                        class="text-dark fw-bold">1.95?</span></div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
@@ -402,7 +420,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
-                                                                        class="text-dark fw-bold">1.25€</span></div>
+                                                                        class="text-dark fw-bold">1.25?</span></div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
@@ -479,7 +497,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
-                                                                        class="text-dark fw-bold">2.25€</span></div>
+                                                                        class="text-dark fw-bold">2.25?</span></div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
@@ -504,7 +522,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>--%>
                                                 </div>
                                             </div>
 
@@ -517,20 +535,21 @@
                                                 aria-labelledby="react-aria6366272441-395-tab-learning"
                                                 class="fade pb-4 p-4 ps-0 pe-0 tab-pane">
                                                 <div class="row">
-
+                                                    <%
+                                                    for(int i=0; i<desarrollo.size();i++){
+                                                    %>
                                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                                         <div class="mb-4 card-hover  card"><a
                                                                 href="#"><img
-                                                                    src="./Imagenes/java.jpg" alt=""
+                                                                    src="imagenCurso?id=<%=desarrollo.get(i).getCurso().getId()%>" alt=""
                                                                     class="card-img-top rounded-top-md"></a>
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
                                                                         class="text-inherit"
-                                                                        href="#">Curso Java
-                                                                        Avanzado</a></h3>
+                                                                        href="#"><%=desarrollo.get(i).getCurso().getNombre()%></a></h3>
                                                                 <ul class="mb-3 list-inline">
                                                                     <li class="list-inline-item"><i
-                                                                            class="far fa-clock me-1"></i>2h 57mm
+                                                                            class="far fa-clock me-1"></i><%=desarrollo.get(i).getCurso().getDuracionConFormato()%>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="lh-1 d-flex align-items-center "><span
@@ -565,17 +584,17 @@
                                                                                 d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
                                                                                 style="fill: currentcolor;"></path>
                                                                         </svg></span><span class="text-warning me-1">
-                                                                        4.0</span>
+                                                                        <%=valoracionesDes.get(i)%></span>
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
                                                                     <div class="col-auto col"><img
-                                                                            src="./Imagenes/avatar2.jpg"
+                                                                            src="imagenUsuario?idUsuario=<%=desarrollo.get(i).getCurso().getCreador().getId()%>"
                                                                             alt="" class="rounded-circle avatar-xs">
                                                                     </div>
                                                                     <div class="col ms-2 col"><span>
-                                                                            Brooklyn Simmons </span>
+                                                                            <%=desarrollo.get(i).getCurso().getCreador().getNombreUsuario()%> </span>
                                                                     </div>
                                                                     <div class="col-auto col"><a
                                                                             class="text-muted bookmark"
@@ -586,15 +605,16 @@
                                                                     <div class="mt-3 progress" style="height: 5px;">
                                                                         <div role="progressbar"
                                                                             class="progress-bar bg-success"
-                                                                            aria-valuenow="100" aria-valuemin="0"
-                                                                            aria-valuemax="100" style="width: 50%;">
+                                                                            aria-valuenow="<%=porcentajeDesarrollo.get(i)%>" aria-valuemin="0"
+                                                                            aria-valuemax="100" style="width: <%=porcentajeDesarrollo.get(i)%>%;">
                                                                         </div>
                                                                     </div>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <%}%>
+                                                    <%--
                                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                                         <div class="mb-4 card-hover  card"><a
                                                                 href="#"><img
@@ -671,7 +691,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>--%>
 
 
                                                 </div>

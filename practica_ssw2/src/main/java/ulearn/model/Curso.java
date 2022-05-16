@@ -92,6 +92,18 @@ public class Curso implements Serializable{
         return creador;
     }
     
+    public String getDuracionConFormato(){
+        int horas = (int) this.duracion;
+        double tmp = this.duracion-(double)horas;
+        int minutos = (int) (tmp*60);
+        String duracion;
+        if(minutos != 0)
+            duracion = horas + "h " + minutos + "m";
+        else
+            duracion = horas + "h";
+        return duracion;
+    }
+    
     //Setters
 
     public void setId(int id) {

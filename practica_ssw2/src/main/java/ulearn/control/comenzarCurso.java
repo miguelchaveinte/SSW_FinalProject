@@ -85,8 +85,8 @@ public class comenzarCurso extends HttpServlet {
 
         try {
             CursoDB.insert(user.getId(),idCurso);
-            SeccionDB.insert(user.getId(),seccion);
             listaSecciones = SeccionDB.getListaSecciones(idCurso);
+            SeccionDB.insert(user.getId(),listaSecciones.get(0).getId());
             curso = CursoDB.getInfoCurso(idCurso);
             creador=UserDB.getInfoCreador(idCurso);
             valoracion=CursoDB.getValoracion(idCurso);

@@ -208,12 +208,56 @@ public class CursoDB {
             rs=ps.executeQuery();
             
             while(rs.next()){
-                valoracion=rs.getInt("MEDIA"); 
+                valoracion=rs.getDouble("MEDIA"); 
             }
             
             ps.close();
             pool.freeConnection(connection);
             return valoracion;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+       
+    }
+    
+    public static double getPorcentajeDesarrollo(int idCurso, int idUsuario) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        double numCompletadas=0;
+        double numTotales=0;
+        
+        String consultaCompletadas = "SELECT COUNT(*) as NCOMPLETADAS FROM SECCION S, DESARROLLOSECCION DS WHERE S.IDCURSO = ? AND S.ID = DS.IDSECCION AND DS.IDUSUARIO = ? AND DS.COMPLETADA = TRUE";
+        String consultaTotales = "SELECT COUNT(*) as NTOTALES FROM SECCION S WHERE S.IDCURSO = ?";
+        
+        try {
+            ps = connection.prepareStatement(consultaCompletadas);
+            ps.setInt(1, idCurso);
+            ps.setInt(2, idUsuario);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                numCompletadas=rs.getDouble("NCOMPLETADAS"); 
+            }
+            
+            ps = connection.prepareStatement(consultaTotales);
+            ps.setInt(1, idCurso);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                numTotales=rs.getDouble("NTOTALES"); 
+            }
+            
+            ps.close();
+            pool.freeConnection(connection);
+            return (numCompletadas/numTotales) * 100;
+            
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;

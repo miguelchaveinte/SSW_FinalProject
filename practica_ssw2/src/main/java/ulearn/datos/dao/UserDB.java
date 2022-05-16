@@ -283,6 +283,43 @@ public class UserDB {
         }
     }
     
+    public static ArrayList<Curso> getFavoritosUsuario(int idUsuario){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Curso> cursos = new ArrayList<Curso>();
+        String query = "SELECT * FROM CURSOFAVORITO CF, CURSO C, USUARIO U WHERE CF.IDUSUARIO=? and CF.IDCURSO=C.ID and U.ID=C.CREADOR;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int id = rs.getInt("IDCURSO");
+                String nombre = rs.getString("NOMBRECURSO");
+                String descripcion = rs.getString("DESCRIPCION");
+                float precio = rs.getFloat("PRECIO");
+                float duracion = rs.getFloat("DURACION");
+                String categoria = rs.getString("CATEGORIA");            
+                String nombreAutor = rs.getString("NOMBREUSUARIO");
+                int idAutor = rs.getInt("CREADOR");
+                User autor = new User();
+                autor.setNombreUsuario(nombreAutor);
+                autor.setID(idAutor);
+                Curso curso = new Curso(id,nombre,descripcion,precio,null,duracion,categoria,autor);
+                cursos.add(curso);
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static void getImagen(int id, OutputStream respuesta){
         try {
             ConnectionPool pool = ConnectionPool.getInstance();

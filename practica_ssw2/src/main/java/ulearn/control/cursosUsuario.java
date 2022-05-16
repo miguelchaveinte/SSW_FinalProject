@@ -7,6 +7,10 @@ package ulearn.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,15 +18,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import ulearn.datos.dao.CursoDB;
 import ulearn.datos.dao.UserDB;
+import ulearn.model.Curso;
+import ulearn.model.DesarrolloCurso;
 import ulearn.model.User;
 
 /**
  *
- * @author Javier
+ * @author angel
  */
-@WebServlet(name = "iniciarSesion", urlPatterns = {"/iniciarSesion"})
-public class iniciarSesion extends HttpServlet {
+@WebServlet(name = "cursosUsuario", urlPatterns = {"/cursosUsuario"})
+public class cursosUsuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +48,10 @@ public class iniciarSesion extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet iniciarSesion</title>");            
+            out.println("<title>Servlet cursosUsuario</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet iniciarSesion at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet cursosUsuario at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +69,38 @@ public class iniciarSesion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);     
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("user");
+        ArrayList<Curso> favoritos = UserDB.getFavoritosUsuario(user.getId());
+        ArrayList<Double> valoracionesFav = new ArrayList<Double>();
+        for(int i=0; i<favoritos.size();i++){
+            try {
+                valoracionesFav.add(CursoDB.getValoracion(favoritos.get(i).getId()));
+            } catch (SQLException ex) {
+                Logger.getLogger(cursosUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        ArrayList<DesarrolloCurso> enDesarrollo = UserDB.getCursosUsuario(user.getId());
+        ArrayList<Double> valoracionesDes = new ArrayList<Double>();
+        ArrayList<Double> porcentajeDesarrollo = new ArrayList<Double>();
+        for(int i=0; i<enDesarrollo.size();i++){
+            try {
+                valoracionesDes.add(CursoDB.getValoracion(enDesarrollo.get(i).getCurso().getId()));
+                porcentajeDesarrollo.add(CursoDB.getPorcentajeDesarrollo(enDesarrollo.get(i).getCurso().getId(), user.getId()));
+            } catch (SQLException ex) {
+                Logger.getLogger(cursosUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        request.setAttribute("favoritos",favoritos);
+        request.setAttribute("valoracionesFav",valoracionesFav);
+        request.setAttribute("enDesarrollo", enDesarrollo);
+        request.setAttribute("valoracionesDes",valoracionesDes);
+        request.setAttribute("porcentajeDesarrollo", porcentajeDesarrollo);
+        String url = "/cursos.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
+        
     }
 
     /**
@@ -76,29 +114,7 @@ public class iniciarSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user=new User();
-        request.setCharacterEncoding("UTF-8");
-        // Si no hay usuario procedemos con el registro
-        String userName = request.getParameter("username");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        int id=-1;
-        String url="";
-        if (UserDB.emailExists(email) && (id = UserDB.comprobarUsuario(email,userName,password)) != -1) {
-            url = "/Pricipal.jsp";
-            user.setNombreUsuario(userName);
-            user.setContraseña(password);
-            user.setCorreo(email);
-            user.setID(id);
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-        } else {
-            //TODO: ERROR
-            url = "/Pricipal.jsp";
-            }
-        // forward the request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -47,7 +47,7 @@
                         tabindex="0" class="nav-link" href="./creados.html">Creador</a>
                 </li>
                 <li class="nav-item mr-2"><a class="nav-link " style="font-size: 1.1em;"
-                        id="docsDropdownMenuLink" href="./cursos.html" aria-haspopup="true"
+                        id="docsDropdownMenuLink" href="./cursosUsuario" aria-haspopup="true"
                         aria-expanded="false">
                         Mis Cursos</a>
                 </li>
