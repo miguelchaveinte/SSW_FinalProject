@@ -37,71 +37,7 @@
     <div id="general">
         <!--Div de la cabecera donde se encuentra el logo, buscador y demas opciones. Implementado mediante 2 menus-->
         <div id="cabecera">
-            <nav class="bg-white navbar p-2 navbar-default py-2 navbar navbar-expand-lg navbar-light">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center"><a class="navbar-brand py-1 mr-auto" href="Pricipal_logged.html"><img
-                                src="./Imagenes/icons8-e-learning-64.png" alt="ULearn logo"></a>
-                        <a aria-expanded="false" role="button" class="nav-link mr-3" tabindex="0"
-                            style="font-weight: bold; color: black; font: size 100px;" href="Pricipal_logged.html">ULearn</a>
-                        <form class="form-inline d-none d-sm-flex">
-                            <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
-                                    class="fa fa-search"></i></span><input placeholder="Search Courses" type="Search"
-                                id="formSearch" class="ps-6 form-control" />
-                        </form>
-                    </div>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                    <!-- Navbar Collapse  // añadir show (javascrip)-->
-                    <div class="collapse navbar-collapse " id="navbarCollapse">
-
-
-                        <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-                            <div class="input-label-absolute input-label-absolute-left w-100">
-                                <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
-                                        class="fa fa-search"></i></span><input placeholder="Search Courses"
-                                    type="Search" id="formSearch" class="ps-6 form-control" />
-                            </div>
-                        </form>
-
-                        <ul class="navbar-nav ms-auto ">
-
-                            <li class="nav-item mr-2"><a class="nav-link" style="font-size: 1.1em;"
-                                    id="homeDropdownMenuLink" href="Pricipal_logged.html">
-                                    Home</a>
-
-                            </li>
-                            <li class="nav-item mr-2 "><a class="nav-link " style="font-size: 1.1em;"
-                                    href="suscripciones.html">Suscripciones</a>
-
-                            </li>
-                            <li class="nav-item mr-2"><a aria-expanded="false" style="font-size: 1.1em;" role="button"
-                                    tabindex="0" class="nav-link" href="creados.html">Creador</a>
-                            </li>
-                            <li class="nav-item mr-2"><a class="nav-link " style="font-size: 1.1em;"
-                                    id="docsDropdownMenuLink" href="cursos.html" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    Mis Cursos</a>
-                            </li>
-
-                            <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="avatar avatar-md avatar-indicators avatar-online">
-                                        <img alt="avatar" src="./Imagenes/user.jpg" class="rounded-circle" />
-                                    </div>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
-                                        class="dropdown-item" href="./info_personal.html">Configuración usuario</a>
-                                    <div class="dropdown-divider"></div><a class="dropdown-item"
-                                        href="Pricipal.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
-                                        Cerrar Sesión</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <%@include file="./header_logged.jsp" %>
         </div>
 
 

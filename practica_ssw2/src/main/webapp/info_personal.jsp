@@ -35,71 +35,7 @@
 <body>
     <div id="root">
         <div class="App">
-            <nav class="bg-white navbar p-2 navbar-default py-2 navbar navbar-expand-lg navbar-light">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center"><a class="navbar-brand py-1 mr-auto" href="Pricipal_logged.html"><img
-                                src="./Imagenes/icons8-e-learning-64.png" alt="ULearn logo"></a>
-                        <a aria-expanded="false" role="button" class="nav-link mr-3" tabindex="0"
-                            style="font-weight: bold; color: black; font: size 100px;" href="Pricipal_logged.html">ULearn</a>
-                        <form class="form-inline d-none d-sm-flex">
-                            <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
-                                    class="fa fa-search"></i></span><input placeholder="Search Courses" type="Search"
-                                id="formSearch" class="ps-6 form-control" />
-                        </form>
-                    </div>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                        aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                    <!-- Navbar Collapse  // añadir show (javascrip)-->
-                    <div class="collapse navbar-collapse " id="navbarCollapse">
-
-
-                        <form class="form-inline mt-4 mb-2 d-sm-none" action="#" id="searchcollapsed">
-                            <div class="input-label-absolute input-label-absolute-left w-100">
-                                <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
-                                        class="fa fa-search"></i></span><input placeholder="Search Courses"
-                                    type="Search" id="formSearch" class="ps-6 form-control" />
-                            </div>
-                        </form>
-
-                        <ul class="navbar-nav ms-auto ">
-
-                            <li class="nav-item mr-2"><a class="nav-link" style="font-size: 1.1em;"
-                                    id="homeDropdownMenuLink" href="Pricipal_logged.html">
-                                    Home</a>
-
-                            </li>
-                            <li class="nav-item mr-2 "><a class="nav-link " style="font-size: 1.1em;"
-                                    href="suscripciones.html">Suscripciones</a>
-
-                            </li>
-                            <li class="nav-item mr-2"><a aria-expanded="false" style="font-size: 1.1em;" role="button"
-                                    tabindex="0" class="nav-link" href="creados.html">Creador</a>
-                            </li>
-                            <li class="nav-item mr-2"><a class="nav-link " style="font-size: 1.1em;"
-                                    id="docsDropdownMenuLink" href="cursos.html" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    Mis Cursos</a>
-                            </li>
-
-                            <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <div class="avatar avatar-md avatar-indicators avatar-online">
-                                        <img alt="avatar" src="Imagenes/user.jpg" class="rounded-circle" />
-                                    </div>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
-                                        class="dropdown-item" href="info_personal.html">Configuración usuario</a>
-                                    <div class="dropdown-divider"></div><a class="dropdown-item"
-                                        href="Pricipal.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
-                                        Cerrar Sesión</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <%@include file="./header_logged.jsp" %>
 
             <section class="py-5 my-5">
                 <div class="container">
@@ -146,75 +82,74 @@
                             <div class="tab-pane fade show active" id="account" role="tabpanel"
                                 aria-labelledby="account-tab">
                                 <h3 class="mb-4">Información Personal</h3>
-                                <form action="almacenarInfoPersonal" method="post"><%-- NEW PARA FORM--%>
+                                <form class="" action="almacenarInfoPersonal" method="post"><%-- NEW PARA FORM--%>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Nombre</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getNombre()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getNombre()%>" name="nombre" id="nombre">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Apellidos</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getApellidos()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getApellidos()%>" name="apellidos" id="apellidos">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getCorreo()%>">
+                                            <input type="email" class="form-control" value="<%=usuario.getCorreo()%>" name="email" id="email">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Teléfono</label>
-                                            <input type="text" class="form-control" value=<%=usuario.getTelefono()%>>
+                                            <input type="text" class="form-control" value="<%=usuario.getTelefono()%>" name="telefono" id="telefono">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Dirección</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getDireccion()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getDireccion()%>" name="direccion" id="direccion">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Ocupación</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getOcupacion()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getOcupacion()%>" name="ocupacion" id="ocupacion">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>País</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getPais()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getPais()%>" name="pais" id="pais">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Ciudad</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getCiudad()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getCiudad()%>" name="ciudad" id="ciudad">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Fecha de Nacimiento</label>
-                                            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" value=<%=usuario.getFechaNacimiento()%>>
+                                            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" value="<%=usuario.getFechaNacimiento()%>" >
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>Bio</label>
                                             <textarea class="form-control"
-                                                rows="4"><%=usuario.getBiografia()%></textarea>
+                                                rows="4" name="biografia" id="biografia"><%=usuario.getBiografia()%></textarea>
                                         </div>
                                     </div>
-                                        <input type="submit" >
                                 </div>
                                 
                                         
                                 <div>
-                                    <button class="btn btn-primary">Actualizar</button>
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
                                 </form>

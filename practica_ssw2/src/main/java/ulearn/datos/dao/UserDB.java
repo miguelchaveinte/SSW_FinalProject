@@ -9,6 +9,8 @@ import ulearn.datos.ConnectionPool;
 import ulearn.model.User;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import ulearn.model.Curso;
 import ulearn.model.DesarrolloCurso;
@@ -347,5 +349,32 @@ public class UserDB {
         } 
     }
     
-    
+    public static void updateInfoUsuario(User usuario){
+        try {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null;
+            statement = connection.prepareStatement("UPDATE USUARIO U SET CORREO = ?, NOMBRE = ?, APELLIDO = ?, TELEFONO = ?, DIRECCION = ?, OCUPACION = ?, PAIS = ?, CIUDAD = ?, FECHANACIMIENTO = ?, BIOGRAFIA = ? WHERE U.ID=?");
+            statement.setString(1,usuario.getCorreo());
+            statement.setString(2, usuario.getNombre());
+            statement.setString(3, usuario.getApellidos());
+            statement.setInt(4, usuario.getTelefono());
+            statement.setString(5, usuario.getDireccion());
+            statement.setString(6, usuario.getOcupacion());
+            statement.setString(7, usuario.getPais());
+            statement.setString(8, usuario.getCiudad());
+            LocalDate fecha = usuario.getFechaNacimiento();
+            Date fechaNacimiento = null;
+            if(fecha != null){
+                fechaNacimiento= Date.valueOf(fecha);
+            }
+            statement.setDate(9, fechaNacimiento);
+            statement.setString(10, usuario.getBiografia());
+            statement.setInt(11, usuario.getId());
+            statement.executeUpdate();
+        pool.freeConnection(connection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
 }
