@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@page import="ulearn.model.DesarrolloCurso"%>
 <%@page import="ulearn.model.Curso"%>
 <%@page import="java.util.ArrayList"%>
@@ -51,7 +52,7 @@
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                         aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                    <!-- Navbar Collapse  // añadir show (javascrip)-->
+                    <!-- Navbar Collapse  // aÃ±adir show (javascrip)-->
                     <div class="collapse navbar-collapse " id="navbarCollapse">
 
 
@@ -91,10 +92,10 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenuLink"><a
-                                        class="dropdown-item" href="./info_personal.html">Configuración usuario</a>
+                                        class="dropdown-item" href="./info_personal.html">ConfiguraciÃ³n usuario</a>
                                     <div class="dropdown-divider"></div><a class="dropdown-item"
                                         href="Pricipal.html"><i class="fas fa-sign-out-alt me-2 text-muted"></i>
-                                        Cerrar Sesión</a>
+                                        Cerrar SesiÃ³n</a>
                                 </div>
                             </li>
                         </ul>
@@ -139,9 +140,9 @@
                                                     %>
                                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                                         <div class="mb-4 card-hover  card"><a
-                                                                href="#"><img
+                                                                href="comprobarCurso?idCurso=<%=favoritos.get(i).getId()%>"><img
                                                                     src="imagenCurso?id=<%=favoritos.get(i).getId()%>" alt=""
-                                                                    class="card-img-top rounded-top-md"></a>
+                                                                    class="card-img-top rounded-top-md" style="max-height: 250px;"></a>
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
                                                                         class="text-inherit"
@@ -186,7 +187,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
-                                                                        class="text-dark fw-bold"><%=favoritos.get(i).getPrecio()%>?</span></div>
+                                                                        class="text-dark fw-bold"><%=favoritos.get(i).getPrecio()%>â‚¬</span></div>
                                                             </div>
                                                             <div class="card-footer">
                                                                 <div class="align-items-center g-0 row">
@@ -540,9 +541,9 @@
                                                     %>
                                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                                         <div class="mb-4 card-hover  card"><a
-                                                                href="#"><img
+                                                                href="comenzarCurso?idCurso=<%=desarrollo.get(i).getCurso().getId()%>"><img
                                                                     src="imagenCurso?id=<%=desarrollo.get(i).getCurso().getId()%>" alt=""
-                                                                    class="card-img-top rounded-top-md"></a>
+                                                                    class="card-img-top rounded-top-md" style="max-height: 250px;"></a>
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
                                                                         class="text-inherit"

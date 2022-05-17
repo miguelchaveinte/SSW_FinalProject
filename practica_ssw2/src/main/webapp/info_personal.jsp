@@ -146,7 +146,7 @@
                             <div class="tab-pane fade show active" id="account" role="tabpanel"
                                 aria-labelledby="account-tab">
                                 <h3 class="mb-4">Información Personal</h3>
-                                <form><%-- NEW PARA FORM--%>
+                                <form action="almacenarInfoPersonal" method="post"><%-- NEW PARA FORM--%>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -209,6 +209,7 @@
                                                 rows="4"><%=usuario.getBiografia()%></textarea>
                                         </div>
                                     </div>
+                                        <input type="submit" >
                                 </div>
                                 
                                         
@@ -363,7 +364,7 @@
                                                     <div>
                                                         <div class="d-flex justify-content-between mb-0">
                                                             <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
+                                                                <img src="imagenCurso?id=<%=cursos.get(i).getCurso().getId()%>" alt=""
                                                                     class="blog-thumbnail">
                                                                 <div class="blog-container">
                                                                     <a href="#!"
@@ -404,7 +405,7 @@
                                                     <div>
                                                         <div class="d-flex justify-content-between mb-0">
                                                             <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
+                                                                <img src="imagenCurso?id=<%=cursos.get(i+1).getCurso().getId()%>" alt=""
                                                                     class="blog-thumbnail">
                                                                 <div class="blog-container">
                                                                     <a href="#!"
