@@ -97,11 +97,9 @@ public class UserDB {
             ps.setString(1, correo);
             rs = ps.executeQuery();
             int res=-1;
-            String tmp="";
             if(rs.next()){
                 if(userName.equals(rs.getString("NOMBREUSUARIO")) && password.equals(rs.getString("CONTRASEÑA")))
-                    tmp=rs.getString("ID");
-                    res = Integer.valueOf(tmp);
+                    res=rs.getInt("ID");
             }
             rs.close();
             ps.close();
@@ -322,6 +320,43 @@ public class UserDB {
         }
     }
     
+    public static ArrayList<Curso> getCursosCreados(int idUsuario){
+       ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Curso> cursos = new ArrayList<Curso>();
+        String query = "SELECT * FROM CURSO C, USUARIO U WHERE C.CREADOR = ? AND C.CREADOR = U.ID;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                int id = rs.getInt("ID");
+                String nombre = rs.getString("NOMBRECURSO");
+                String descripcion = rs.getString("DESCRIPCION");
+                float precio = rs.getFloat("PRECIO");
+                float duracion = rs.getFloat("DURACION");
+                String categoria = rs.getString("CATEGORIA");            
+                String nombreAutor = rs.getString("NOMBREUSUARIO");
+                int idAutor = rs.getInt("CREADOR");
+                User autor = new User();
+                autor.setNombreUsuario(nombreAutor);
+                autor.setID(idAutor);
+                Curso curso = new Curso(id,nombre,descripcion,precio,null,duracion,categoria,autor);
+                cursos.add(curso);
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public static void getImagen(int id, OutputStream respuesta){
         try {
             ConnectionPool pool = ConnectionPool.getInstance();
@@ -371,6 +406,21 @@ public class UserDB {
             statement.setDate(9, fechaNacimiento);
             statement.setString(10, usuario.getBiografia());
             statement.setInt(11, usuario.getId());
+            statement.executeUpdate();
+        pool.freeConnection(connection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+    
+    public static void cambiarContrasena(int idUsuario, String nuevaContrasena){
+        try {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null;
+            statement = connection.prepareStatement("UPDATE USUARIO U SET CONTRASEÑA = ? WHERE U.ID=?");
+            statement.setString(1,nuevaContrasena);
+            statement.setInt(2, idUsuario);
             statement.executeUpdate();
         pool.freeConnection(connection);
         } catch (Exception e) {

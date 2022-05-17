@@ -4,7 +4,12 @@
     Author     : migchav
 --%>
 
+<%@page import="ulearn.model.User"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+    User userX = (User)session.getAttribute("user");
+%>
 <!DOCTYPE html>
 <nav class="bg-white navbar p-2 navbar-default py-2 navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
@@ -44,7 +49,7 @@
 
                 </li>
                 <li class="nav-item mr-2"><a aria-expanded="false" style="font-size: 1.1em;" role="button"
-                        tabindex="0" class="nav-link" href="./creados.html">Creador</a>
+                        tabindex="0" class="nav-link" href="./cursosCreador">Creador</a>
                 </li>
                 <li class="nav-item mr-2"><a class="nav-link " style="font-size: 1.1em;"
                         id="docsDropdownMenuLink" href="./cursosUsuario" aria-haspopup="true"
@@ -55,7 +60,7 @@
                 <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar avatar-md avatar-indicators avatar-online">
-                            <img alt="avatar" src="Imagenes/user.jpg" class="rounded-circle" />
+                            <img alt="avatar" src="imagenUsuario?idUsuario=<%=userX.getId()%>" class="rounded-circle" />
                         </div>
                     </a>
 

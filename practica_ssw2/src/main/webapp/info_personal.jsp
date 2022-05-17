@@ -36,7 +36,6 @@
     <div id="root">
         <div class="App">
             <%@include file="./header_logged.jsp" %>
-
             <section class="py-5 my-5">
                 <div class="container">
                     <h1 class="mb-5">Ajustes Perfil</h1>
@@ -156,12 +155,12 @@
                             </div>
                             <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                                 <h3 class="mb-4">Ajustes Seguridad</h3>
-                                <form>
+                                <form class="" action="cambiarContrasena" method="post">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Antigua Contraseña</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getContraseña()%>">
+                                            <input type="text" class="form-control" value="<%=usuario.getContraseña()%>" name="antiguaContra">
                                         </div>
                                     </div>
                                 </div>
@@ -169,18 +168,18 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Nueva Contraseña</label>
-                                            <input type="password" class="form-control">
+                                            <input type="password" class="form-control" name="nuevaContra">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Confirma la nueva contraseña</label>
-                                            <input type="password" class="form-control">
+                                            <input type="password" class="form-control" name="confirmarContra">
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary">Actualizar</button>
+                                    <button class="btn btn-primary" type="input">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
                                 </form>
@@ -250,36 +249,6 @@
                                                 </div>
                                             </div>
                                             <%}%>
-                                            <%--<div class="pt-5">
-                                                <div class="mb-4 row">
-                                                    <div class="mb-2 mb-lg-0 col">
-                                                        <span class="d-block"><span class="h4">Gratuito</span>
-                                                            <span class="ms-2 badge bg-success">Activa</span></span>
-                                                        <p class="mb-0 fs-6">Suscripción ID: #100010001</p>
-                                                    </div>
-                                                    <div class="col-auto col">
-                                                        <a class="btn btn-light btn-sm disabled">Disabled</a>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
-                                                        <span class="fs-6">Inicio Plan</span>
-                                                        <h6 class="mb-0">Sept 1, 2020</h6>
-                                                    </div>
-                                                    <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
-                                                        <span class="fs-6">Precio</span>
-                                                        <h6 class="mb-0">Gratuito</h6>
-                                                    </div>
-                                                    <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
-                                                        <span class="fs-6">Acceso</span>
-                                                        <h6 class="mb-0">Acceso Limitado</h6>
-                                                    </div>
-                                                    <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
-                                                        <span class="fs-6">Próximo Cargo</span>
-                                                        <h6 class="mb-0">Oct 1, 2020</h6>
-                                                    </div>
-                                                </div>
-                                            </div>--%>
                                         </div>
                                     </div>
                                 </div>
@@ -297,14 +266,14 @@
                                             <li>
                                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                                     <div>
-                                                        <div class="d-flex justify-content-between mb-0">
+                                                        <div class="justify-content-between mb-0">
                                                             <div class="blog-card">
-                                                                <img src="imagenCurso?id=<%=cursos.get(i).getCurso().getId()%>" alt=""
-                                                                    class="blog-thumbnail">
+                                                                <a href="comenzarCurso?idCurso=<%=cursos.get(i).getCurso().getId()%>"><img src="imagenCurso?id=<%=cursos.get(i).getCurso().getId()%>" alt=""
+                                                                    class="blog-thumbnail"></a>
                                                                 <div class="blog-container">
                                                                     <a href="#!"
                                                                         class="blog-category text-uppercase dark-link"><%=cursos.get(i).getCurso().getCategoria()%></a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
+                                                                    <h4 class="mt-2 font-weight-bold"><a href="comenzarCurso?idCurso=<%=cursos.get(i).getCurso().getId()%>"
                                                                             class="dark-link"><%=cursos.get(i).getCurso().getNombre()%></a></h4>
                                                                     <p class="blog-desc"><%=cursos.get(i).getCurso().getDescripcion()%></p>
                                                                     <div class="blog-footer">
@@ -316,20 +285,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -338,14 +294,14 @@
                                                 %>
                                                 <div class="col-sm-6 col-md-6 col-lg-6">
                                                     <div>
-                                                        <div class="d-flex justify-content-between mb-0">
+                                                        <div class="justify-content-between mb-0">
                                                             <div class="blog-card">
-                                                                <img src="imagenCurso?id=<%=cursos.get(i+1).getCurso().getId()%>" alt=""
-                                                                    class="blog-thumbnail">
+                                                                <a href="comenzarCurso?idCurso=<%=cursos.get(i+1).getCurso().getId()%>"><img src="imagenCurso?id=<%=cursos.get(i+1).getCurso().getId()%>" alt=""
+                                                                    class="blog-thumbnail"></a>
                                                                 <div class="blog-container">
                                                                     <a href="#!"
                                                                         class="blog-category text-uppercase dark-link"><%=cursos.get(i+1).getCurso().getCategoria()%></a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
+                                                                    <h4 class="mt-2 font-weight-bold"><a href=""comenzarCurso?idCurso=<%=cursos.get(i+1).getCurso().getId()%>""
                                                                             class="dark-link"><%=cursos.get(i+1).getCurso().getNombre()%></a></h4>
                                                                     <p class="blog-desc"><%=cursos.get(i+1).getCurso().getDescripcion()%></p>
                                                                     <div class="blog-footer">
@@ -358,390 +314,12 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <%}%>
                                             </li>
                                             <%}%>
-                                            <%--
-                                            <li>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            <li>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="col-sm-6 col-md-6 col-lg-6">
-                                                    <div>
-                                                        <div class="d-flex justify-content-between mb-0">
-                                                            <div class="blog-card">
-                                                                <img src="Imagenes/javascript.jpg" alt=""
-                                                                    class="blog-thumbnail">
-                                                                <div class="blog-container">
-                                                                    <a href="#!"
-                                                                        class="blog-category text-uppercase dark-link">JavaScript</a>
-                                                                    <h4 class="mt-2 font-weight-bold"><a href="#!"
-                                                                            class="dark-link">Empiece con JavaScript(Paginado)</a></h4>
-                                                                    <p class="blog-desc">JavaScript es uno de los lenguajes de programación más populares actualmente, presente en páginas web y aplicaciones. Este curso te introducirá en la programación básica con JavaScript.</p>
-                                                                    <div class="blog-footer">
-                                                                        <div><img
-                                                                                src="Imagenes/avatar1.jpg"
-                                                                                alt="" class="blog-author"> <a
-                                                                                href="#!">Kiran
-                                                                                Acharya</a> </div>
-                                                                        <small>Ene 12, 2021</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="dropdown open">
-                                                                <a href="#!" class="px-2" id="triggerId1"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </a>
-                                                                <div class="dropdown-menu" aria-labelledby="triggerId1">
-                                                                    <a class="dropdown-item" href="#"><i
-                                                                            class="fa fa-pencil mr-1"></i> Mostrar</a>
-                                                                    <a class="dropdown-item text-danger" href="#"><i
-                                                                            class="fa fa-trash mr-1"></i>
-                                                                        Eliminar</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            --%>
                                     </div>
                                     </ul>
                                 </div>
