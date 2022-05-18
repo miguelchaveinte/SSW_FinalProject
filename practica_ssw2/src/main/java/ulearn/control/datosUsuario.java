@@ -69,10 +69,18 @@ public class datosUsuario extends HttpServlet {
         User user= (User) session.getAttribute("user");
         User user1 = UserDB.getInfoUsuario(user.getId());
         ArrayList<ObtencionSuscripcion> obtenciones = UserDB.getSuscripcionesUsuario(user.getId());
+        ArrayList<String> nombres = new ArrayList<String>();
+        for(int i = 0; i<obtenciones.size(); i++){
+            if(obtenciones.get(i).getSuscripcion().getIdautor() != -1){
+                nombres.add(UserDB.getNombre(obtenciones.get(i).getSuscripcion().getIdautor()));
+            }else
+                nombres.add("");
+        }
         ArrayList<DesarrolloCurso> cursos = UserDB.getCursosUsuario(user.getId());
         request.setAttribute("cursos",cursos);
         request.setAttribute("user", user1);
         request.setAttribute("suscripciones", obtenciones);
+        request.setAttribute("nombresAutores", nombres);
         String url = "/info_personal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
@@ -89,14 +97,22 @@ public class datosUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+                HttpSession session = request.getSession();
         User user= (User) session.getAttribute("user");
         User user1 = UserDB.getInfoUsuario(user.getId());
         ArrayList<ObtencionSuscripcion> obtenciones = UserDB.getSuscripcionesUsuario(user.getId());
+        ArrayList<String> nombres = new ArrayList<String>();
+        for(int i = 0; i<obtenciones.size(); i++){
+            if(obtenciones.get(i).getSuscripcion().getIdautor() != -1){
+                nombres.add(UserDB.getNombre(obtenciones.get(i).getSuscripcion().getIdautor()));
+            }else
+                nombres.add("");
+        }
         ArrayList<DesarrolloCurso> cursos = UserDB.getCursosUsuario(user.getId());
         request.setAttribute("cursos",cursos);
         request.setAttribute("user", user1);
         request.setAttribute("suscripciones", obtenciones);
+        request.setAttribute("nombresAutores", nombres);
         String url = "/info_personal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);

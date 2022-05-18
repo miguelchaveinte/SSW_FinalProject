@@ -10,6 +10,7 @@
     User usuario= (User) request.getAttribute("user");
     ArrayList<ObtencionSuscripcion> obtenciones = (ArrayList<ObtencionSuscripcion>)request.getAttribute("suscripciones");
     ArrayList<DesarrolloCurso> cursos = (ArrayList<DesarrolloCurso>)request.getAttribute("cursos");
+    ArrayList<String> nombres = (ArrayList<String>)request.getAttribute("nombresAutores");
 %>
     
 <html lang="es">
@@ -199,8 +200,7 @@
                                                 </p>
                                             </div>
                                             <div>
-                                                <a class="btn btn-success btn-sm" href="./info_personal.html">Cambiar o
-                                                    añadir plan</a>
+                                                <a class="btn btn-success btn-sm" href="accederSuscripciones">Añadir plan</a>
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -212,9 +212,11 @@
                                                     <div class="mb-2 mb-lg-0 col-lg-6 col-md-8 col-sm-7">
                                                         <span class="d-block"><span class="h4"><%=obtenciones.get(i).getSuscripcion().getTipo()%></span>
                                                             <span class="ms-2 badge bg-success">Activa</span></span>
-                                                        <p class="mb-0 fs-6">Suscripción ID: #<%=obtenciones.get(i).getSuscripcion().getId()%></p>
+                                                        <c:if obtenciones.get(i).getSuscripcion().getIdautor()!= null>
+                                                                <p class="mb-0 fs-6"><%=nombres.get(i)%></p>
+                                                        </c:if>
                                                     </div>
-                                                    <div class="mb-2 mb-lg-0 col-lg-3 col-md-4 col-sm-5">
+                                                    <%--<div class="mb-2 mb-lg-0 col-lg-3 col-md-4 col-sm-5">
                                                         <span>Autorenovación</span>
                                                         <form class="">
                                                             <div class="form-switch">
@@ -222,11 +224,11 @@
                                                                     class="form-check-input" checked="" />
                                                             </div>
                                                         </form>
-                                                    </div>
+                                                    </div>--%>
                                                     <div
                                                         class="d-lg-flex align-items-start justify-content-end col-lg-3 col-md-12 col-sm-12">
                                                         <a class="btn btn-outline-primary btn-sm"
-                                                            href="./info_personal.html">Deshabilitar plan</a>
+                                                            href="eliminarSuscripcion?id=<%=obtenciones.get(i).getSuscripcion().getId()%>">Deshabilitar plan</a>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -240,12 +242,24 @@
                                                     </div>
                                                     <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
                                                         <span class="fs-6">Acceso</span>
-                                                        <h6 class="mb-0">Acceso a todos los cursos</h6>
+                                                        <%if(obtenciones.get(i).getSuscripcion().getTipo().equals("GRATIS")){%>
+                                                                <h6 class="mb-0">Acceso a todos los cursos gratuitos</h6>
+                                                        <%}%>
+                                                        <%if(obtenciones.get(i).getSuscripcion().getTipo().equals("TOTAL")){%>
+                                                                <h6 class="mb-0">Acceso a todos los cursos</h6>
+                                                        <%}%>
+                                                        <%if(obtenciones.get(i).getSuscripcion().getTipo().equals("ESTUDIANTE")){%>
+                                                                <h6 class="mb-0">Acceso a todos los cursos</h6>
+                                                        <%}%>
+                                                        <%if(obtenciones.get(i).getSuscripcion().getTipo().equals("AUTOR")){%>
+                                                                <h6 class="mb-0">Acceso a todos los cursos del autor</h6>
+                                                        <%}%>
+                                                        
                                                     </div>
-                                                    <div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
+                                                    <%--<div class="mb-2 mb-lg-0 col-lg-3 col-md-3 col-sm-6">
                                                         <span class="fs-6">Próximo Cargo</span>
                                                         <h6 class="mb-0">Nov 1, 2022</h6>
-                                                    </div>
+                                                    </div>--%>
                                                 </div>
                                             </div>
                                             <%}%>

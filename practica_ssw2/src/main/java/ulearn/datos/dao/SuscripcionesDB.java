@@ -30,10 +30,12 @@ public class SuscripcionesDB {
         PreparedStatement ps=null;
         PreparedStatement ps1 = null;
 
-        String suscripcion = "INSERT INTO SUSCRIPCION ( TIPO, PRECIO, IDAUTOR) VALUES ( ?, ?, ?)";
+        //String suscripcion = "INSERT INTO SUSCRIPCION ( TIPO, PRECIO, IDAUTOR) VALUES ( ?, ?, ?)";
+        String suscripcion = "SELECT ID FROM SUSCRIPCION WHERE TIPO = ?";
+        String suscripcionAutor = "SELECT ID FROM SUSCRIPCION WHERE TIPO = ? AND IDAUTOR = ?";
         String obtencionsuscripcion = "INSERT INTO OBTENCIONSUSCRIPCION ( FECHAINICIO, COBRO, AUTORENOVAR, IDUSUARIO, IDSUSCRIPCION) VALUES ( ?, ?, ?, ?, ?)";
         
-        double precio = 0;
+        /*double precio = 0;
         switch(tipoSuscripcion){
             case "GRATIS":
                 precio = 0;
@@ -48,19 +50,22 @@ public class SuscripcionesDB {
                 precio = 3.99;
                 break;
         }
-        
+        */
         try {
-            ps = connection.prepareStatement(suscripcion, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, tipoSuscripcion);         
-            ps.setDouble(2, precio);
-            if(idAutor!=-1){ps.setInt(3, idAutor);} else{ps.setObject(3, null);}
-            
+            if(idAutor == -1){
+                ps = connection.prepareStatement(suscripcion);
+                ps.setString(1, tipoSuscripcion);   
+            }else{
+                ps = connection.prepareStatement(suscripcionAutor);
+                ps.setString(1, tipoSuscripcion);  
+                ps.setInt(2, idAutor);
+            }
             
             int res = 0;
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.executeQuery();
+            //ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                res = rs.getInt(1);
+                res = rs.getInt("ID");    
             }
             rs.close();
             ps.close();
@@ -158,6 +163,24 @@ public class SuscripcionesDB {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public static void eliminarSuscripcion(int idUsuario, int idSuscripcion){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        String query = "DELETE FROM OBTENCIONSUSCRIPCION OS WHERE OS.IDUSUARIO = ? AND OS.IDSUSCRIPCION = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1,idUsuario);
+            ps.setInt(2, idSuscripcion);
+            ps.executeUpdate();
+            
+            ps.close();
+            pool.freeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
         

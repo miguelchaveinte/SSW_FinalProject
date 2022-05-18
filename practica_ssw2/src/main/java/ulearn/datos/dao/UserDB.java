@@ -226,8 +226,10 @@ public class UserDB {
                 int id = rs.getInt("IDSUSCRIPCION");
                 String cobro = rs.getString("COBRO");
                 boolean autorrenovar = rs.getBoolean("AUTORENOVAR");
+                int idAutor = rs.getInt("IDAUTOR");
                 //boolean activa = rs.getBoolean("ACTIVA");
                 Suscripcion suscripcion = new Suscripcion(id, tipo);
+                suscripcion.setIdautor(idAutor);
                 ObtencionSuscripcion obtencionSuscripcion = new ObtencionSuscripcion(fechaInicio, cobro, autorrenovar, suscripcion);
                 obtenciones.add(obtencionSuscripcion);
             }
@@ -426,5 +428,30 @@ public class UserDB {
         } catch (Exception e) {
             e.printStackTrace();
         } 
+    }
+    
+    public static String getNombre(int idUsuario){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String nombre = "";
+        String query = "SELECT NOMBREUSUARIO FROM USUARIO U WHERE U.ID = ?;  ";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                nombre = rs.getString("NOMBREUSUARIO");
+            }
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return nombre;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

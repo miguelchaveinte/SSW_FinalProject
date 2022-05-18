@@ -43,6 +43,8 @@ public class Suscripcion implements Serializable{
     public Suscripcion(int id, String tipo){
         this.id=id;
         this.tipo=tipo;
+        this.precio=-1;
+        this.idautor=-1;
     }
     
     //Getters

@@ -151,7 +151,7 @@
                         for(var j=0;j<cursos[i].length;j++){
                             elemento='<div class="slick">'
                             elemento+='<div>'
-                            elemento+='<a href="accederCurso?idCurso='+cursos[i][j]+'">'
+                            elemento+='<a href="comprobarCurso?idCurso='+cursos[i][j]+'">'
                             elemento+='<picture>'
                             elemento+='<img alt="Imagen" src="imagenCurso?id='+cursos[i][j]+'">'
                             elemento+='</picture>'            

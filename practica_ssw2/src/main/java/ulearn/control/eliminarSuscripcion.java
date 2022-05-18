@@ -7,8 +7,6 @@ package ulearn.control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,15 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import ulearn.datos.dao.UserDB;
+import ulearn.datos.dao.SuscripcionesDB;
 import ulearn.model.User;
 
 /**
  *
  * @author angel
  */
-@WebServlet(name = "almacenarInfoPersonal", urlPatterns = {"/almacenarInfoPersonal"})
-public class almacenarInfoPersonal extends HttpServlet {
+@WebServlet(name = "eliminarSuscripcion", urlPatterns = {"/eliminarSuscripcion"})
+public class eliminarSuscripcion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +41,10 @@ public class almacenarInfoPersonal extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet almacenarInfoPersonal</title>");            
+            out.println("<title>Servlet eliminarSuscripcion</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet almacenarInfoPersonal at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet eliminarSuscripcion at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,7 +62,13 @@ public class almacenarInfoPersonal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        User user= (User) session.getAttribute("user");
+        int idSuscripcion = Integer.parseInt((String) request.getParameter("id"));
+        SuscripcionesDB.eliminarSuscripcion(user.getId(), idSuscripcion);
+        String url = "/datosUsuario";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     /**
@@ -78,34 +82,7 @@ public class almacenarInfoPersonal extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        HttpSession session = request.getSession();
-        User user= (User) session.getAttribute("user");
-        String url = "";
-        User usuario = new User();
-        String email = (String) request.getParameter("email");
-        if(!UserDB.emailExists(email)){
-            usuario.setID(user.getId());
-            usuario.setNombre((String) request.getParameter("nombre"));
-            usuario.setApellidos((String) request.getParameter("apellidos"));
-            usuario.setCorreo((String) request.getParameter("email"));
-            usuario.setTelefono(Integer.parseInt((String)request.getParameter("telefono")));
-            usuario.setDireccion((String) request.getParameter("direccion"));
-            usuario.setOcupacion((String) request.getParameter("ocupacion"));
-            usuario.setPais((String) request.getParameter("pais"));
-            usuario.setCiudad((String) request.getParameter("ciudad"));
-            String fechaNacimiento = (String) request.getParameter("dateofbirth");
-            usuario.setFechaNacimiento(LocalDate.parse(fechaNacimiento));
-            usuario.setBiografia((String) request.getParameter("biografia"));
-            UserDB.updateInfoUsuario(usuario);
-            url = "/datosUsuario";
-        }else{
-            //error de que el email ya existe
-            url = "/datosUsuario";
-        }
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
