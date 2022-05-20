@@ -43,11 +43,14 @@
         <meta name="description" content="Web site created using create-react-app">
         <title>ULearn</title>
 
-        <link href="main.81e26b4c.css" rel="stylesheet">
+        <link href="./main.81e26b4c.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link type="text/css" rel="stylesheet" href="./rating.css">
+                
 
     </head>
 
@@ -92,42 +95,11 @@
                                 <div class="d-flex mb-5"><span><span class="text-warning">
 
                                             <!--Estrellas para representar la puntuacion media???-->
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                 style="width: 0.875rem; height: 0.875rem;">
-                                            <path
-                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                style="fill: currentcolor;"></path></svg>
+                                               <!--Estrellas para representar la puntuacion media???-->
+                                              <input class="rating" max="5" readonly step="0.01" style="--fill:#ffd700;--value:<%=valoracion%>" type="range">
 
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                 style="width: 0.875rem; height: 0.875rem;">
-                                            <path
-                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                style="fill: currentcolor;"></path>
-                                            </svg>
-
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                 style="width: 0.875rem; height: 0.875rem;">
-                                            <path
-                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                style="fill: currentcolor;"></path>
-                                            </svg>
-
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                 style="width: 0.875rem; height: 0.875rem;">
-                                            <path
-                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                style="fill: currentcolor;"></path>
-                                            </svg>
-
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                 style="width: 0.875rem; height: 0.875rem;">
-                                            <path
-                                                d="M12,15.4V6.1L13.71,10.13L18.09,10.5L14.77,13.39L15.76,17.67M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
-                                                style="fill: currentcolor;"></path>
-                                            </svg></span>
-
-                                        <span class="fw-medium">(<%=valoracion%>)</span></span>
-                                    </svg></span>
+                                        <span class="fw-medium">Valoración: (<%=valoracion%>)</span></span>
+                                    </span>
 
                                 </div>
 
@@ -309,6 +281,12 @@
         </div>
 
         <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <!-- Popper JS -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+        <!-- Bootstrap JS -->
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+                <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <!-- Popper JS -->
         <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
         <!-- Bootstrap JS -->

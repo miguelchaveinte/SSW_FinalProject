@@ -61,6 +61,9 @@
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+        
+    <link type="text/css" rel="stylesheet" href="./rating.css">
     </head>
     
     
@@ -101,42 +104,17 @@
                                 <div class="d-flex mb-5"><span><span class="text-warning">
                                             
                                             <!--Estrellas para representar la puntuacion media???-->
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                style="width: 0.875rem; height: 0.875rem;">
-                                                <path
-                                                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                    style="fill: currentcolor;"></path></svg>
-
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                style="width: 0.875rem; height: 0.875rem;">
-                                                <path
-                                                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                    style="fill: currentcolor;"></path>
-                                            </svg>
+                                            <!--Estrellas para representar la puntuacion media???-->
+                                              <input
+    class="rating"
+    max="5"
+    readonly
+    step="0.01"
+    style="--fill:#ffd700;--value:<%=valoracion%>"
+    type="range">
                                             
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                style="width: 0.875rem; height: 0.875rem;">
-                                                <path
-                                                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                    style="fill: currentcolor;"></path>
-                                            </svg>
-                                            
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                style="width: 0.875rem; height: 0.875rem;">
-                                                <path
-                                                    d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                    style="fill: currentcolor;"></path>
-                                            </svg>
-                                            
-                                            <svg viewBox="0 0 24 24" role="presentation"
-                                                style="width: 0.875rem; height: 0.875rem;">
-                                                <path
-                                                    d="M12,15.4V6.1L13.71,10.13L18.09,10.5L14.77,13.39L15.76,17.67M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
-                                                    style="fill: currentcolor;"></path>
-                                            </svg></span>
-                                            
-                                            <span class="fw-medium">(<%=valoracion%>)</span></span>
-                                        </svg></span>
+                                            <span class="fw-medium">Valoración: (<%=valoracion%>)</span></span>
+                                        </span>
                                         
                                     </div>
 
@@ -199,7 +177,12 @@
                                     </div>
 
                                 </div>
+
+               
                             </div>
+                                        
+                                            
+                            
 
                         </div>
                     </div>
@@ -256,7 +239,42 @@
                                     </c:forEach>
                                     
                                 </ul>
+                                   
+                                <div class="intermedio">      
+                                    <a data-toggle="modal" data-target="#puntuar"class="button" style="text-align: center;">Puntuar Curso</a>
+                                </div>
+                                <div class="modal fade" id="puntuar" tabindex="-1" role="dialog"
+                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header border-bottom-0">
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="card">
+                                                        <div class="p-6 card-body">
+                                                            <div class="mb-4"><a href="/"><img
+                                                                        src="Imagenes/icons8-e-learning-64.png" alt=""
+                                                                        class="mb-4"></a>
+                                                                <h1 class="mb-1 fw-bold">Valora el curso</h1>
+                                                            </div>
 
+                                                            <div class="row">
+                                                                <div class="rating_controls___HGvb" style="justify-content:center;margin-bottom:  20px;"><label class="d-flex justify-content-center align-items-center">Puntuación: <input style="margin-left:10px;align-items: center;" type="number"  value="" step="0.25" min="0" max="5"></label></div>
+                                                                <button 
+                                                                        type="submit"
+                                                                        class="btn btn-primary"  onclick="">Enviar valoración</button></div>
+                                                                <p  style="text-align: center;margin-top:  20px;">Tus valoraciones hacen que los usuarios puedan elegir mejor los cursos.</p><p  style="text-align: center;">Tu valoración podrá modificarse las veces que quieras en este mismo botón una vez realizada.Gracias!</p>  
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                             </div>
                         </div>
                     </div>
@@ -268,6 +286,19 @@
         </div>
         <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        
+                <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <!-- Popper JS -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+        <!-- Bootstrap JS -->
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+                <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- Popper JS -->
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+        <!-- Bootstrap JS -->
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+        
         <script>
             var peticion = new XMLHttpRequest();
             function anadirFavorito(idCurso,checked){           

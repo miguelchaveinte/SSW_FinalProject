@@ -383,4 +383,57 @@ public class CursoDB {
             pool.freeConnection(connection);
         }
     }
+        public static ArrayList<Curso> getCursosBuscados(String name) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        ArrayList<Curso> cursos = new ArrayList<Curso>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String cursosBuscados = "SELECT * FROM CURSO C, USUARIO U WHERE C.CREADOR = U.ID AND (C.NOMBRECURSO LIKE ? OR C.CATEGORIA LIKE ? OR C.DESCRIPCION LIKE ?)   "; //Poner comillas simples
+ 
+        try {
+            ps = connection.prepareStatement(cursosBuscados);
+            ps.setString(1, "%" + name + "%");
+            ps.setString(2, "%" + name + "%");
+            ps.setString(3, "%" + name + "%");
+            rs = ps.executeQuery();
+
+            while(rs.next()){
+                //cursos.add(rs.getInt("ID")); 
+                
+                int id = rs.getInt("ID");
+                String nombre = rs.getString("NOMBRECURSO");
+                String descripcion = rs.getString("DESCRIPCION");
+                float precio = rs.getFloat("PRECIO");
+                float duracion = rs.getFloat("DURACION");
+                String categoria = rs.getString("CATEGORIA");
+                String nombreAutor = rs.getString("NOMBREUSUARIO");
+
+                int idAutor = rs.getInt("CREADOR");
+                User autor = new User();
+                autor.setID(idAutor);
+                autor.setNombreUsuario(nombreAutor);
+                
+
+                Curso curso = new Curso(id,nombre,descripcion,precio,null,duracion,categoria,autor);
+
+                cursos.add(curso);
+            }
+           
+            ps.close();
+            pool.freeConnection(connection);
+            return cursos;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+
 }

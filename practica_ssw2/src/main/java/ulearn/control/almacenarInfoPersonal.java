@@ -85,7 +85,7 @@ public class almacenarInfoPersonal extends HttpServlet {
         String url = "";
         User usuario = new User();
         String email = (String) request.getParameter("email");
-        if(!UserDB.emailExists(email)){
+        if(!UserDB.emailExists(email) || (UserDB.emailExists(email) && email.equals(user.getCorreo())) ){
             usuario.setID(user.getId());
             usuario.setNombre((String) request.getParameter("nombre"));
             usuario.setApellidos((String) request.getParameter("apellidos"));
@@ -96,12 +96,12 @@ public class almacenarInfoPersonal extends HttpServlet {
             usuario.setPais((String) request.getParameter("pais"));
             usuario.setCiudad((String) request.getParameter("ciudad"));
             String fechaNacimiento = (String) request.getParameter("dateofbirth");
-            usuario.setFechaNacimiento(LocalDate.parse(fechaNacimiento));
+            if(fechaNacimiento!="")usuario.setFechaNacimiento(LocalDate.parse(fechaNacimiento));  
             usuario.setBiografia((String) request.getParameter("biografia"));
             UserDB.updateInfoUsuario(usuario);
             url = "/datosUsuario";
-            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            //dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
         }else{
             PrintWriter out=response.getWriter();
             out.println("Este correo ya está registrado");

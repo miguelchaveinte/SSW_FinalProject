@@ -23,13 +23,19 @@
     <meta name="theme-color" content="#000000">
     <meta name="description" content="Web site created using create-react-app">
     <title>ULearn</title>
-    <script type="text/javascript" id="www-widgetapi-script"
+    
+    <script type="text/javascript" id
+            ="www-widgetapi-script"
         src="https://www.youtube.com/s/player/bd67d609/www-widgetapi.vflset/www-widgetapi.js" async=""></script>
-    <link href="main.81e26b4c.css" rel="stylesheet">
+    <link href="./main.81e26b4c.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="chrome-extension://dagdlcijhfbmgkjokkjicnnfimlebcll/style.css">
     <script type="text/javascript" charset="utf-8"
         src="chrome-extension://dagdlcijhfbmgkjokkjicnnfimlebcll/page_context.js"></script>
     <script type="text/javascript" charset="utf8" async="" src="https://www.youtube.com/iframe_api"></script>
+    
+    <link type="text/css" rel="stylesheet" href="./rating.css">
+
+       
 </head>
 
 
@@ -39,7 +45,6 @@
         <div id="cabecera">
             <%@include file="./header_logged.jsp" %>
         </div>
-
 
         <div class="pt-5 pb-5">
             <div class="container">
@@ -81,45 +86,24 @@
                                                                     class="card-img-top rounded-top-md" style="max-height: 250px;"></a>
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
-                                                                        class="text-inherit"
-                                                                        href="#"> <%=favoritos.get(i).getNombre()%> </a></h3>
+                                                                        class="text-inherit" href="comprobarCurso?idCurso=<%=favoritos.get(i).getId()%>"
+                                                                        > <%=favoritos.get(i).getNombre()%> </a></h3>
                                                                 <ul class="mb-3 list-inline">
                                                                     <li class="list-inline-item"><i
                                                                             class="far fa-clock me-1"></i><%=favoritos.get(i).getDuracionConFormato()%></li>
                                                                 </ul>
                                                                 <div class="lh-1 d-flex align-items-center "><span
-                                                                        class="text-warning me-1 mb-1"> <svg
-                                                                            viewBox="0 0 24 24" role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg></span><span class="text-warning me-1">
-                                                                        <%=valoracionesFav.get(i)%></span><span class="fs-6 text-muted">
+                                                                        class="text-warning me-1 mb-1"> 
+                                                                        <!--Estrellas para representar la puntuacion media???-->
+                                              <input
+    class="rating"
+    max="5"
+    readonly
+    step="0.01"
+    style="--fill:#ffd700;--value:<%=valoracionesFav.get(i)%>"
+    type="range">
+                                                                        <span class="text-warning me-1 ">
+                                                                        Valoración: <%=valoracionesFav.get(i)%></span><span class="fs-6 text-muted">
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
@@ -170,45 +154,25 @@
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
                                                                         class="text-inherit"
-                                                                        href="#"><%=desarrollo.get(i).getCurso().getNombre()%></a></h3>
+                                                                        href="comenzarCurso?idCurso=<%=desarrollo.get(i).getCurso().getId()%>"><%=desarrollo.get(i).getCurso().getNombre()%></a></h3>
                                                                 <ul class="mb-3 list-inline">
                                                                     <li class="list-inline-item"><i
                                                                             class="far fa-clock me-1"></i><%=desarrollo.get(i).getCurso().getDuracionConFormato()%>
                                                                     </li>
                                                                 </ul>
                                                                 <div class="lh-1 d-flex align-items-center "><span
-                                                                        class="text-warning me-1 mb-1"> <svg
-                                                                            viewBox="0 0 24 24" role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg><svg viewBox="0 0 24 24"
-                                                                            role="presentation"
-                                                                            style="width: 0.875rem; height: 0.875rem;">
-                                                                            <path
-                                                                                d="M12,15.39L8.24,17.66L9.23,13.38L5.91,10.5L10.29,10.13L12,6.09L13.71,10.13L18.09,10.5L14.77,13.38L15.76,17.66M22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.45,13.97L5.82,21L12,17.27L18.18,21L16.54,13.97L22,9.24Z"
-                                                                                style="fill: currentcolor;"></path>
-                                                                        </svg></span><span class="text-warning me-1">
-                                                                        <%=valoracionesDes.get(i)%></span>
+                                                                        class="text-warning me-1 mb-1"> 
+                                                                        
+                                                                                                                      <input
+    class="rating"
+    max="5"
+    readonly
+    step="0.01"
+    style="--fill:#ffd700;--value:<%=valoracionesDes.get(i)%>"
+    type="range">
+                                                                        
+                                                                        <span class="text-warning me-1">
+                                                                        Valoración: <%=valoracionesDes.get(i)%></span>
                                                                 </div>
                                                             </div>
                                                             <div class="card-footer">

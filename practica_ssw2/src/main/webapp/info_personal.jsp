@@ -152,7 +152,7 @@
                                     <button class="btn btn-primary" onclick="comprobarEmail()">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
-                                <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erro1"style="background-color: #98FB98; color:#006400;font-size: 20px; display:none">Suscrito con éxito.</h4></div>
+                                <div class="mt-3"><h4 class="" id="erro1"style="background-color: #98FB98; color:#006400;font-size: 20px; display:none">Suscrito con éxito.</h4></div>
 
                                 </form>
                             </div>
@@ -181,7 +181,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erroCont" style="background-color: #F08080; color:#7d061e;font-size: 20px; display:none">Contraseñas no coinciden.</h4></div>
+                                <div class="mt-3 mb-3"><h4 class="" id="erroCont" style="background-color: #F08080; color:#7d061e;font-size: 20px; display:none">Contraseñas no coinciden.</h4></div>
 
                                 <div>
                                     <button class="btn btn-primary" type="submit" onclick="cambiarContrasena()">Actualizar</button>
@@ -367,6 +367,14 @@
                     pagination: true,
 
                 })
+                var correoUsuario;
+                var datosPrev;
+                $( document ).ready(function() {
+                    correoUsuario=document.getElementById("email1").value;
+                    var form = $('#form1');
+                    datosPrev=form.serialize();
+                });
+                
 function cambiarContrasena(){
      var form = $('#formContra');
      var nuevaContra=document.getElementById("nuevaContra");
@@ -402,11 +410,11 @@ function cambiarContrasena(){
     
 }        
 function comprobarEmail(){
-                         
                          var form = $('#form1');
+                         //var datosPrev=form.serialize();
                          var resultado=new XMLHttpRequest();
                          var email = $("#email1").val();
-
+                         
     // Ajax POST request.
 resultado= $.ajax({
     type: 'POST',
@@ -423,7 +431,8 @@ resultado= $.ajax({
         console.log(resultado);
         console.log(resultado=="Revisa tus creedenciales");*/
         //$( "#username1" ).html(datos);
-        //alert(datos);
+       // console.log(form.serialize());
+       // alert(form.serialize());
        /*console.log(resultado);
         console.log(resultado.responseText);
         console.log(resultado.responseText=="Este correo ya está registrado\r\n");
@@ -447,9 +456,9 @@ return false;
 //"background-color: #F08080; color:#7d061e;resultado.responseText=="Este correo ya está registrado\r\n"
 return false;*/
 if(resultado.responseText=="Este correo ya está registrado\r\n") {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Este correo ya está registrado."; event.preventDefault();return false;}
-else {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Cambios realizados con éxito."; event.preventDefault();return false;}
+else if(datosPrev!=form.serialize()) {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Cambios realizados con éxito."; event.preventDefault();return false;}
+else{document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="No ha habido cambios en los datos."; event.preventDefault();return false;}
 }
-
               //});
             </script>
 </body>

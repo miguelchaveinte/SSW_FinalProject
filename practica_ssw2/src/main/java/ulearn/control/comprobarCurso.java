@@ -67,16 +67,18 @@ public class comprobarCurso extends HttpServlet {
         HttpSession session = request.getSession();
         User user= (User) session.getAttribute("user");
         int idCurso = Integer.parseInt(request.getParameter("idCurso"));
-        ArrayList<DesarrolloCurso> enDesarrollo = UserDB.getCursosUsuario(user.getId());
-        boolean comprado = false;
-        for(int i=0; i<enDesarrollo.size();i++){
-            if(enDesarrollo.get(i).getCurso().getId() == idCurso){
-                comprado = true;
+        String url ="/accederCurso?idCurso=" + idCurso;
+        if(user!=null){
+            ArrayList<DesarrolloCurso> enDesarrollo = UserDB.getCursosUsuario(user.getId());
+            boolean comprado = false;
+            for(int i=0; i<enDesarrollo.size();i++){
+                if(enDesarrollo.get(i).getCurso().getId() == idCurso){
+                    comprado = true;
+                }
             }
-        }
-        String url = "/accederCurso?idCurso=" + idCurso;
-        if(comprado){
-            url = "/comenzarCurso?idCurso=" + idCurso;
+            if(comprado){
+                url = "/comenzarCurso?idCurso=" + idCurso;
+            }
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
