@@ -62,6 +62,28 @@ public class UserDB {
             }
         
     }
+    public static boolean userNameExists(String userName) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "SELECT NOMBREUSUARIO FROM Usuario "
+        + "WHERE NOMBREUSUARIO = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, userName);
+            rs = ps.executeQuery();
+            boolean res = rs.next();
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return res;
+            } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+            }
+        }
+    
     
     public static boolean emailExists(String correo) {
         ConnectionPool pool = ConnectionPool.getInstance();
@@ -123,7 +145,7 @@ public class UserDB {
             ps.setString(1, usuarioAutor);
             rs = ps.executeQuery();
             
-            int res=0;
+            int res=-1;
             if (rs.next()) {
                 res = rs.getInt("ID");
             }

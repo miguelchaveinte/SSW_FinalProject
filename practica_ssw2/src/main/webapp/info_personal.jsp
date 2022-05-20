@@ -82,7 +82,7 @@
                             <div class="tab-pane fade show active" id="account" role="tabpanel"
                                 aria-labelledby="account-tab">
                                 <h3 class="mb-4">Información Personal</h3>
-                                <form class="" action="almacenarInfoPersonal" method="post"><%-- NEW PARA FORM--%>
+                                <form class="" id="form1"><%-- NEW PARA FORM--%>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -99,7 +99,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" value="<%=usuario.getCorreo()%>" name="email" id="email">
+                                            <input type="email" id ="email1"class="form-control" value="<%=usuario.getCorreo()%>" name="email" id="email">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -149,19 +149,21 @@
                                 
                                         
                                 <div>
-                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    <button class="btn btn-primary" onclick="comprobarEmail()">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
+                                <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erro1"style="background-color: #98FB98; color:#006400;font-size: 20px; display:none">Suscrito con éxito.</h4></div>
+
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                                 <h3 class="mb-4">Ajustes Seguridad</h3>
-                                <form class="" action="cambiarContrasena" method="post">
+                                <form class="" id="formContra" >
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Antigua Contraseña</label>
-                                            <input type="text" class="form-control" value="<%=usuario.getContraseña()%>" name="antiguaContra">
+                                            <input type="text" class="form-control" style="pointer-events: none;" value="<%=usuario.getContraseña()%>" name="antiguaContra">
                                         </div>
                                     </div>
                                 </div>
@@ -169,18 +171,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Nueva Contraseña</label>
-                                            <input type="password" class="form-control" name="nuevaContra">
+                                            <input required="" type="password" class="form-control" id ="nuevaContra" name="nuevaContra">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Confirma la nueva contraseña</label>
-                                            <input type="password" class="form-control" name="confirmarContra">
+                                            <input required="" type="password" class="form-control" id="confirmarContra" name="confirmarContra">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erroCont" style="background-color: #F08080; color:#7d061e;font-size: 20px; display:none">Contraseñas no coinciden.</h4></div>
+
                                 <div>
-                                    <button class="btn btn-primary" type="input">Actualizar</button>
+                                    <button class="btn btn-primary" type="submit" onclick="cambiarContrasena()">Actualizar</button>
                                     <button class="btn btn-light">Cancelar</button>
                                 </div>
                                 </form>
@@ -363,9 +367,88 @@
                     pagination: true,
 
                 })
+function cambiarContrasena(){
+     var form = $('#formContra');
+     var nuevaContra=document.getElementById("nuevaContra");
+     var confirmarContra=document.getElementById("confirmarContra");
+     if(nuevaContra.value==confirmarContra.value && nuevaContra.value!="" ){
+         $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/practica_ssw2/cambiarContrasena',
+            async: false,
+            data: form.serialize(),
+                success: function( datos ) {
+        return datos;
 
+    }
+        })
+        return false;
+     }
+     else if(nuevaContra.value=="" ||confirmarContra.value==""  ){
+         document.getElementById('erroCont').style.display="block";
+         document.getElementById('erroCont').innerHTML="La nueva contraseña no puede ser vacía."; 
+         event.preventDefault();
+         //alert("jsdf");
+         return false;
+     }
+     else{
+         document.getElementById('erroCont').style.display="block";
+         document.getElementById('erroCont').innerHTML="Contraseñas no coinciden."; 
+         event.preventDefault();
+         //alert("jsdf");
+         return false;
+     }
+    
+    
+}        
+function comprobarEmail(){
+                         
+                         var form = $('#form1');
+                         var resultado=new XMLHttpRequest();
+                         var email = $("#email1").val();
 
+    // Ajax POST request.
+resultado= $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/practica_ssw2/almacenarInfoPersonal',
+    data: form.serialize(),
+    dataType: "text",
+    async: false,
+    success: function( datos ) {
+        /*console.log(username);
+        console.log(password);
+        console.log(email);
+        console.log(datos);
+        resultado=datos;
+        console.log(resultado);
+        console.log(resultado=="Revisa tus creedenciales");*/
+        //$( "#username1" ).html(datos);
+        //alert(datos);
+       /*console.log(resultado);
+        console.log(resultado.responseText);
+        console.log(resultado.responseText=="Este correo ya está registrado\r\n");
+        alert("vcxjkd")*/
+        return datos;
 
+    }
+});
+/*event.preventDefault();
+console.log(resultado);
+console.log(resultado.responseText);
+var prueba=resultado.responseText;
+console.log(resultado.responseText=='Revisa tus creedenciales');
+console.log(typeof resultado.responseText);
+alert(prueba=="Revisa tus creedenciales\r\n");
+console.log(resultado);
+console.log(resultado.responseText);
+console.log(resultado.responseText=="Este correo ya está registrado\r\n");
+alert("dsfdsdsf");
+return false;
+//"background-color: #F08080; color:#7d061e;resultado.responseText=="Este correo ya está registrado\r\n"
+return false;*/
+if(resultado.responseText=="Este correo ya está registrado\r\n") {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Este correo ya está registrado."; event.preventDefault();return false;}
+else {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Cambios realizados con éxito."; event.preventDefault();return false;}
+}
 
               //});
             </script>

@@ -96,21 +96,29 @@ public class registrarUsuario extends HttpServlet {
         
         String url="";
         if (UserDB.emailExists(user.getCorreo())) {
-            //TODO: error
-            url = "/paginaPrincipal";
-        } else {
+            PrintWriter out=response.getWriter();
+            out.println("Ya hay una cuenta con dicho correo");
+        }
+        else if(UserDB.userNameExists(user.getNombreUsuario())){
+            PrintWriter out=response.getWriter();
+            out.println("Ya hay una cuenta con dicho usuario");
+        }else {
+            url = "/suscripciones.jsp";
+            response.addHeader ("REDIRECT", "REDIRECT"); // Dile a ajax que esto es una redirección
+            response.addHeader ("CONTEXTPATH", url); // Dirección de redireccionamiento
             int id=UserDB.insert(user);
             user.setID(id);
-            url = "/suscripciones.jsp";
+            
             // store the user in the session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             request.setAttribute("suscripciones",suscripciones);
+            // forward the request and response to the view
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
             }
                
-        // forward the request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        
         }
             
 

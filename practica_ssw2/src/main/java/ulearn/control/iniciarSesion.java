@@ -78,7 +78,7 @@ public class iniciarSesion extends HttpServlet {
             throws ServletException, IOException {
         User user=new User();
         request.setCharacterEncoding("UTF-8");
-        // Si no hay usuario procedemos con el registro
+                // Si no hay usuario procedemos con el registro
         String userName = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -92,13 +92,16 @@ public class iniciarSesion extends HttpServlet {
             user.setID(id);
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+             // forward the request and response to the view
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
+            //PrintWriter out=response.getWriter();
+            //out.println();
         } else {
-            //TODO: ERROR
-            url = "/Pricipal.jsp";
-            }
-        // forward the request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+            PrintWriter out=response.getWriter();
+            out.println("Revisa tus creedenciales");
+        }
+       
     }
 
     /**

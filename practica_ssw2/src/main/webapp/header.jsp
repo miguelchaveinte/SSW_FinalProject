@@ -53,8 +53,9 @@
                                 <h1 class="mb-1 fw-bold">Registrarse</h1><span>¿Tienes una cuenta? <a class="ms-1" 
                                     href=#login2 onclick="cambiarLogin('#login2','#loginModal');">Inicia Sesión</a></span>
                             </div>
-                            <form class="" action="registrarUsuario" method="post">
+                            <form class="" >
                                 <div class="row">
+                                <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erro"style="background-color: #F08080; color:#7d061e;font-size: 20px; display:none">Ya hay una cuenta con dicho correo.</h4></div>
                                 <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Nombre de Usuario</label><input
                                     placeholder="User Name" required="" type="text" id="username" name="username" class="form-control"></div>
                                 <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Correo Electrónico </label><input
@@ -65,7 +66,7 @@
                                     <div class="form-check"><input type="checkbox" id="check-api-checkbox"
                                         class="form-check-input"><label for="check-api-checkbox" class="form-check-label">Acepto los términos y condiciones</label></div>
                                 </div>
-                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" class="btn btn-primary">Acceder</button></div>
+                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" id="submit" class="btn btn-primary">Acceder</button></div>
                                 </div>
                             </form>
                             </div>
@@ -95,19 +96,20 @@
                                 <h1 class="mb-1 fw-bold">Inicio Sesión</h1><span>¿No tienes cuenta? <a class="ms-1" onclick="cambiarLogin('#loginModal','#login2');" href=#loginModal>Regístrate</a></span>
                                 <!-- poner funcion de cambio a sign up-->
                             </div>
-                            <form class="" action="iniciarSesion" method="post">
+                            <form class="" >
                                 <div class="row">
+                                <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erro1"style="background-color: #F08080; color:#7d061e;font-size: 20px; display:none">Revisa tus creedenciales.</h4></div>
                                 <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Nombre de Usuario</label><input
-                                    placeholder="User Name" required="" type="text" id="username" name="username" class="form-control"></div>
+                                    placeholder="User Name" required="" type="text" id="username1" name="username" class="form-control"></div>
                                 <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Email </label><input
-                                    placeholder="Email address here" required="" type="email" id="email" name="email" class="form-control"></div>
+                                    placeholder="Email address here" required="" type="email" id="email1" name="email" class="form-control"></div>
                                 <div class="mb-3 col-lg-12 col-md-12"><label class="form-label">Contraseña </label><input
-                                    placeholder="**************" required="" type="password" id="password" name="password" class="form-control"></div>
+                                    placeholder="**************" required="" type="password" id="password1" name="password" class="form-control"></div>
                                 <div class="mb-3 col-lg-12 col-md-12">
                                     <div class="form-check"><input type="checkbox" id="check-api-checkbox"
                                         class="form-check-input"><label for="check-api-checkbox" class="form-check-label">Recordad Contraseña</label></div>
                                 </div>
-                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button type="submit" class="btn btn-primary">Acceder</button></div>
+                                <div class="mb-0 d-grid gap-2 col-lg-12 col-md-12" style="display: grid!important;"><button  type="submit" id="submit1" class="btn btn-primary">Acceder</button></div>
                                 </div>
                             </form>
                             </div>
@@ -122,7 +124,7 @@
        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-         
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
         <script>
         function showMenu(){
@@ -134,6 +136,96 @@
                 $(elemento).collapse('show');
             }
         }
+        
+// Add an event that triggers when the submit
+// button is pressed.
+$("#submit1").click(function() {
+
+    // Get the text from the two inputs.
+    var username = $("#username1").val();
+    var password = $("#password1").val();
+    var email = $("#email1").val();
+    var resultado=new XMLHttpRequest();
+
+
+
+    // Ajax POST request.
+resultado= $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/practica_ssw2/iniciarSesion',
+    data: {"username": username, "password": password,"email": email},
+    dataType: "text",
+     async: false,
+    success: function( datos ) {
+        /*console.log(username);
+        console.log(password);
+        console.log(email);
+        console.log(datos);
+        resultado=datos;
+        console.log(resultado);
+        console.log(resultado=="Revisa tus creedenciales");*/
+        //$( "#username1" ).html(datos);
+        //alert(datos);
+        return datos;
+
+    }
+});
+/*console.log(resultado);
+console.log(resultado.responseText);
+var prueba=resultado.responseText;
+console.log(resultado.responseText=='Revisa tus creedenciales');
+console.log(typeof resultado.responseText);
+alert(prueba=="Revisa tus creedenciales\r\n");*/
+if(resultado.responseText=="Revisa tus creedenciales\r\n") {document.getElementById('erro1').style.display="block"; return false;}
+else return true;
+});
+
+// Add an event that triggers when the submit
+// button is pressed.
+$("#submit").click(function() {
+
+    // Get the text from the two inputs.
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var email = $("#email").val();
+    var resultado=new XMLHttpRequest();
+
+
+
+    // Ajax POST request.
+resultado= $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8080/practica_ssw2/registrarUsuario',
+    data: {"username": username, "password": password,"email": email},
+    dataType: "text",
+     async: false,
+    success: function( datos ) {
+        /*console.log(username);
+        console.log(password);
+        console.log(email);
+        console.log(datos);
+        resultado=datos;
+        console.log(resultado);
+        console.log(resultado=="Revisa tus creedenciales");
+        //$( "#username1" ).html(datos);*/
+        //alert(datos);
+        return datos;
+
+    }
+});
+/*console.log(resultado);
+console.log(resultado.responseText);
+alert(resultado.responseText=="Ya hay una cuenta con dicho correo\r\n");
+return false;
+var prueba=resultado.responseText;
+console.log(resultado.responseText=='Revisa tus creedenciales');
+console.log(typeof resultado.responseText);
+alert(prueba=="Ya hay una cuenta con dicho correo\r\n");*/
+if(resultado.responseText=="Ya hay una cuenta con dicho correo\r\n") {document.getElementById('erro').style.display="block"; return false;}
+else if(resultado.responseText=="Ya hay una cuenta con dicho usuario\r\n"){document.getElementById('erro').style.display="block";document.getElementById('erro').innerHTML="Ya hay una cuenta con dicho usuario"; return false;}
+else window.location.href= 'http://localhost:8080/practica_ssw2/suscripciones.jsp'; return false;
+});
+
     
     </script>
 </nav>

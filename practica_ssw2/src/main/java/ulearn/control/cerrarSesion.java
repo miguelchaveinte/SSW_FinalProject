@@ -63,9 +63,11 @@ public class cerrarSesion extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        String url = "/Pricipal.jsp";
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        String url = "http://localhost:8080/practica_ssw2/Pricipal.jsp";
+        //String url = "/Pricipal.jsp";
+        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        //dispatcher.forward(request, response);
+        response.sendRedirect(url);
     }
 
     /**

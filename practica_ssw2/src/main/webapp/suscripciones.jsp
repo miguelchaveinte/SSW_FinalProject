@@ -184,6 +184,7 @@
                     </div>
 
                     </header>
+                    <div class="mb-3 col-lg-12 col-md-12"><h4 class="" id="erro1"style="background-color: #98FB98; color:#006400;font-size: 20px; display:none">Suscrito con éxito.</h4></div>
 
                     <ul class="card__list grid mt-3">
                         <li class="card__list-item">
@@ -198,8 +199,9 @@
 
 
 
-                     <button class="card__button" onclick="location.href='anadirSuscripcion?suscripcion=AUTOR&nombre='+document.getElementById('formSearchusuarioAutor').value">Elegir este plan </button>
-                </article>
+                    <button class="card__button" onclick="suscriAutor()">Elegir este plan </button> <%--location.href='anadirSuscripcion?suscripcion=AUTOR&nombre='+document.getElementById('formSearchusuarioAutor').value"--%>
+
+                    </article>
             </div>
         </section>
     </div>
@@ -209,6 +211,47 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
         <!-- Bootstrap JS -->
         <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                 <script>
+                     function suscriAutor(){
+                         var suscripcion='AUTOR';
+                         var nombre=document.getElementById('formSearchusuarioAutor').value;
+                         
+                         var resultado=new XMLHttpRequest();
+
+    // Ajax POST request.
+resultado= $.ajax({
+    type: 'GET',
+    url: 'http://localhost:8080/practica_ssw2/anadirSuscripcion',
+    data: {"suscripcion": suscripcion, "nombre": nombre},
+    dataType: "text",
+     async: false,
+    success: function( datos ) {
+        /*console.log(username);
+        console.log(password);
+        console.log(email);
+        console.log(datos);
+        resultado=datos;
+        console.log(resultado);
+        console.log(resultado=="Revisa tus creedenciales");*/
+        //$( "#username1" ).html(datos);
+        //alert(datos);
+        return datos;
+
+    }
+});
+/*console.log(resultado);
+console.log(resultado.responseText);
+var prueba=resultado.responseText;
+console.log(resultado.responseText=='Revisa tus creedenciales');
+console.log(typeof resultado.responseText);
+alert(prueba=="Revisa tus creedenciales\r\n");*/
+//console.log(resultado);
+//"background-color: #F08080; color:#7d061e;
+if(resultado.responseText=="Este Nombre de usuario no existe\r\n") {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Este Nombre de usuario no existe"; return false;}
+else {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Suscrito con éxito."; return false;}
+}
+                 </script>
 </body>
 
 </html>

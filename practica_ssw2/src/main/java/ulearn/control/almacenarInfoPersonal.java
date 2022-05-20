@@ -100,12 +100,13 @@ public class almacenarInfoPersonal extends HttpServlet {
             usuario.setBiografia((String) request.getParameter("biografia"));
             UserDB.updateInfoUsuario(usuario);
             url = "/datosUsuario";
+            //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            //dispatcher.forward(request, response);
         }else{
-            //error de que el email ya existe
-            url = "/datosUsuario";
+            PrintWriter out=response.getWriter();
+            out.println("Este correo ya está registrado");
         }
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        
     }
 
     /**

@@ -86,11 +86,13 @@ public class cambiarContrasena extends HttpServlet {
         if(nuevaContrasena.equals(confirmarContrasena)){
             UserDB.cambiarContrasena(user.getId(),nuevaContrasena);
             url = "/datosUsuario";
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
         }else{
-            //error de que la contraseña nueva y la confirmacion no son la misma
+            PrintWriter out=response.getWriter();
+            out.println("Contraseñas no coinciden");
         }
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        
     }
 
     /**

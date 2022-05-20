@@ -71,14 +71,23 @@ public class anadirSuscripcion extends HttpServlet {
         User user= (User) session.getAttribute("user");
         
         String tipo = (String) request.getParameter("suscripcion");
+        boolean error=false;
         
         int idAutor;
         if(tipo.equals("AUTOR")){ 
             idAutor = UserDB.getIdAutor(request.getParameter("nombre"));
+            if(idAutor==-1) error=true;
+            //TAMBIEN HABRIA Q COMPROBAR SI ESTAS SUSCRITO YA A ESE USUARIO TE SALGA ERROR!!!!!!!!!!!!!!!!!!!
         }
         else{
             idAutor=-1;
         }
+        
+        if(error) {
+            PrintWriter out=response.getWriter();
+            out.println("Este Nombre de usuario no existe");
+        }
+        else{
         try {
             SuscripcionesDB.insert(user, tipo, idAutor);
         } catch (SQLException ex) {
@@ -87,6 +96,7 @@ public class anadirSuscripcion extends HttpServlet {
         String url = "/Pricipal.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
+        }
 
     }
 
