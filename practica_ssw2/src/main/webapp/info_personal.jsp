@@ -44,7 +44,7 @@
                         <div class="profile-tab-nav border-right">
                             <div class="p-4">
                                 <div class="img-circle text-center mb-3">
-                                    <img src="imagenUsuario?idUsuario=<%=usuario.getId()%>" alt="Image" class="shadow">
+                                    <img src="imagenUsuario?idUsuario=<%=usuario.getId()%>" alt="Image" class="shadow" onerror="this.src='./Imagenes/avatar_ini.png'">
                                 </div>
                                 <h4 class="text-center">@<%=usuario.getNombreUsuario()%></h4>
                             </div>
@@ -297,7 +297,7 @@
                                                                     <div class="blog-footer">
                                                                         <div><img
                                                                                 src="imagenUsuario?idUsuario=<%=cursos.get(i).getCurso().getCreador().getId()%>"
-                                                                                alt="" class="blog-author"> <a
+                                                                                alt="" class="blog-author" onerror="this.src='./Imagenes/avatar_ini.png'"> <a
                                                                                 href="#!"><%=cursos.get(i).getCurso().getCreador().getNombreUsuario()%></a> </div>
                                                                         <small><%=cursos.get(i).getFechaInicio().toString()%></small>
                                                                     </div>
@@ -325,7 +325,7 @@
                                                                     <div class="blog-footer">
                                                                         <div><img
                                                                                 src="imagenUsuario?idUsuario=<%=cursos.get(i+1).getCurso().getCreador().getId()%>"
-                                                                                alt="" class="blog-author"> <a
+                                                                                alt="" class="blog-author" onerror="this.src='./Imagenes/avatar_ini.png'"> <a
                                                                                 href="#!"><%=cursos.get(i+1).getCurso().getCreador().getNombreUsuario()%>
                                                                                 </a> </div>
                                                                         <small><%=cursos.get(i+1).getFechaInicio().toString()%></small>

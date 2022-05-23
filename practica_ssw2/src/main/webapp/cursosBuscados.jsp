@@ -43,7 +43,7 @@
                
      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
      
-
+    <link type="text/css" rel="stylesheet" href="./rating.css">
 
 </head>
 
@@ -119,15 +119,17 @@
                                                                             class="far fa-clock me-1"></i><%=cursosBuscados.get(i).getDuracionConFormato()%></li>
                                                                 </ul>
                                                                 <div class="lh-1 d-flex align-items-center "><span
-                                                                        class="text-warning me-1 mb-1"> <!--Estrellas para representar la puntuacion media???-->
+                                                                        class="text-warning me-1 mb-1"> 
+                                                                        <!--Estrellas para representar la puntuacion media???-->
                                               <input
     class="rating"
     max="5"
     readonly
     step="0.01"
     style="--fill:#ffd700;--value:<%=valoraciones.get(i)%>"
-    type="range"><span class="text-warning me-1">
-                                                                        <%=valoraciones.get(i)%></span><span class="fs-6 text-muted">
+    type="range">
+                                                                        <span class="text-warning me-1 ">
+                                                                        Valoración: <%=valoraciones.get(i)%></span><span class="fs-6 text-muted">
                                                                     </span>
                                                                 </div>
                                                                 <div class="lh-1 mt-3 "><span
@@ -137,7 +139,7 @@
                                                                 <div class="align-items-center g-0 row">
                                                                     <div class="col-auto col"><img
                                                                             src="imagenUsuario?idUsuario=<%=cursosBuscados.get(i).getCreador().getId()%>"
-                                                                            alt="" class="rounded-circle avatar-xs">
+                                                                            alt="" class="rounded-circle avatar-xs" onerror="this.src='./Imagenes/avatar_ini.png'">
                                                                     </div>
                                                                     <div class="col ms-2 col"><span><%=cursosBuscados.get(i).getCreador().getNombreUsuario()%></span>
                                                                     </div>

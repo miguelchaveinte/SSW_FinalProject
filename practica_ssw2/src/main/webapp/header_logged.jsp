@@ -60,7 +60,7 @@
                 <li class="nav-item dropdown ms-lg-3"><a id="userDropdownMenuLink" href="#"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar avatar-md avatar-indicators avatar-online">
-                            <img alt="avatar" src="imagenUsuario?idUsuario=<%=userX.getId()%>" class="rounded-circle" />
+                            <img alt="avatar" src="imagenUsuario?idUsuario=<%=userX.getId()%>" class="rounded-circle" onerror="this.src='./Imagenes/avatar_ini.png'" />
                         </div>
                     </a>
 

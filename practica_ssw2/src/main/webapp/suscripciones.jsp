@@ -248,7 +248,10 @@ console.log(typeof resultado.responseText);
 alert(prueba=="Revisa tus creedenciales\r\n");*/
 //console.log(resultado);
 //"background-color: #F08080; color:#7d061e;
-if(resultado.responseText=="Este Nombre de usuario no existe\r\n") {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Este Nombre de usuario no existe"; return false;}
+//alert(resultado.responseText);
+if(resultado.responseText=="Este Nombre de usuario no existe\r\n") {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Este nombre de usuario no existe."; return false;}
+else if(resultado.responseText=="Ya estas suscrito a ese autor\r\n"){document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Ya estas suscrito a ese autor."; return false;}
+else if(resultado.responseText=="Ese nombre de usuario no es creador\r\n"){document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Ese nombre de usuario no es creador."; return false;}
 else {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Suscrito con éxito."; return false;}
 }
                  </script>

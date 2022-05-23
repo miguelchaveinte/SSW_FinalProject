@@ -90,9 +90,28 @@ public class SuscripcionesDB {
             ps1.close();
             pool.freeConnection(connection);
         }
-
-
     }
+    
+    public static void insertCreador(int idAutor){
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        String query = "INSERT INTO SUSCRIPCION ( TIPO, PRECIO, IDAUTOR) VALUES ( 'AUTOR', '3.99', ?)";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setInt(1,idAutor);
+            ps.executeUpdate();
+            
+            ps.close();
+            pool.freeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    
     public static Boolean[] getSuscripciones(int idUsuario){
         ArrayList <String> tiposSuscripciones=new ArrayList<String>();
         Boolean[] suscripciones = new Boolean[4];
@@ -183,5 +202,5 @@ public class SuscripcionesDB {
             e.printStackTrace();
         }
     }
-        
+           
 }

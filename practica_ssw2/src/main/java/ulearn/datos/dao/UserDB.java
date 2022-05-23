@@ -159,6 +159,31 @@ public class UserDB {
         }
     }
     
+        public static boolean esCreador(String usuarioAutor) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String query = "SELECT ID FROM Usuario "
+        + "WHERE NOMBREUSUARIO = ? "+"AND INSTRUCTOR=TRUE";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, usuarioAutor);
+            rs = ps.executeQuery();
+            
+            boolean res=rs.next();
+           
+            rs.close();
+            ps.close();
+            pool.freeConnection(connection);
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
     public static User getInfoCreador(int idCurso){
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -432,6 +457,20 @@ public class UserDB {
             statement.setInt(11, usuario.getId());
             statement.executeUpdate();
         pool.freeConnection(connection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+    
+    public static void updateCreador(int idUsuario){
+        try {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null;
+            statement = connection.prepareStatement("UPDATE USUARIO U SET INSTRUCTOR =TRUE WHERE U.ID=?");
+            statement.setInt(1, idUsuario);
+            statement.executeUpdate();
+            pool.freeConnection(connection);
         } catch (Exception e) {
             e.printStackTrace();
         } 

@@ -8,6 +8,7 @@ package ulearn.control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -72,12 +73,22 @@ public class anadirSuscripcion extends HttpServlet {
         
         String tipo = (String) request.getParameter("suscripcion");
         boolean error=false;
+        int tipoError=0;
         
         int idAutor;
         if(tipo.equals("AUTOR")){ 
             idAutor = UserDB.getIdAutor(request.getParameter("nombre"));
             if(idAutor==-1) error=true;
             //TAMBIEN HABRIA Q COMPROBAR SI ESTAS SUSCRITO YA A ESE USUARIO TE SALGA ERROR!!!!!!!!!!!!!!!!!!!
+            else{
+                boolean esCreador=UserDB.esCreador(request.getParameter("nombre"));
+                if(!esCreador) {error=true; tipoError=2;}
+                else{
+                    ArrayList<Integer> suscriAutor=SuscripcionesDB.getSuscripcionesDeAutor(user.getId());
+                    if(suscriAutor.contains(idAutor)) error=true; tipoError=1;
+                }
+                
+            }
         }
         else{
             idAutor=-1;
@@ -85,7 +96,10 @@ public class anadirSuscripcion extends HttpServlet {
         
         if(error) {
             PrintWriter out=response.getWriter();
-            out.println("Este Nombre de usuario no existe");
+            if(tipoError==1) out.println("Ya estas suscrito a ese autor");
+            else if(tipoError==2) out.println("Ese nombre de usuario no es creador");
+            else out.println("Este Nombre de usuario no existe");
+            
         }
         else{
         try {

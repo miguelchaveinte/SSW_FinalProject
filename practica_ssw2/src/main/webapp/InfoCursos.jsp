@@ -262,10 +262,11 @@
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="rating_controls___HGvb" style="justify-content:center;margin-bottom:  20px;"><label class="d-flex justify-content-center align-items-center">Puntuación: <input style="margin-left:10px;align-items: center;" type="number"  value="" step="0.25" min="0" max="5"></label></div>
+                                                                <div class="rating_controls___HGvb" style="justify-content:center;margin-bottom:  20px;"><label class="d-flex justify-content-center align-items-center">Puntuación: <input style="margin-left:10px;align-items: center;" id="ruletaValoracion" type="number"  value="" step="0.25" min="0" max="5"></label></div>
                                                                 <button 
                                                                         type="submit"
-                                                                        class="btn btn-primary"  onclick="">Enviar valoración</button></div>
+                                                                        class="btn btn-primary"  onclick="enviarValoracion()">Enviar valoración</button></div>
+                                                                        <p id="mensajeValoracion" style="text-align: center;margin-top:  20px;display: none;">Valoración enviada con éxito.</p>
                                                                 <p  style="text-align: center;margin-top:  20px;">Tus valoraciones hacen que los usuarios puedan elegir mejor los cursos.</p><p  style="text-align: center;">Tu valoración podrá modificarse las veces que quieras en este mismo botón una vez realizada.Gracias!</p>  
 
                                                             </div>
@@ -327,6 +328,56 @@
                     }
                 }
             }
+            
+            
+            
+           var peticionValoracion=new XMLHttpRequest();
+           var valoracionAntigua;
+           $( document ).ready(function() {
+               var idCurso=<%=idCurso%>;
+               
+                peticionValoracion.open("GET",'valorarCurso?idCurso='+idCurso);
+                peticionValoracion.onreadystatechange=procesarPeticionValoracion;
+                peticionValoracion.send(null);
+            });
+            
+            function procesarPeticionValoracion() {
+                //console.log("cositas");
+                if (peticionValoracion.readyState==4) {
+                    if (peticionValoracion.status == 200) {
+                        document.getElementById("ruletaValoracion").value=parseFloat(peticionValoracion.responseText);
+                        valoracionAntigua=document.getElementById("ruletaValoracion").value;
+                    }
+                }
+            }
+            
+            
+            var envioValoracion=new XMLHttpRequest();
+            function enviarValoracion(){
+                var idCurso=<%=idCurso%>;
+                var nuevaValoracion=document.getElementById("ruletaValoracion").value
+               
+                if(nuevaValoracion!=valoracionAntigua){
+                    valoracionAntigua=nuevaValoracion;
+                    envioValoracion.open("POST",'valorarCurso?idCurso='+idCurso+'&nuevaValoracion='+nuevaValoracion);
+                    envioValoracion.send(null);
+                    document.getElementById("mensajeValoracion").style.display="block";
+                    document.getElementById('mensajeValoracion').style.display="block";
+                    document.getElementById('mensajeValoracion').style.color="#006400";
+                    document.getElementById('mensajeValoracion').style.background="#98FB98";
+                    document.getElementById('mensajeValoracion').innerHTML="Valoración enviada con éxito.";
+                }
+                else{
+                    document.getElementById('mensajeValoracion').style.display="block";
+                    document.getElementById('mensajeValoracion').style.color="#7d061e";
+                    document.getElementById('mensajeValoracion').style.background="#F08080";
+                    document.getElementById('mensajeValoracion').innerHTML="Modifica la valoración para enviarla.";
+                }
+                
+            }
+            
+            
+            
         </script>                           
                                     
                                     

@@ -113,7 +113,7 @@
                                                                 <div class="align-items-center g-0 row">
                                                                     <div class="col-auto col"><img
                                                                             src="imagenUsuario?idUsuario=<%=favoritos.get(i).getCreador().getId()%>"
-                                                                            alt="" class="rounded-circle avatar-xs">
+                                                                            alt="" class="rounded-circle avatar-xs" onerror="this.src='./Imagenes/avatar_ini.png'">
                                                                     </div>
                                                                     <div class="col ms-2 col"><span><%=favoritos.get(i).getCreador().getNombreUsuario()%></span>
                                                                     </div>
@@ -179,7 +179,7 @@
                                                                 <div class="align-items-center g-0 row">
                                                                     <div class="col-auto col"><img
                                                                             src="imagenUsuario?idUsuario=<%=desarrollo.get(i).getCurso().getCreador().getId()%>"
-                                                                            alt="" class="rounded-circle avatar-xs">
+                                                                            alt="" class="rounded-circle avatar-xs" onerror="this.src='./Imagenes/avatar_ini.png'">
                                                                     </div>
                                                                     <div class="col ms-2 col"><span>
                                                                             <%=desarrollo.get(i).getCurso().getCreador().getNombreUsuario()%> </span>

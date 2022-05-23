@@ -225,6 +225,57 @@ public class CursoDB {
        
     }
     
+        public static double getValoracionUsuario(int idCurso,int idUsuario) throws SQLException{
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        double valoracion=0;
+        
+        String valoracionMedia = "SELECT DC.VALORACION FROM DESARROLLOCURSO DC WHERE DC.IDCURSO = ? AND DC.IDUSUARIO= ?;";
+       
+        
+        try {
+            ps = connection.prepareStatement(valoracionMedia);
+            ps.setInt(1, idCurso);
+            ps.setInt(2, idUsuario);
+            rs=ps.executeQuery();
+            
+            while(rs.next()){
+                valoracion=rs.getDouble("VALORACION"); 
+            }
+            
+            ps.close();
+            pool.freeConnection(connection);
+            return valoracion;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+       
+    }
+    
+    public static void cambiarValoracion(int idCurso,int idUsuario,double nuevaValoracion){
+        try {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null;
+            statement = connection.prepareStatement("UPDATE DESARROLLOCURSO DC SET VALORACION = ? WHERE DC.IDUSUARIO=? AND DC.IDCURSO=?;");
+            statement.setDouble(1,nuevaValoracion);
+            statement.setInt(2, idUsuario);
+            statement.setInt(3, idCurso);
+            statement.executeUpdate();
+        pool.freeConnection(connection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
+    }
+            
+            
     public static double getPorcentajeDesarrollo(int idCurso, int idUsuario) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();
@@ -383,6 +434,40 @@ public class CursoDB {
             pool.freeConnection(connection);
         }
     }
+        
+        
+    public static boolean estaCursando(int idUser, int idCurso) throws SQLException {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+
+        PreparedStatement ps=null;
+        ResultSet rs = null;
+
+        String esFavorito = "SELECT * FROM DESARROLLOCURSO WHERE IDUSUARIO=? AND IDCURSO=?";
+       
+        
+        try {
+            ps = connection.prepareStatement(esFavorito);
+            ps.setInt(1,idUser );          
+            ps.setInt(2,idCurso);
+
+            rs = ps.executeQuery();
+            boolean res = rs.next();
+            ps.close();
+            
+            pool.freeConnection(connection);
+            return res;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        finally{
+            ps.close();
+            pool.freeConnection(connection);
+        }
+    }
+        
+        
         public static ArrayList<Curso> getCursosBuscados(String name) throws SQLException{
         ConnectionPool pool = ConnectionPool.getInstance();
         Connection connection = pool.getConnection();

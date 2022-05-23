@@ -9,5 +9,5 @@
 <!--Div en el que inserto el boton intermedio para la opcion de convertirse en instructor-->
 <div class="intermedio">
     <!--Insertamos el boton que nos abrira el pop-up para convertirnos en creadores-->
-    <a href="hazte_creador.html" class="button" style="text-align: center;">Conviérte en Instructor</a>
+    <a href="hacerseCreador" class="button" style="text-align: center;">Conviérte en Instructor</a>
 </div>
