@@ -100,7 +100,7 @@ public class CursoDB {
 "                                 )\n" +
 "                                 select d.idcurso\n" +
 "                                 from demandas d, curso c\n" +
-"                                 where 5>(select count(*)\n" +
+"                                 where 7>(select count(*)\n" +
 "                                 from demandas d1\n" +
 "                                 where d1.dem>d.dem) and c.id=d.idcurso;";
        
@@ -140,7 +140,7 @@ public class CursoDB {
 "    )\n" +
 "    select v.idcurso\n" +
 "    from valoraciones v, curso c\n" +
-"    where 5>(select count(*)\n" +
+"    where 7>(select count(*)\n" +
 "             from valoraciones v1\n" +
 "             where v1.media>v.media) and c.id=v.idcurso;";
        
@@ -213,7 +213,7 @@ public class CursoDB {
             
             ps.close();
             pool.freeConnection(connection);
-            return valoracion;
+            return Math.round(valoracion*10)/10;
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
@@ -476,13 +476,14 @@ public class CursoDB {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        String cursosBuscados = "SELECT * FROM CURSO C, USUARIO U WHERE C.CREADOR = U.ID AND (C.NOMBRECURSO LIKE ? OR C.CATEGORIA LIKE ? OR C.DESCRIPCION LIKE ?)   "; //Poner comillas simples
+        String cursosBuscados = "SELECT * FROM CURSO C, USUARIO U WHERE C.CREADOR = U.ID AND (C.NOMBRECURSO LIKE ? OR C.CATEGORIA LIKE ? OR C.DESCRIPCION LIKE ? OR U.NOMBREUSUARIO LIKE ?)   "; //Poner comillas simples
  
         try {
             ps = connection.prepareStatement(cursosBuscados);
             ps.setString(1, "%" + name + "%");
             ps.setString(2, "%" + name + "%");
             ps.setString(3, "%" + name + "%");
+            ps.setString(4, "%" + name + "%");
             rs = ps.executeQuery();
 
             while(rs.next()){

@@ -356,8 +356,7 @@
             function enviarValoracion(){
                 var idCurso=<%=idCurso%>;
                 var nuevaValoracion=document.getElementById("ruletaValoracion").value
-               
-                if(nuevaValoracion!=valoracionAntigua){
+                if(nuevaValoracion!=valoracionAntigua && !isNaN(nuevaValoracion) && nuevaValoracion!="" && nuevaValoracion<=5 && nuevaValoracion>=0){
                     valoracionAntigua=nuevaValoracion;
                     envioValoracion.open("POST",'valorarCurso?idCurso='+idCurso+'&nuevaValoracion='+nuevaValoracion);
                     envioValoracion.send(null);
@@ -366,6 +365,12 @@
                     document.getElementById('mensajeValoracion').style.color="#006400";
                     document.getElementById('mensajeValoracion').style.background="#98FB98";
                     document.getElementById('mensajeValoracion').innerHTML="Valoración enviada con éxito.";
+                }
+                else if(nuevaValoracion!=valoracionAntigua){
+                    document.getElementById('mensajeValoracion').style.display="block";
+                    document.getElementById('mensajeValoracion').style.color="#7d061e";
+                    document.getElementById('mensajeValoracion').style.background="#F08080";
+                    document.getElementById('mensajeValoracion').innerHTML="Valor introducido no válido(Numérica entre 0 y 5).";
                 }
                 else{
                     document.getElementById('mensajeValoracion').style.display="block";

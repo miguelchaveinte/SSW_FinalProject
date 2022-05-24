@@ -2,6 +2,8 @@
 <%@page import="ulearn.model.ObtencionSuscripcion"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ulearn.model.User"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8" %>
@@ -208,6 +210,11 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
+                                            <c:if test="<%=obtenciones.isEmpty()%>">
+                                                <h6>No tiene ninguna suscripción.</h6>
+                                            </c:if>
+
+                                            <c:if test="<%=!obtenciones.isEmpty()%>">
                                             <%
                                             for(int i=0; i<obtenciones.size(); i++){
                                             %>
@@ -216,7 +223,7 @@
                                                     <div class="mb-2 mb-lg-0 col-lg-6 col-md-8 col-sm-7">
                                                         <span class="d-block"><span class="h4"><%=obtenciones.get(i).getSuscripcion().getTipo()%></span>
                                                             <span class="ms-2 badge bg-success">Activa</span></span>
-                                                        <c:if obtenciones.get(i).getSuscripcion().getIdautor()!= null>
+                                                        <c:if test="obtenciones.get(i).getSuscripcion().getIdautor()!= null">
                                                                 <p class="mb-0 fs-6"><%=nombres.get(i)%></p>
                                                         </c:if>
                                                     </div>
@@ -267,6 +274,7 @@
                                                 </div>
                                             </div>
                                             <%}%>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -277,6 +285,11 @@
                                 <div id="test-list">
 
                                     <div class="row">
+                                        <c:if test="<%=cursos.isEmpty()%>">
+                                                <h6>No tiene ningún curso comprado.</h6>
+                                            </c:if>
+
+                                            
                                         <ul class="list">
                                             <%
                                                 for(int i=0; i<cursos.size();i=i+2){
@@ -289,7 +302,7 @@
                                                                 <a href="comenzarCurso?idCurso=<%=cursos.get(i).getCurso().getId()%>"><img src="imagenCurso?id=<%=cursos.get(i).getCurso().getId()%>" alt=""
                                                                     class="blog-thumbnail"></a>
                                                                 <div class="blog-container">
-                                                                    <a href="#!"
+                                                                    <a 
                                                                         class="blog-category text-uppercase dark-link"><%=cursos.get(i).getCurso().getCategoria()%></a>
                                                                     <h4 class="mt-2 font-weight-bold"><a href="comenzarCurso?idCurso=<%=cursos.get(i).getCurso().getId()%>"
                                                                             class="dark-link"><%=cursos.get(i).getCurso().getNombre()%></a></h4>
@@ -298,7 +311,7 @@
                                                                         <div><img
                                                                                 src="imagenUsuario?idUsuario=<%=cursos.get(i).getCurso().getCreador().getId()%>"
                                                                                 alt="" class="blog-author" onerror="this.src='./Imagenes/avatar_ini.png'"> <a
-                                                                                href="#!"><%=cursos.get(i).getCurso().getCreador().getNombreUsuario()%></a> </div>
+                                                                                ><%=cursos.get(i).getCurso().getCreador().getNombreUsuario()%></a> </div>
                                                                         <small><%=cursos.get(i).getFechaInicio().toString()%></small>
                                                                     </div>
                                                                 </div>
@@ -339,6 +352,7 @@
                                             </li>
                                             <%}%>
                                     </div>
+                                 
                                     </ul>
                                 </div>
                                 <ul class="justify-content-center mb-0 pagination">
@@ -361,6 +375,13 @@
                 src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
 
             <script type="text/javascript">
+                $( document ).ready(function() {
+                    correoUsuario=document.getElementById("email1").value;
+                    var form = $('#form1');
+                    console.log(datosPrev);
+                    datosPrev=form.serialize();
+                    
+                });
                 var monkeyList = new List('application', {
                     valueNames: ['col-sm-6 col-md-6 col-lg-6'],
                     page: 3,
@@ -369,11 +390,7 @@
                 })
                 var correoUsuario;
                 var datosPrev;
-                $( document ).ready(function() {
-                    correoUsuario=document.getElementById("email1").value;
-                    var form = $('#form1');
-                    datosPrev=form.serialize();
-                });
+                
                 
 function cambiarContrasena(){
      var form = $('#formContra');
@@ -414,8 +431,12 @@ function comprobarEmail(){
                          //var datosPrev=form.serialize();
                          var resultado=new XMLHttpRequest();
                          var email = $("#email1").val();
+                         var telefono=$("#telefono").val();
                          
+                         var formUser=document.getElementById('form1');
+                           
     // Ajax POST request.
+if(!isNaN(telefono) &&  formUser.checkValidity()){
 resultado= $.ajax({
     type: 'POST',
     url: 'http://localhost:8080/practica_ssw2/almacenarInfoPersonal',
@@ -455,10 +476,14 @@ alert("dsfdsdsf");
 return false;
 //"background-color: #F08080; color:#7d061e;resultado.responseText=="Este correo ya está registrado\r\n"
 return false;*/
+
 if(resultado.responseText=="Este correo ya está registrado\r\n") {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Este correo ya está registrado."; event.preventDefault();return false;}
-else if(datosPrev!=form.serialize()) {document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Cambios realizados con éxito."; event.preventDefault();return false;}
+else if(datosPrev!=form.serialize()) {datosPrev=form.serialize();document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#006400";document.getElementById('erro1').style.background="#98FB98";document.getElementById('erro1').innerHTML="Cambios realizados con éxito."; event.preventDefault();return false;}
 else{document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="No ha habido cambios en los datos."; event.preventDefault();return false;}
 }
-              //});
+
+else{
+    if(formUser.checkValidity()){document.getElementById('erro1').style.display="block";document.getElementById('erro1').style.color="#7d061e";document.getElementById('erro1').style.background="#F08080";document.getElementById('erro1').innerHTML="Algún campo no es correcto."; event.preventDefault();return false;}}
+}             //});
             </script>
 </body>

@@ -113,7 +113,7 @@
                                                             <div class="card-body">
                                                                 <h3 class="h4 mb-2 text-truncate-line-2 "><a
                                                                         class="text-inherit"
-                                                                        href="#"> <%=cursosBuscados.get(i).getNombre()%> </a></h3>
+                                                                        href="comprobarCurso?idCurso=<%=cursosBuscados.get(i).getId()%>"> <%=cursosBuscados.get(i).getNombre()%> </a></h3>
                                                                 <ul class="mb-3 list-inline">
                                                                     <li class="list-inline-item"><i
                                                                             class="far fa-clock me-1"></i><%=cursosBuscados.get(i).getDuracionConFormato()%></li>
@@ -143,10 +143,7 @@
                                                                     </div>
                                                                     <div class="col ms-2 col"><span><%=cursosBuscados.get(i).getCreador().getNombreUsuario()%></span>
                                                                     </div>
-                                                                    <div class="col-auto col"><a
-                                                                            class="text-muted bookmark"
-                                                                            href="#"><i
-                                                                                class="fe fe-bookmark"></i></a></div>
+                                                                    
                                                                 </div><span class="d-none">
                                                                     <div class="mt-3 progress" style="height: 5px;">
                                                                         <div role="progressbar"

@@ -18,7 +18,7 @@
             <a aria-expanded="false" role="button" class="nav-link mr-3" tabindex="0"
                 style="font-weight: bold; color: black; font: size 100px;">ULearn</a>
             <form class="form-inline d-none d-sm-flex"  action="Buscador">
-                <span class="position-absolute ps-3 search-icon" for="search_search"><i
+                <span class="position-absolute ps-3 search-icon " for="search_search"><i
                         class="fa fa-search"></i></span><input placeholder="Search Courses" type="Search"
                     id="search" name="searcher" class="ps-6 form-control" />
             </form>

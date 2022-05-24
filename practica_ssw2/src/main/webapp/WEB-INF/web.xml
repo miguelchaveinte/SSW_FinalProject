@@ -18,6 +18,11 @@ http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
       <res-auth>Container</res-auth>
       <res-sharing-scope> Shareable </res-sharing-scope>
   </resource-ref>
+  
+  <welcome-file-list>  
+   <welcome-file>Pricipal.jsp</welcome-file>  
+  </welcome-file-list> 
+  
 </web-app>
 
 

@@ -117,10 +117,7 @@
                                                                     </div>
                                                                     <div class="col ms-2 col"><span><%=favoritos.get(i).getCreador().getNombreUsuario()%></span>
                                                                     </div>
-                                                                    <div class="col-auto col"><a
-                                                                            class="text-muted bookmark"
-                                                                            href="#"><i
-                                                                                class="fe fe-bookmark"></i></a></div>
+                                                                    
                                                                 </div><span class="d-none">
                                                                     <div class="mt-3 progress" style="height: 5px;">
                                                                         <div role="progressbar"
@@ -184,11 +181,7 @@
                                                                     <div class="col ms-2 col"><span>
                                                                             <%=desarrollo.get(i).getCurso().getCreador().getNombreUsuario()%> </span>
                                                                     </div>
-                                                                    <div class="col-auto col"><a
-                                                                            class="text-muted bookmark"
-                                                                            href="#"><i
-                                                                                class="fe fe-bookmark"></i></a>
-                                                                    </div>
+                                                                    
                                                                 </div><span class="">
                                                                     <div class="mt-3 progress" style="height: 5px;">
                                                                         <div role="progressbar"

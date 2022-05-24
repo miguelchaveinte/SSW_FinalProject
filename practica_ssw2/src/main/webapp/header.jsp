@@ -16,7 +16,7 @@
             <a aria-expanded="false" role="button" class="nav-link mr-3" tabindex="0"
                 style="font-weight: bold; color: black; font: size 100px;">ULearn</a>
             <form class="form-inline d-none d-sm-flex"  action="Buscador">
-                <span class="position-absolute ps-3 search-icon" for="search_search"><i
+                <span class="position-absolute ps-3 search-icon " for="search_search"><i
                         class="fa fa-search"></i></span><input placeholder="Search Courses" type="Search"
                      id="search" name="searcher" class="ps-6 form-control" />
             </form>
@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse " id="navbarCollapse">
 
 
-            <form class="form-inline mt-4 mb-2 d-sm-none" action="Buscador" id="searchcollapsed">
+            <form class="form-inline mt-4 mb-2 d-sm-none " action="Buscador" id="searchcollapsed">
                 <div class="input-label-absolute input-label-absolute-left w-100">
                     <span class="position-absolute mt-2 ps-3 search-icon" for="search_search"><i
                             class="fa fa-search"></i></span><input placeholder="Search Courses"
@@ -150,10 +150,12 @@ $("#submit1").click(function() {
     var email = $("#email1").val();
     var resultado=new XMLHttpRequest();
     var antiguaUrl=location.href;
-    console.log(antiguaUrl);
+    //console.log(antiguaUrl);
+    
+    var emailUser=document.getElementById('email1');
     
 
-if(username!="" && password!="" && email!=""){
+if(username!="" && password!="" && email!="" && emailUser.checkValidity()){
     // Ajax POST request.
 resultado= $.ajax({
     type: 'POST',
@@ -195,9 +197,10 @@ $("#submit").click(function() {
     var password = $("#password").val();
     var email = $("#email").val();
     var resultado=new XMLHttpRequest();
+    var emailUser=document.getElementById('email');
 
 
-if(username!="" && password!="" && email!=""){
+if(username!="" && password!="" && email!="" && emailUser.checkValidity()){
     // Ajax POST request.
 resultado= $.ajax({
     type: 'POST',
