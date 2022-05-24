@@ -149,6 +149,9 @@ $("#submit1").click(function() {
     var password = $("#password1").val();
     var email = $("#email1").val();
     var resultado=new XMLHttpRequest();
+    var antiguaUrl=location.href;
+    console.log(antiguaUrl);
+    
 
 if(username!="" && password!="" && email!=""){
     // Ajax POST request.
@@ -178,8 +181,9 @@ var prueba=resultado.responseText;
 console.log(resultado.responseText=='Revisa tus creedenciales');
 console.log(typeof resultado.responseText);
 alert(prueba=="Revisa tus creedenciales\r\n");*/
+           // alert(antiguaUrl);
 if(resultado.responseText=="Revisa tus creedenciales\r\n") {document.getElementById('erro1').style.display="block"; return false;}
-else return true;
+else {window.location.href= antiguaUrl;window.location.reload(true); return false;}//idCurso}
 }
 });
 

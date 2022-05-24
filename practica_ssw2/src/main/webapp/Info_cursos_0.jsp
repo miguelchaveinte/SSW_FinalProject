@@ -135,7 +135,10 @@
                                         </div>
                                     </div>
 
-                                    <div>
+                                    <c:set var = "registrado" value = "<%=estaIniciado%>"/>
+                                        <c:if test="${registrado}">
+                                        <div>
+                                        
                                         <c:set var = "suscritoAAutor" value = "<%=suscritoAAutor%>"/>
                                         <c:if test="${suscritoAAutor}">
                                             <a class="btn btn-outline-white btn-sm" style="pointer-events: none;">Suscrito al autor</a>
@@ -144,6 +147,7 @@
                                             <a class="btn btn-outline-white btn-sm" id="etiquetaAutor" onclick=anadirSuscripcion('AUTOR','<%=user.getNombreUsuario()%>')>Suscribirse</a>
                                         </c:if>
                                     </div>
+                                        </c:if>
                                 </div>
 
                             </div>

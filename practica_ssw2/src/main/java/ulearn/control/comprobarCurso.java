@@ -82,6 +82,7 @@ public class comprobarCurso extends HttpServlet {
         }
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
+        //response.sendRedirect(url);
     }
 
     /**
